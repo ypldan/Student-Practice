@@ -1,0 +1,366 @@
+* {
+    background: white;
+    margin: 0;
+    font-family: "Amarante", "Amaranth", "Book Antiqua", Arial;
+}
+
+/*header!!!*/
+
+#header {
+    background: black;
+    text-shadow: 3px 2px 2px gray;
+    font-size: 35px;
+    color: white;
+    display: inline-block;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    height: 7%;
+}
+
+.fa-area-chart {
+    position: absolute;
+    left: 20px;
+}
+
+.header-link {
+    background: black;
+    text-decoration: none;
+    color: white;
+    margin-left: 80px;
+}
+
+.buttons a,i {
+    font-size: 25px;
+    font-weight: normal;
+    font-family: "Abel", Arial;
+    font-style: italic;
+    background: black;
+    text-decoration: none;
+    color: white;
+    position: absolute;
+    top: 8px;
+}
+
+.header-button-add {
+    right: 255px;
+
+}
+
+.header-button-logout {
+    right: 175px;
+}
+
+.header-button-nickname {
+    position: absolute;
+    right: 70px;
+    border-left: 4px white;
+}
+
+.header-button:hover {
+    color: #eee;
+    text-shadow: 1px 2px 1px white;
+}
+
+.fa-user-circle {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.vertical-line0 {
+    border-left: 1px solid gray;
+    height: 39px;
+    position: absolute;
+    top: 5px;
+    right: 400px;
+}
+
+.vertical-line1 {
+    border-left: 1px solid gray;
+    height: 39px;
+    position: absolute;
+    top: 5px;
+    right: 245px;
+}
+
+.vertical-line2 {
+    border-left: 1px solid gray;
+    height: 39px;
+    position: absolute;
+    top: 5px;
+    right: 165px;
+}
+
+.vertical-line3 {
+    border-left: 1px solid gray;
+    height: 39px;
+    position: absolute;
+    top: 5px;
+    right: 60px;
+}
+
+/*footer!!!*/
+
+#footer {
+    background: black;
+    text-shadow: 3px 2px 2px gray;
+    font-size: 40px;
+    color: white;
+    display: inline-block;
+    width: 100%;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 12%;
+}
+
+.footer-elements {
+    margin: 5px;
+    background: black;
+    text-shadow: 1px 1px 1px gray;
+    font-size: 17px;
+    font-family: Abel, Arial;
+    font-style: italic;
+    display: inline-block;
+    text-align: center;
+}
+
+.group-course {
+    position: absolute;
+    left: 5px;
+    top: 13px;
+}
+
+.footer-elements h1 {
+    background: black;
+    font-style: normal;
+    font-size: 25px;
+}
+
+.author {
+    position: absolute;
+    left: 40%;
+}
+
+.last-changed {
+    position: absolute;
+    right: 5px;
+}
+
+/*main!!!*/
+
+#main {
+    position: absolute;
+    top: 7%;
+    overflow: auto;
+    height: 81%;
+    width: 100%;
+}
+
+.photo-posts {
+    background: #eee;
+    margin: 1% auto;
+    width: 950px;
+    height: 92%;
+    border: 3px solid black;
+    border-radius: 15px;
+    position: relative;
+}
+
+.scroll {
+    background: #eee;
+    width: 900px;
+    height: 98%;
+    overflow: auto;
+    margin: 5px auto;
+}
+
+.hey {
+    background: #eee;
+    width: 860px;
+    height: 100%;
+    margin: 5px auto;
+}
+
+.post {
+    background: white;
+    width: 400px;
+    height: 240px;
+    display: inline-table;
+    margin: 5px 10px;
+    border: 2px solid gray;
+    border-radius: 7px;
+    position: relative;
+}
+
+.post img {
+    height: 190px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px 5px;
+    z-index: 3;
+}
+
+.like {
+    background: gray;
+    position: relative;
+    top: 195px;
+    left: 5px;
+}
+
+.fa-heart-o {
+    background: white;
+    color: red;
+    position: absolute;
+    top: 199px;
+    left: 5px;
+}
+
+.fa-heart-o:hover {
+    color: darkred;
+    text-shadow: 1px 1px 1px red;
+}
+
+.user {
+    position: absolute;
+    left: 295px;
+    top: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100px;
+    height: 70px;
+    text-decoration: underline;
+    display: block;
+}
+
+.user p {
+    width: 65px;
+    background: white;
+    margin: 2px auto;
+    position: relative;
+    top: 43px;
+    left: 10px;
+}
+
+.user i {
+    font-size: 36px;
+}
+
+
+.hashtags {
+    position: absolute;
+    left: 295px;
+    top: 80px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100px;
+    height: 115px;
+    text-decoration: underline;
+    display: block;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.hashtags:first-child {
+    margin-top: 3px;
+}
+
+.hashtag {
+    font-size: 16px;
+    font-family: "Abel", Arial;
+    font-style: italic;
+    max-width: 70px;
+    margin-left: 5px;
+    word-wrap: break-word;
+}
+
+.description {
+    position: relative;
+    left: 40px;
+    width: 180px;
+    height: 30px;
+    margin-top: -5px;
+    word-wrap: break-word;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.description p {
+    font-size: 13px;
+    font-family: "Abel", Arial;
+    font-style: italic;
+    max-width: 170px;
+}
+
+.fa-edit {
+    background: white;
+    color: black;
+    position: absolute;
+    top: 201px;
+    left: 225px;
+}
+
+.fa-close {
+    background: white;
+    color: black;
+    position: absolute;
+    top: 199px;
+    left: 260px;
+}
+
+.date-time {
+    position: absolute;
+    top: 199px;
+    left: 315px;
+    text-align: right;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.open-more {
+    margin: 5px auto;
+    text-align: center;
+    width: 100px;
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 24px;
+}
+
+.open-more a {
+    text-decoration: none;
+    color: black;
+}
+
+.filter {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 250px;
+    height: 200px;
+    background: #eee;
+    border: 3px solid black;
+    border-radius: 15px;
+}
+
+.info {
+    background: #eeeeee;
+    margin-left: 10px;
+    font-style: italic;
+    font-size: 20px;
+    font-family: "Abel", Arial;
+    width: 100px;
+}
+
+.name-filter {
+    margin: 5px auto;
+    background: #eeeeee;
+    font-size: 30px;
+    width: 60px;
+}
+
+.filter-box {
+    margin-left: 10px;
+    width: 220px;
+}
