@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Portal</title>
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Amaranth">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Amarante">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Abel">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<script src="functions.js"></script>
+<script>
+    console.log("Testing function \'getPhotoPosts(id)\'");
+    console.log(MyPortal.getPhotoPost('2'));
+    console.log(MyPortal.getPhotoPost('21'));
+    console.log(MyPortal.getPhotoPost(2));
+    console.log(MyPortal.getPhotoPost());
+    console.log("Testing function \'validate(photoPost)\'");
+    let rightPost={
+        id: '20',
+        description: 'PhotoPost3',
+        createdAt: new Date('2018-01-21T01:57:46'),
+        author: 'Daniil',
+        photoLink: 'images/sample.jpg',
+        hashtags: ['#js', '#programming'],
+        likes: ['Alexey Navalny', 'Donald Trump', 'Mickie Mouse']
+    };
+    console.log(MyPortal.validate(rightPost));
+    console.log(MyPortal.validate({}));
+    console.log(MyPortal.validate({
+        description: 'PhotoPost3',
+        createdAt: new Date('2018-01-21T01:57:46'),
+        author: 'Donald Trump',
+        photoLink: 'images/sample.jpg',
+        hashtags: ['#afternoon', '#evening', '#goodbye', '#hello'],
+        likes: ['Alexey Navalny', 'Donald Trump', 'Mickie Mouse']
+    }));
+    console.log(MyPortal.validate({
+        description: 'PhotoPost3',
+        author: 'Donald Trump',
+        photoLink: 'images/sample.jpg',
+        hashtags: [],
+        likes: ['Alexey Navalny', 'Donald Trump', 'Mickie Mouse']
+    }));
+    console.log("Testing function \'addPhotoPost(photoPost)\'");
+    console.log(MyPortal.addPhotoPost(rightPost));
+    console.log(MyPortal.getPhotoPost('20'));
+    console.log("Testing function \'removePhotoPost(photoPost)\'");
+    console.log(MyPortal.getPhotoPost('1'));
+    console.log(MyPortal.removePhotoPost('1'));
+    console.log(MyPortal.getPhotoPost('1'));
+    console.log(MyPortal.removePhotoPost('25'));
+    console.log("Testing function \'getPhotoPost(skip,top,filter)\'");
+    console.log(MyPortal.getPhotoPosts('0','10',{}));
+    console.log(MyPortal.getPhotoPosts('0','10',{author:'Albert Einstein'}));
+    console.log(MyPortal.getPhotoPosts('10','7'));
+</script>
+<header id="header">
+    <i class="fa fa-area-chart" style="font-size:36px"></i>
+    <a class="header-button header-link" href="">Photo Portal</a>
+    <div class="buttons">
+        <a class="header-button header-button-add" href="">Add new photo</a>
+        <a class="header-button header-button-logout" href="">log out</a>
+        <a class="header-button header-button-nickname" href="">nickname</a>
+        <i class="fa fa-user-circle"></i>
+        <div class="vertical-line0"></div>
+        <div class="vertical-line1"></div>
+        <div class="vertical-line2"></div>
+        <div class="vertical-line3"></div>
+    </div>
+</header>
+<div id="main">
+    <div class="photo-posts">
+        <div class="scroll">
+            <div class="hey">
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/sample.jpg">
+                    <i class="fa fa-heart-o" style="font-size:32px;"></i>
+                    <div class="user">
+                        <i class="fa fa-user-circle"></i>
+                        <p>nickname</p>
+                    </div>
+                    <div class="hashtags">
+                        <p class="hashtag">#hashtag1</p>
+                        <p class="hashtag">#hashtag2</p>
+                        <p class="hashtag">#hashtag3</p>
+                        <p class="hashtag">#hashtag4</p>
+                        <p class="hashtag">#hashtag5hgyfuftf</p>
+                        <p class="hashtag">#hashtag6</p>
+                        <p class="hashtag">#hashtag7</p>
+                    </div>
+                    <div class="description">
+                        <p>This photo is very interesting and important... Some text...</p>
+                    </div>
+                    <i class="fa fa-edit" style="font-size:32px;"></i>
+                    <i class="fa fa-close" style="font-size:32px;"></i>
+                    <div class="date-time">
+                        hh:mm<br>dd:mm:yyyy
+                    </div>
+                </div>
+                <div class="open-more"><a href="">Open more...</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="filter">
+        <p class="name-filter">Filter</p>
+        <p class="info">by name:</p>
+        <input class="filter-box by-name">
+        <p class="info">by date:</p>
+        <input class="filter-box by-date">
+        <p class="info">by hashtags:</p>
+        <input class="filter-box by-hashtags">
+    </div>
+</div>
+<footer id="footer">
+    <div class="group-course footer-elements">2nd group<br>2nd course</div>
+    <div class="author footer-elements"><h1>Photo Portal</h1>author: Daniil Yarmalkevich<br>contact e-mail: ydpl@outlook.com</div>
+    <div class="last-changed footer-elements">last changed:<br>hh:mm<br>dd.mm.yyyy</div>
+</footer>
+</body>
+</html>
