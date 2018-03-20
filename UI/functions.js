@@ -337,8 +337,8 @@ let MyPortal = (function () {
         },
 
         editPhotoPost: function (id, photoPost) {
-            if (isString(id) && isPartiallyValid(photoPost)) {
-                let toEdit = getPhotoPost(id);
+            if (isString(id) && this.isPartiallyValid(photoPost)) {
+                let toEdit = this.getPhotoPost(id);
                 if (photoPost.description !== undefined) {
                     toEdit.description = photoPost.description;
                 }

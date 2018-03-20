@@ -60,6 +60,10 @@
     console.log(MyPortal.getPhotoPosts('0','10',{}));
     console.log(MyPortal.getPhotoPosts('0','10',{author:'Albert Einstein'}));
     console.log(MyPortal.getPhotoPosts('10','7'));
+    console.log("Testing function \'editPhotoPost(skip,top,filter)\'");
+    console.log(MyPortal.getPhotoPost('5'));
+    console.log(MyPortal.editPhotoPost('5', {description: 'Post has been edited!'}));
+    console.log(MyPortal.getPhotoPost('5'));
 </script>
 <header id="header">
     <i class="fa fa-area-chart" style="font-size:36px"></i>
