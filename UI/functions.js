@@ -1,6 +1,6 @@
 "use strict";
 (function () {
-    var pArray= [
+    let pArray= [
         {
             id: '0',
             description: 'PhotoPost0',
@@ -185,7 +185,7 @@
 
     function getPhotoPosts(skip, top, filterConfig) {
         pArray.sort(comparePosts);
-        var array=pArray;
+        let array=pArray;
         if (isUndefined(skip)) {
             skip = 0;
         }
@@ -213,8 +213,8 @@
     }
 
     function validate(photoPost) {
-        var counter=0;
-        for (var field in photoPost) {
+        let counter=0;
+        for (let field in photoPost) {
             counter++;
         }
         return !(counter !== 7 ||
@@ -246,8 +246,8 @@
 
     function getPhotoPost(id) {
         if (isString(id)) {
-            var photoPost=null;
-            for (var i=0; i<pArray.length; i++) {
+            let photoPost=null;
+            for (let i=0; i<pArray.length; i++) {
                 if (pArray[i].id===id) {
                     photoPost=photoPost[i];
                     break;
@@ -261,24 +261,24 @@
 
     function getPosts(pArray, parameter) {
         if (!isUndefined(pArray)) {
-            var array = [];
+            let array = [];
             if (typeof parameter === 'string') {
-                var array = [];
-                for (var i = 0; i < pArray.length; i++) {
+                array = [];
+                for (let i = 0; i < pArray.length; i++) {
                     if (pArray[i].author === parameter) {
                         array.push(pArray[i]);
                     }
                 }
             } else if (parameter instanceof Date) {
-                for (var i = 0; i < pArray.length; i++) {
+                for (let i = 0; i < pArray.length; i++) {
                     if (pArray[i].createdAt.toDateString() === parameter.toDateString()) {
                         array.push(pArray[i]);
                     }
                 }
             } else if (parameter instanceof Array) {
-                for (var i = 0; i < pArray.length; i++) {
-                    var result=true;
-                    for (var j = 0; j < parameter.length; j++) {
+                for (let i = 0; i < pArray.length; i++) {
+                    let result=true;
+                    for (let j = 0; j < parameter.length; j++) {
                         if (!findString(pArray[i].hashtags, parameter[j])) {
                             result=false;
                             break;
@@ -297,8 +297,8 @@
 
     function getPhotoPostIndex(id) {
         if (isString(id)) {
-            var index=null;
-            for (var i=0; i<pArray.length; i++) {
+            let index=null;
+            for (let i=0; i<pArray.length; i++) {
                 if (pArray[i].id===id) {
                     index=i;
                     break;
@@ -312,7 +312,7 @@
 
     function editPhotoPost(id, photoPost) {
         if (isString(id) && isPartiallyValid(photoPost)) {
-            var toEdit=getPhotoPost(id);
+            let toEdit=getPhotoPost(id);
             if (photoPost.description!==undefined) {
                 toEdit.description=photoPost.description;
             }
@@ -329,7 +329,7 @@
     }
 
     function removePhotoPost(id) {
-        var index=getPhotoPostIndex(id);
+        let index=getPhotoPostIndex(id);
         if (index!==null) {
             pArray.splice(index,1);
             return true;
@@ -340,21 +340,21 @@
 
     //Common functions
 
-    function isString(variable) {
-        return typeof variable === 'string';
+    function isString(letiable) {
+        return typeof letiable === 'string';
     }
 
-    function isNumber(variable) {
-        return typeof variable === 'number';
+    function isNumber(letiable) {
+        return typeof letiable === 'number';
     }
 
-    function isUndefined(variable) {
-        return variable===undefined;
+    function isUndefined(letiable) {
+        return letiable===undefined;
     }
 
     function findString(pArray, string) {
-        var result=false;
-        for (var i=0; i<pArray.length; i++) {
+        let result=false;
+        for (let i=0; i<pArray.length; i++) {
             if (pArray[i]===string) {
                 result=true;
                 break;
