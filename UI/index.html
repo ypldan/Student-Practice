@@ -15,7 +15,9 @@
 </head>
 <body>
 <script src="functions.js"></script>
+<script src="dom.js"></script>
 <script>
+    const Dasha=true;
     console.log("Testing function \'getPhotoPosts(id)\'");
     console.log(MyPortal.getPhotoPost('2'));
     console.log(MyPortal.getPhotoPost('21'));
@@ -66,20 +68,16 @@
     console.log(MyPortal.getPhotoPost('5'));
 </script>
 <header id="header">
-    <i class="fa fa-area-chart" style="font-size:36px"></i>
-    <a class="header-button header-link" href="">Photo Portal</a>
-    <div class="buttons">
-        <a class="header-button header-button-add" href="">Add new photo</a>
-        <a class="header-button header-button-logout" href="">log out</a>
-        <a class="header-button header-button-nickname" href="">nickname</a>
-        <i class="fa fa-user-circle"></i>
-        <div class="vertical-line0"></div>
-        <div class="vertical-line1"></div>
-        <div class="vertical-line2"></div>
-        <div class="vertical-line3"></div>
+    <div id="left-header">
+        <a href="">Photo Portal</a>
+    </div>
+    <div id="right-header">
+        <div class="new-button"><a href="">Add new photo</a></div>
+        <div class="new-button"><a href="">log out</a></div>
+        <div class="new-button"><a>nickname</a></div>
     </div>
 </header>
-<div id="main">
+<main id="main">
     <div class="photo-posts">
         <div class="scroll">
             <div class="hey">
@@ -340,17 +338,25 @@
     <div class="filter">
         <p class="name-filter">Filter</p>
         <p class="info">by name:</p>
-        <input class="filter-box by-name">
+        <select class="filter-box by-name">
+            <option>---not chosen---</option>
+            <option>Daniil</option>
+            <option>Albert Einstein</option>
+            <option>Mickie Mouse</option>
+        </select>
         <p class="info">by date:</p>
-        <input class="filter-box by-date">
+        <input type="date" class="filter-box by-date">
         <p class="info">by hashtags:</p>
         <input class="filter-box by-hashtags">
     </div>
-</div>
+</main>
 <footer id="footer">
     <div class="group-course footer-elements">2nd group<br>2nd course</div>
     <div class="author footer-elements"><h1>Photo Portal</h1>author: Daniil Yarmalkevich<br>contact e-mail: ydpl@outlook.com</div>
     <div class="last-changed footer-elements">last changed:<br>hh:mm<br>dd.mm.yyyy</div>
 </footer>
+<script>
+    //myDOM.setUserConfiguration();
+</script>
 </body>
 </html>

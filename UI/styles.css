@@ -8,19 +8,66 @@
 
 #header {
     background: black;
-    text-shadow: 3px 2px 2px gray;
     font-size: 35px;
     color: white;
-    display: inline-block;
     width: 100%;
     position: fixed;
     z-index: 1;
-    height: 7%;
+    /*height: 7%;*/
+    display: inline-flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#left-header {
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-grow: 12;
+    background: black;
+    text-shadow: 3px 2px 2px gray;
+}
+
+#right-header {
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: space-between;
+    background: black;
+}
+
+.new-button a {
+    font-size: 25px;
+    font-weight: normal;
+    font-family: "Abel", Arial;
+    font-style: italic;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    background: black;
+}
+
+#left-header a {
+    background: black;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    border-left: 5px white;
+    border-right: 5px white;
+}
+
+.new-button {
+    display: flex;
+    flex-grow: 1;
+    align-content: center;
+    align-items: center;
+    border: 1px solid white;
+    margin: 5px;
+    background: black;
 }
 
 .fa-area-chart {
-    position: absolute;
-    left: 20px;
+    /*position: absolute;
+    left: 20px;*/
 }
 
 .header-link {
@@ -30,7 +77,7 @@
     margin-left: 80px;
 }
 
-.buttons a,i {
+#buttons a,i {
     font-size: 25px;
     font-weight: normal;
     font-family: "Abel", Arial;
@@ -63,9 +110,9 @@
 }
 
 .fa-user-circle {
-    position: absolute;
+    /*position: absolute;
     top: 5px;
-    right: 10px;
+    right: 10px;*/
 }
 
 .vertical-line0 {
