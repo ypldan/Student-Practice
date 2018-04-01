@@ -155,7 +155,7 @@
 
 /*photo-posts!!!*/
 
-.photo-posts {
+#photo-posts {
     background: #eee;
     width: 1000px;
     border: 3px solid black;
@@ -166,7 +166,7 @@
     flex-direction: column;
 }
 
-.posts-array {
+#posts-array {
     background: #eee;
     display: flex;
     flex-wrap: wrap;
