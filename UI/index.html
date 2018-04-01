@@ -17,7 +17,6 @@
 <script src="functions.js"></script>
 <script src="dom.js"></script>
 <script>
-    const Dasha=true;
     console.log("Testing function \'getPhotoPosts(id)\'");
     console.log(MyPortal.getPhotoPost('2'));
     console.log(MyPortal.getPhotoPost('21'));
@@ -78,6 +77,30 @@
     </div>
 </header>
 <main id="main">
+    <div id="filter">
+        <div class="filter-header">
+            Filter
+        </div>
+        <div class="filter-content">
+            <div class="input-panel">
+                <p>by name:</p>
+                <select title="name-input">
+                    <option>---not chosen---</option>
+                    <option>Daniil</option>
+                    <option>Albert Einstein</option>
+                    <option>Mickie Mouse</option>
+                </select>
+            </div>
+            <div class="input-panel">
+                <p>by date:</p>
+                <input type="date" title="date-input">
+            </div>
+            <div class="input-panel">
+                <p>by hashtags:</p>
+                <input title="hashtag-input">
+            </div>
+        </div>
+    </div>
     <div class="photo-posts">
         <div class="scroll">
             <div class="hey">
@@ -335,25 +358,11 @@
             </div>
         </div>
     </div>
-    <div class="filter">
-        <p class="name-filter">Filter</p>
-        <p class="info">by name:</p>
-        <select class="filter-box by-name">
-            <option>---not chosen---</option>
-            <option>Daniil</option>
-            <option>Albert Einstein</option>
-            <option>Mickie Mouse</option>
-        </select>
-        <p class="info">by date:</p>
-        <input type="date" class="filter-box by-date">
-        <p class="info">by hashtags:</p>
-        <input class="filter-box by-hashtags">
-    </div>
 </main>
 <footer id="footer">
-    <div class="group-course footer-elements">2nd group<br>2nd course</div>
-    <div class="author footer-elements"><h1>Photo Portal</h1>author: Daniil Yarmalkevich<br>contact e-mail: ydpl@outlook.com</div>
-    <div class="last-changed footer-elements">last changed:<br>hh:mm<br>dd.mm.yyyy</div>
+    <div class="footer-elements">2nd group<br>2nd course</div>
+    <div class="footer-elements center-info"><h1>Photo Portal</h1>author: Daniil Yarmalkevich<br>contact e-mail: ydpl@outlook.com</div>
+    <div class="footer-elements">last changed:<br>hh:mm<br>dd.mm.yyyy</div>
 </footer>
 <script>
     //myDOM.setUserConfiguration();

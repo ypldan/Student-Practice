@@ -11,156 +11,59 @@
     font-size: 35px;
     color: white;
     width: 100%;
-    position: fixed;
-    z-index: 1;
-    /*height: 7%;*/
-    display: inline-flex;
-    justify-content: space-between;
+    display: flex;
     flex-wrap: wrap;
 }
 
 #left-header {
-    display: inline-flex;
-    flex-wrap: wrap;
-    flex-grow: 12;
-    background: black;
-    text-shadow: 3px 2px 2px gray;
-}
-
-#right-header {
-    display: inline-flex;
-    flex-wrap: wrap;
-    flex-grow: 1;
-    justify-content: space-between;
-    background: black;
-}
-
-.new-button a {
-    font-size: 25px;
-    font-weight: normal;
-    font-family: "Abel", Arial;
-    font-style: italic;
-    text-decoration: none;
-    text-align: center;
-    color: white;
-    background: black;
+    background: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #left-header a {
-    background: black;
-    color: white;
+    background: inherit;
+    color: inherit;
     text-decoration: none;
-    text-align: center;
-    border-left: 5px white;
-    border-right: 5px white;
+    margin: 10px;
+}
+
+#right-header {
+    background: inherit;
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .new-button {
-    display: flex;
-    flex-grow: 1;
-    align-content: center;
-    align-items: center;
+    background: inherit;
     border: 1px solid white;
+    border-radius: 15px;
     margin: 5px;
-    background: black;
+    display: flex;
+    justify-content: center;
 }
 
-.fa-area-chart {
-    /*position: absolute;
-    left: 20px;*/
-}
-
-.header-link {
-    background: black;
+.new-button a {
+    background: inherit;
+    color: inherit;
+    font-size: 30px;
+    font-family: Abel, Verdana;
     text-decoration: none;
-    color: white;
-    margin-left: 80px;
-}
-
-#buttons a,i {
-    font-size: 25px;
-    font-weight: normal;
-    font-family: "Abel", Arial;
     font-style: italic;
-    background: black;
-    text-decoration: none;
-    color: white;
-    position: absolute;
-    top: 8px;
+    margin: 7px;
 }
-
-.header-button-add {
-    right: 255px;
-
-}
-
-.header-button-logout {
-    right: 175px;
-}
-
-.header-button-nickname {
-    position: absolute;
-    right: 70px;
-    border-left: 4px white;
-}
-
-.header-button:hover {
-    color: #eee;
-    text-shadow: 1px 2px 1px white;
-}
-
-.fa-user-circle {
-    /*position: absolute;
-    top: 5px;
-    right: 10px;*/
-}
-
-.vertical-line0 {
-    border-left: 1px solid gray;
-    height: 39px;
-    position: absolute;
-    top: 5px;
-    right: 400px;
-}
-
-.vertical-line1 {
-    border-left: 1px solid gray;
-    height: 39px;
-    position: absolute;
-    top: 5px;
-    right: 245px;
-}
-
-.vertical-line2 {
-    border-left: 1px solid gray;
-    height: 39px;
-    position: absolute;
-    top: 5px;
-    right: 165px;
-}
-
-.vertical-line3 {
-    border-left: 1px solid gray;
-    height: 39px;
-    position: absolute;
-    top: 5px;
-    right: 60px;
-}
-
 /*footer!!!*/
 
 #footer {
     background: black;
-    text-shadow: 3px 2px 2px gray;
     font-size: 40px;
     color: white;
-    display: inline-block;
     width: 100%;
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    height: 12%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .footer-elements {
@@ -170,50 +73,88 @@
     font-size: 17px;
     font-family: Abel, Arial;
     font-style: italic;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
+    margin: 5px;
 }
 
-.group-course {
-    position: absolute;
-    left: 5px;
-    top: 13px;
+.center-info {
+    flex-grow: 1;
 }
 
 .footer-elements h1 {
     background: black;
     font-style: normal;
     font-size: 25px;
-}
-
-.author {
-    position: absolute;
-    left: 40%;
-}
-
-.last-changed {
-    position: absolute;
-    right: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
 }
 
 /*main!!!*/
 
 #main {
-    position: absolute;
-    top: 7%;
-    overflow: auto;
-    height: 81%;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
+/*filter!!!*/
+
+#filter {
+    background: #eee;
+    border: 3px solid black;
+    border-radius: 15px;
+    margin: 15px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.filter-header {
+    align-self: center;
+    background: #eee;
+    font-size: 40px;
+}
+
+.filter-content {
+    background: #eee;
+    display: flex;
+    margin: 5px;
+}
+
+.input-panel {
+    align-self: center;
+    background: #eee;
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+    width: 200px;
+}
+
+.input-panel p {
+    background: #eee;
+    font-family: "Abel", "Book Antiqua", Verdana;
+    font-style: italic;
+    font-size: 25px;
+    align-self: flex-start;
+}
+
+.input-panel input, select {
+    margin: 3px;
+}
+
+/*photo-posts!!!*/
 
 .photo-posts {
     background: #eee;
-    margin: 1% auto;
-    width: 950px;
-    height: 92%;
+    width: 1000px;
     border: 3px solid black;
     border-radius: 15px;
-    position: relative;
+    align-self: center;
 }
 
 .scroll {
@@ -294,7 +235,6 @@
 .user i {
     font-size: 36px;
 }
-
 
 .hashtags {
     position: absolute;
@@ -380,34 +320,32 @@
     color: black;
 }
 
-.filter {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    width: 250px;
-    height: 200px;
-    background: #eee;
-    border: 3px solid black;
-    border-radius: 15px;
-}
+@media (max-width: 660px) {
+    #right-header {
+        flex-direction: column;
+    }
 
-.info {
-    background: #eeeeee;
-    margin-left: 10px;
-    font-style: italic;
-    font-size: 20px;
-    font-family: "Abel", Arial;
-    width: 100px;
-}
+    #left-header {
+        flex-direction: row;
+    }
 
-.name-filter {
-    margin: 5px auto;
-    background: #eeeeee;
-    font-size: 30px;
-    width: 60px;
-}
+    #header {
+        flex-direction: column;
+    }
 
-.filter-box {
-    margin-left: 10px;
-    width: 220px;
+    #footer {
+        flex-direction: column;
+    }
+
+    .footer-elements {
+        border-bottom: 1px solid white;
+    }
+
+    #filter {
+        width: 90%;
+    }
+
+    .filter-content {
+        flex-direction: column;
+    }
 }
