@@ -25,7 +25,6 @@
 #left-header a {
     background: inherit;
     color: inherit;
-    text-decoration: none;
     margin: 10px;
 }
 
@@ -38,8 +37,8 @@
 
 .new-button {
     background: inherit;
-    border: 1px solid white;
-    border-radius: 15px;
+    border: 2px solid white;
+    border-radius: 10px;
     margin: 5px;
     display: flex;
     justify-content: center;
@@ -54,7 +53,12 @@
     font-style: italic;
     margin: 7px;
 }
+
 /*footer!!!*/
+
+.new-button:hover {
+    text-shadow: 2px 1px gray;
+}
 
 #footer {
     background: black;
@@ -108,7 +112,7 @@
     border: 3px solid black;
     border-radius: 15px;
     margin: 15px;
-    width: 500px;
+    width: 650px;
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -124,6 +128,8 @@
     background: #eee;
     display: flex;
     margin: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .input-panel {
@@ -155,103 +161,70 @@
     border: 3px solid black;
     border-radius: 15px;
     align-self: center;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
-.scroll {
+.posts-array {
     background: #eee;
-    width: 900px;
-    height: 98%;
-    overflow: auto;
-    margin: 5px auto;
-}
-
-.hey {
-    background: #eee;
-    width: 860px;
-    height: 100%;
-    margin: 5px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5px;
 }
 
 .post {
+    display: flex;
+    flex-wrap: wrap;
     background: white;
     width: 400px;
-    height: 240px;
-    display: inline-table;
     margin: 5px 10px;
     border: 2px solid gray;
     border-radius: 7px;
-    position: relative;
 }
 
 .post img {
-    height: 190px;
+    height: 250px;
+    width: 250px;
     border: 1px solid black;
     border-radius: 5px;
     margin: 5px 5px;
     z-index: 3;
 }
 
-.like {
-    background: gray;
-    position: relative;
-    top: 195px;
-    left: 5px;
+.post-element {
+    margin: 5px;
+    flex-grow: 1;
 }
 
-.fa-heart-o {
-    background: white;
-    color: red;
-    position: absolute;
-    top: 199px;
-    left: 5px;
+.user-hashtags {
+
+    display: flex;
+    flex-direction: column;
 }
 
-.fa-heart-o:hover {
-    color: darkred;
-    text-shadow: 1px 1px 1px red;
-}
-
-.user {
-    position: absolute;
-    left: 295px;
-    top: 5px;
+.user-area {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-wrap: wrap;
     border: 1px solid black;
     border-radius: 5px;
-    width: 100px;
-    height: 70px;
-    text-decoration: underline;
-    display: block;
 }
 
-.user p {
-    width: 65px;
-    background: white;
-    margin: 2px auto;
-    position: relative;
-    top: 43px;
-    left: 10px;
+.user-area * {
+    align-self: flex-end;
+    margin: 1px;
 }
 
-.user i {
-    font-size: 36px;
-}
-
-.hashtags {
-    position: absolute;
-    left: 295px;
-    top: 80px;
+.hashtags-area {
     border: 1px solid black;
     border-radius: 5px;
-    width: 100px;
-    height: 115px;
-    text-decoration: underline;
-    display: block;
     overflow: scroll;
     overflow-x: hidden;
-}
-
-.hashtags:first-child {
-    margin-top: 3px;
+    height: 170px;
 }
 
 .hashtag {
@@ -259,66 +232,69 @@
     font-family: "Abel", Arial;
     font-style: italic;
     max-width: 70px;
-    margin-left: 5px;
     word-wrap: break-word;
+    margin-right: 5px;
+}
+
+.user-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.user-panel * {
+    margin: 3px;
+    flex-grow: 1;
+}
+
+.description-area {
+    flex-grow: 100;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 40px;
 }
 
 .description {
-    position: relative;
-    left: 40px;
-    width: 180px;
-    height: 30px;
-    margin-top: -5px;
-    word-wrap: break-word;
-    overflow: scroll;
-    overflow-x: hidden;
+    max-width: 110px;
+    font-size: 15px;
+    font-family: Abel, Verdana;
 }
 
-.description p {
-    font-size: 13px;
-    font-family: "Abel", Arial;
-    font-style: italic;
-    max-width: 170px;
-}
-
-.fa-edit {
-    background: white;
-    color: black;
-    position: absolute;
-    top: 201px;
-    left: 225px;
-}
-
-.fa-close {
-    background: white;
-    color: black;
-    position: absolute;
-    top: 199px;
-    left: 260px;
-}
-
-.date-time {
-    position: absolute;
-    top: 199px;
-    left: 315px;
+.time-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: right;
-    font-size: 14px;
-    font-style: italic;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 .open-more {
     margin: 5px auto;
     text-align: center;
-    width: 100px;
+    width: 120px;
     border: 2px solid black;
     border-radius: 5px;
-    height: 24px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.open-more:hover {
+    text-shadow: 1px 1px gray;
 }
 
 .open-more a {
     text-decoration: none;
     color: black;
+    margin: 5px;
 }
+
+/*for mobile phones!!!*/
 
 @media (max-width: 660px) {
     #right-header {
@@ -345,7 +321,38 @@
         width: 90%;
     }
 
-    .filter-content {
+    /*.filter-content {
         flex-direction: column;
+    }*/
+}
+
+@media (max-width: 1000px) {
+    .photo-posts {
+        width: 90%;
+    }
+}
+
+@media (max-width: 460px) {
+    .hashtags-area {
+        margin-top: -10px;
+        height: 40px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .hashtag {
+        word-wrap: normal;
+        flex-grow: 1;
+        max-width: none;
+    }
+
+    .user-area *{
+        align-self: center;
+    }
+
+    .time-area {
+        justify-content: center;
+        flex-direction: row;
+        text-align: center;
     }
 }
