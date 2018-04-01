@@ -327,7 +327,7 @@
 }
 
 @media (max-width: 1000px) {
-    .photo-posts {
+    #photo-posts {
         width: 90%;
     }
 }
