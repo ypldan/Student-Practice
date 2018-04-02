@@ -6,7 +6,7 @@
 
 /*header!!!*/
 
-#header {
+header {
     background: black;
     font-size: 35px;
     color: white;
@@ -60,7 +60,7 @@
     text-shadow: 2px 1px gray;
 }
 
-#footer {
+footer {
     background: black;
     font-size: 40px;
     color: white;
@@ -84,7 +84,7 @@
     margin: 5px;
 }
 
-.center-info {
+address {
     flex-grow: 1;
 }
 
@@ -100,7 +100,7 @@
 
 /*main!!!*/
 
-#main {
+main {
     display: flex;
     flex-direction: column;
 }
@@ -174,7 +174,7 @@
     margin: 5px;
 }
 
-.post {
+figure {
     display: flex;
     flex-wrap: wrap;
     background: white;
@@ -184,7 +184,7 @@
     border-radius: 7px;
 }
 
-.post img {
+figure img {
     height: 250px;
     width: 250px;
     border: 1px solid black;
@@ -305,11 +305,11 @@
         flex-direction: row;
     }
 
-    #header {
+    header {
         flex-direction: column;
     }
 
-    #footer {
+    footer {
         flex-direction: column;
     }
 

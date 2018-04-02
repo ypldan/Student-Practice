@@ -178,9 +178,9 @@ const myDOM=(function () {
     }
 
     function createPhotoPost(post, isIn) {
-        let result=document.createElement('div');
+        let result=document.createElement('figure');
         result.id='post'+post.id;
-        result.className='post';
+        //result.className='post';
         result.appendChild(createImage(post));
         result.appendChild(createUserHashtags(post));
         result.appendChild(createUserPanel(post, isIn));

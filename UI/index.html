@@ -16,63 +16,14 @@
 <body>
 <script src="functions.js"></script>
 <script src="dom.js"></script>
-<script>
-    console.log("Testing function \'getPhotoPosts(id)\'");
-    console.log(MyPortal.getPhotoPost('2'));
-    console.log(MyPortal.getPhotoPost('21'));
-    console.log(MyPortal.getPhotoPost(2));
-    console.log(MyPortal.getPhotoPost());
-    console.log("Testing function \'validate(photoPost)\'");
-    let rightPost = {
-        id: '20',
-        description: 'PhotoPost3',
-        createdAt: new Date('2018-01-21T01:57:46'),
-        author: 'Daniil',
-        photoLink: 'images/sample.jpg',
-        hashtags: ['#js', '#programming'],
-        likes: ['Alexey Navalny', 'Donald Trump', 'Mickie Mouse']
-    };
-    console.log(MyPortal.validate(rightPost));
-    console.log(MyPortal.validate({}));
-    console.log(MyPortal.validate({
-        description: 'PhotoPost3',
-        createdAt: new Date('2018-01-21T01:57:46'),
-        author: 'Donald Trump',
-        photoLink: 'images/sample.jpg',
-        hashtags: ['#afternoon', '#evening', '#goodbye', '#hello'],
-        likes: ['Alexey Navalny', 'Donald Trump', 'Mickie Mouse']
-    }));
-    console.log(MyPortal.validate({
-        description: 'PhotoPost3',
-        author: 'Donald Trump',
-        photoLink: 'images/sample.jpg',
-        hashtags: [],
-        likes: ['Alexey Navalny', 'Donald Trump', 'Mickie Mouse']
-    }));
-    console.log("Testing function \'addPhotoPost(photoPost)\'");
-    console.log(MyPortal.addPhotoPost(rightPost));
-    console.log(MyPortal.getPhotoPost('20'));
-    console.log("Testing function \'removePhotoPost(photoPost)\'");
-    console.log(MyPortal.getPhotoPost('1'));
-    console.log(MyPortal.removePhotoPost('1'));
-    console.log(MyPortal.getPhotoPost('1'));
-    console.log(MyPortal.removePhotoPost('25'));
-    console.log("Testing function \'getPhotoPost(skip,top,filter)\'");
-    console.log(MyPortal.getPhotoPosts('0', '10', {}));
-    console.log(MyPortal.getPhotoPosts('0', '10', {author: 'Albert Einstein'}));
-    console.log(MyPortal.getPhotoPosts('10', '7'));
-    console.log("Testing function \'editPhotoPost(skip,top,filter)\'");
-    console.log(MyPortal.getPhotoPost('5'));
-    console.log(MyPortal.editPhotoPost('5', {description: 'Post has been edited!'}));
-    console.log(MyPortal.getPhotoPost('5'));
-</script>
-<header id="header">
-    <div id="left-header">
+<script src='test.js'></script>
+<header>
+    <nav id="left-header">
         <a href="">Photo Portal</a>
-    </div>
-    <div id="right-header"></div>
+    </nav>
+    <nav id="right-header"></nav>
 </header>
-<main id="main">
+<main>
     <div id="filter">
         <div class="filter-header">
             Filter
@@ -94,26 +45,18 @@
             </div>
         </div>
     </div>
-    <div id="photo-posts">
+    <article id="photo-posts">
         <div id="posts-array"></div>
         <div class="open-more"><a href="">Open more...</a></div>
-    </div>
+    </article>
 </main>
-<footer id="footer">
+<footer>
     <div class="footer-elements">2nd group<br>2nd course</div>
-    <div class="footer-elements center-info"><h1>Photo Portal</h1>author: Daniil Yarmalkevich<br>contact e-mail:
+    <address class="footer-elements"><h1>Photo Portal</h1>author: Daniil Yarmalkevich<br>contact e-mail:
         ydpl@outlook.com
-    </div>
+    </address>
     <div class="footer-elements">last changed:<br>hh:mm<br>dd.mm.yyyy</div>
 </footer>
-<script>
-    myDOM.setUserConfiguration();
-    myDOM.loadAuthors();
-    myDOM.loadPosts(0,20);
-    myDOM.createPost({description: 'My first new Post!!!',
-        hashtags: ['#hey', '#physics-cool'],
-        photoLink: 'https://static.appvn.com/a/uploads/thumbnails/112015/mr-square_icon.png'});
-    myDOM.editPhotoPost('19', {description: 'It has been edited!!!'});
-</script>
+<script src="loadDOM.js"></script>
 </body>
 </html>
