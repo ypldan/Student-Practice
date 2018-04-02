@@ -1,5 +1,5 @@
 "use strict";
-let MyPortal = (function () {
+const MyPortal = (function () {
     let photoPosts = [
         {
             id: '0',
@@ -183,8 +183,10 @@ let MyPortal = (function () {
         }
     ];
 
+    let lastID=photoPosts.length;
+
     function comparePosts(post1, post2) {
-        return post1.createdAt.getTime() - post2.createdAt.getTime();
+        return post2.createdAt.getTime() - post1.createdAt.getTime();
     }
 
     function isString(letiable) {
@@ -261,6 +263,12 @@ let MyPortal = (function () {
             return photoPost.description !== undefined || photoPost.photoLink !== undefined || photoPost.hashtags !== undefined;
         },
 
+        isValidToCreate: function (post) {
+            return post.description!==undefined &&
+                post.hashtags!==undefined &&
+                post.photoLink!==undefined;
+        },
+
         addPhotoPost: function (photoPost) {
             if (this.validate(photoPost)) {
                 photoPosts.push(photoPost);
@@ -321,11 +329,14 @@ let MyPortal = (function () {
             }
         },
 
-        getPhotoPostIndex: function (id) {
+        getPhotoPostIndex: function (id, array) {
+            if (array===undefined) {
+                array=photoPosts;
+            }
             if (isString(id)) {
                 let index = null;
-                for (let i = 0; i < photoPosts.length; i++) {
-                    if (photoPosts[i].id === id) {
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i].id === id) {
                         index = i;
                         break;
                     }
@@ -366,7 +377,20 @@ let MyPortal = (function () {
 
         getPostsNumber: function () {
             return photoPosts.length;
-        }
+        },
 
+        incrementLastID : function () {
+            let temp=lastID;
+            lastID++;
+            return temp;
+        },
+
+        getAuthorsSet: function () {
+            let set=new Set();
+            photoPosts.forEach(function (post) {
+                set.add(post.author);
+            });
+            return set;
+        }
     }
 })();

@@ -1,6 +1,9 @@
 "use strict";
 const myDOM=(function () {
     let user='Albert Einstein';
+    let currentPosts=null;
+    let currentFilter;
+
 
     function isUserIn() {
         return user!==null;
@@ -176,12 +179,18 @@ const myDOM=(function () {
 
     function createPhotoPost(post, isIn) {
         let result=document.createElement('div');
+        result.id='post'+post.id;
         result.className='post';
         result.appendChild(createImage(post));
         result.appendChild(createUserHashtags(post));
         result.appendChild(createUserPanel(post, isIn));
         result.appendChild(createTimeArea(post));
         return result;
+    }
+
+    function parsePostId(string) {
+        let result=string.substring(4);
+        return Number.parseInt(result);
     }
 
     return {
@@ -195,12 +204,66 @@ const myDOM=(function () {
             }
         },
 
-        loadPosts: function () {
+        loadPosts: function (skip, top, filter) {
             let postsArray=document.getElementById('posts-array');
             let isIn=isUserIn();
-            MyPortal.getPhotoPosts(0,10).forEach(function (post) {
+            currentPosts=MyPortal.getPhotoPosts(skip, top, filter);
+            currentPosts.forEach(function (post) {
                 postsArray.appendChild(createPhotoPost(post, isIn));
             })
+            return true;
+        },
+
+        createPost: function(post) {
+            if (isUserIn() && MyPortal.isValidToCreate(post)) {
+                post.id=MyPortal.incrementLastID();
+                post.createdAt=new Date();
+                post.author=user;
+                post.likes=[];
+                MyPortal.addPhotoPost(post);
+                this.clearPosts();
+                this.loadPosts(0,10);
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        clearPosts: function () {
+            let postsArray=document.getElementById("posts-array");
+            while (postsArray.firstChild) {
+                postsArray.removeChild(postsArray.firstChild);
+            }
+            currentPosts=[];
+            return true;
+        },
+
+        removePost: function (id) {
+            MyPortal.removePhotoPost(id);
+            this.clearPosts();
+            this.loadPosts(0,10,currentFilter);
+            return true;
+        },
+
+        loadAuthors: function () {
+            let select=document.getElementById('authors');
+            MyPortal.getAuthorsSet().forEach(function (author) {
+                let option=document.createElement('option');
+                option.innerHTML=author;
+                select.appendChild(option);
+            });
+            return true;
+        },
+
+        editPhotoPost: function (id, post) {
+            if (MyPortal.isPartiallyValid(post)) {
+                MyPortal.editPhotoPost(id,post);
+                this.clearPosts();
+                this.loadPosts(0,10,currentFilter);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 })();
