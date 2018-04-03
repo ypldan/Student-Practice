@@ -4,185 +4,184 @@ const MyPortal = (function () {
         {
             id: '0',
             description: 'PhotoPost0',
-            createdAt: new Date('2018-01-19T21:19:46'),
-            author: 'Donald Trump',
+            createdAt: new Date('2018-03-17T14:37:57'),
+            author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#goodbye', '#hello', '#morning'],
-            likes: ['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#evening', '#hello'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'unknown author'])
         },
         {
             id: '1',
             description: 'PhotoPost1',
-            createdAt: new Date('2018-01-14T08:51:31'),
-            author: 'Hleb Salaujou',
+            createdAt: new Date('2018-03-28T02:18:41'),
+            author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#goodbye', '#hello', '#morning'],
-            likes: ['Albert Einstein', 'Hleb Salaujou', 'Mickie Mouse']
+            hashtags: ['#afternoon', '#goodbye', '#hello', '#morning'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
             id: '2',
             description: 'PhotoPost2',
-            createdAt: new Date('2018-01-04T17:16:08'),
+            createdAt: new Date('2018-01-19T05:48:02'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
-            likes: ['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'unknown author']
+            hashtags: ['#evening', '#hello', '#morning'],
+            likes: new Set(['Albert Einstein', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '3',
             description: 'PhotoPost3',
-            createdAt: new Date('2018-01-21T01:57:46'),
-            author: 'Donald Trump',
+            createdAt: new Date('2018-01-02T02:02:28'),
+            author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello'],
-            likes: ['Alexey Navalny', 'Donald Trump', 'Mickie Mouse']
+            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
             id: '4',
             description: 'PhotoPost4',
-            createdAt: new Date('2018-02-09T16:34:55'),
-            author: 'Donald Trump',
+            createdAt: new Date('2018-01-27T12:57:52'),
+            author: 'Albert Einstein',
             photoLink: 'images/sample.jpg',
             hashtags: ['#afternoon', '#evening', '#hello'],
-            likes: ['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author']
+            likes: new Set(['Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
             id: '5',
             description: 'PhotoPost5',
-            createdAt: new Date('2018-01-03T10:54:33'),
-            author: 'Albert Einstein',
+            createdAt: new Date('2018-01-11T10:39:24'),
+            author: 'Mickie Mouse',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#afternoon', '#evening', '#hello'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '6',
             description: 'PhotoPost6',
-            createdAt: new Date('2018-02-15T03:20:24'),
+            createdAt: new Date('2018-03-19T09:35:38'),
             author: 'Hleb Salaujou',
             photoLink: 'images/sample.jpg',
             hashtags: ['#afternoon', '#goodbye', '#morning'],
-            likes: ['Albert Einstein', 'Hleb Salaujou', 'Mickie Mouse']
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'unknown author'])
         },
         {
             id: '7',
             description: 'PhotoPost7',
-            createdAt: new Date('2018-02-16T03:42:07'),
-            author: 'Mickie Mouse',
+            createdAt: new Date('2018-02-23T17:20:25'),
+            author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#hello'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello'],
+            likes: new Set(['Albert Einstein', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '8',
             description: 'PhotoPost8',
-            createdAt: new Date('2018-01-19T03:51:55'),
-            author: 'unknown author',
+            createdAt: new Date('2018-02-15T01:52:12'),
+            author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#hello'],
-            likes: ['Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#evening', '#hello', '#morning'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Mickie Mouse'])
         },
         {
             id: '9',
             description: 'PhotoPost9',
-            createdAt: new Date('2018-02-03T09:10:45'),
-            author: 'Donald Trump',
+            createdAt: new Date('2018-02-19T00:14:34'),
+            author: 'Mickie Mouse',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#hello', '#morning'],
-            likes: ['Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse']
+            hashtags: ['#afternoon', '#goodbye', '#hello', '#morning'],
+            likes: new Set(['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '10',
             description: 'PhotoPost10',
-            createdAt: new Date('2018-01-11T20:15:44'),
-            author: 'Albert Einstein',
+            createdAt: new Date('2018-03-20T22:23:21'),
+            author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#goodbye', '#morning'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#evening', '#goodbye', '#hello', '#morning'],
+            likes: new Set(['Albert Einstein', 'Donald Trump', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '11',
             description: 'PhotoPost11',
-            createdAt: new Date('2018-01-08T19:53:30'),
+            createdAt: new Date('2018-03-12T14:30:29'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#goodbye', '#hello', '#morning'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
+            likes: new Set(['Albert Einstein', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
             id: '12',
             description: 'PhotoPost12',
-            createdAt: new Date('2018-01-15T03:03:07'),
-            author: 'Alexey Navalny',
+            createdAt: new Date('2018-01-03T07:08:55'),
+            author: 'Mickie Mouse',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#goodbye', '#hello', '#morning'],
-            likes: ['Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'unknown author']
+            hashtags: ['#afternoon', '#evening', '#hello'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
             id: '13',
             description: 'PhotoPost13',
-            createdAt: new Date('2018-01-25T03:11:51'),
+            createdAt: new Date('2018-02-27T08:45:18'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#hello', '#morning'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
             id: '14',
             description: 'PhotoPost14',
-            createdAt: new Date('2018-01-04T05:25:08'),
-            author: 'unknown author',
+            createdAt: new Date('2018-03-05T18:15:52'),
+            author: 'Donald Trump',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#goodbye', '#morning'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#evening', '#goodbye', '#hello'],
+            likes: new Set(['Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '15',
             description: 'PhotoPost15',
-            createdAt: new Date('2018-02-10T11:42:52'),
-            author: 'Donald Trump',
+            createdAt: new Date('2018-01-27T21:17:28'),
+            author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author']
+            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
+            likes: new Set(['Alexey Navalny', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '16',
             description: 'PhotoPost16',
-            createdAt: new Date('2018-02-17T04:27:55'),
-            author: 'Albert Einstein',
+            createdAt: new Date('2018-02-15T06:14:22'),
+            author: 'Mickie Mouse',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#goodbye', '#hello', '#morning'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse']
+            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
+            likes: new Set(['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '17',
             description: 'PhotoPost17',
-            createdAt: new Date('2018-01-10T06:19:46'),
-            author: 'Donald Trump',
+            createdAt: new Date('2018-02-08T03:29:44'),
+            author: 'Albert Einstein',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse']
+            hashtags: ['#afternoon', '#goodbye', '#morning'],
+            likes: new Set(['Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '18',
             description: 'PhotoPost18',
-            createdAt: new Date('2018-02-10T15:09:29'),
+            createdAt: new Date('2018-02-14T10:07:44'),
             author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye'],
-            likes: ['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse']
+            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Mickie Mouse', 'unknown author'])
         },
         {
             id: '19',
             description: 'PhotoPost19',
-            createdAt: new Date('2018-02-18T01:34:40'),
-            author: 'Albert Einstein',
+            createdAt: new Date('2018-02-05T15:08:45'),
+            author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
-            likes: ['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse']
+            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
+            likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         }
     ];
-
     let lastID=photoPosts.length;
 
     function comparePosts(post1, post2) {

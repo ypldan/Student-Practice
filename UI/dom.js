@@ -3,7 +3,7 @@ const myDOM=(function () {
     let user='Albert Einstein';
     let currentPosts=null;
     let currentFilter;
-
+    let postsPageLoaded=false;
 
     function isUserIn() {
         return user!==null;
@@ -193,6 +193,62 @@ const myDOM=(function () {
         return Number.parseInt(result);
     }
 
+    function createAuthorsPanel() {
+        let result=document.createElement('div');
+        result.className='input-panel';
+        let byName=document.createElement('p');
+        byName.innerHTML='by name:';
+        result.appendChild(byName);
+        let select=document.createElement('select');
+        select.title='name-input';
+        select.id='authors';
+        let defaultOption=document.createElement('option');
+        defaultOption.innerHTML='--- not chosen ---';
+        select.appendChild(defaultOption);
+        MyPortal.getAuthorsSet().forEach(function (author) {
+            let option=document.createElement('option');
+            option.innerHTML=author;
+            select.appendChild(option);
+        });
+        result.appendChild(select);
+        return result;
+    }
+
+    function createDatePanel() {
+        let result=document.createElement('div');
+        result.className='input-panel';
+        let byDate=document.createElement('p');
+        byDate.innerHTML='by date:';
+        result.appendChild(byDate);
+        let date=document.createElement('input');
+        date.type='date';
+        date.title='date-input';
+        result.appendChild(date);
+        return result;
+    }
+
+    function createHashtagsPanel() {
+        let result=document.createElement('div');
+        result.className='input-panel';
+        let byHashtags=document.createElement('p');
+        byHashtags.innerHTML='by hashtags:';
+        result.appendChild(byHashtags);
+        let input=document.createElement('input');
+        input.title='hashtag-input';
+        result.appendChild(input);
+        return result;
+    }
+
+    function createPostsStructure() {
+        let posts=document.querySelector('article');
+        while (posts.firstChild) {
+            posts.removeChild(posts.firstChild);
+        }
+        posts.innerHTML='<div id="posts-array"></div>\n' +
+            '        <div class="open-more"><a href="">Open more...</a></div>';
+        return true;
+    }
+
     return {
         setUserConfiguration: function () {
             if (isUserIn()) {
@@ -205,12 +261,16 @@ const myDOM=(function () {
         },
 
         loadPosts: function (skip, top, filter) {
+            if (!postsPageLoaded) {
+                createPostsStructure();
+            }
             let postsArray=document.getElementById('posts-array');
             let isIn=isUserIn();
             currentPosts=MyPortal.getPhotoPosts(skip, top, filter);
             currentPosts.forEach(function (post) {
                 postsArray.appendChild(createPhotoPost(post, isIn));
-            })
+            });
+            postsPageLoaded=true;
             return true;
         },
 
@@ -247,6 +307,9 @@ const myDOM=(function () {
 
         loadAuthors: function () {
             let select=document.getElementById('authors');
+            while (select.firstChild) {
+                select.removeChild(select.firstChild);
+            }
             MyPortal.getAuthorsSet().forEach(function (author) {
                 let option=document.createElement('option');
                 option.innerHTML=author;
@@ -264,6 +327,51 @@ const myDOM=(function () {
             } else {
                 return false;
             }
+        },
+
+        createFilter: function () {
+            let filter=document.createElement('div');
+            filter.id='filter';
+            let filterHeader=document.createElement('div');
+            filterHeader.className='filter-header';
+            filterHeader.innerHTML='Filter';
+            filter.appendChild(filterHeader);
+            let filterContent=document.createElement('div');
+            filterContent.className='filter-content';
+            let first=createAuthorsPanel();
+            let second=createDatePanel();
+            let third=createHashtagsPanel();
+            filterContent.appendChild(first);
+            filterContent.appendChild(second);
+            filterContent.appendChild(third);
+            filter.appendChild(filterContent);
+            let posts=document.querySelector('article');
+            let main=document.querySelector('main');
+            main.insertBefore(filter,posts);
+            return true;
+        },
+
+        createAddField: function () {
+            let posts=document.querySelector('article');
+            while (posts.firstChild) {
+                posts.removeChild(posts.firstChild);
+            }
+            posts.innerHTML='<form id="add-photo">\n' +
+                '            <p>Adding new photo</p>\n' +
+                '            <img src="images/dragzone.png">\n' +
+                '            <input id="choose-file" type="file" title="file" value="Choose file">\n' +
+                '            <textarea title="description">Write something about this photo!</textarea>\n' +
+                '            <textarea title="hashtags">Add hashtags!</textarea>\n' +
+                '            <input id=\'send-button\' title="send" type="button" value="Publish">\n' +
+                '        </form>';
+            postsPageLoaded=false;
+            return true;
+        },
+
+        firstPostsLoad: function () {
+            this.loadPosts('0', '10');
+            postsPageLoaded=true;
+            return true;
         }
     }
 })();

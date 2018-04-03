@@ -12,11 +12,12 @@
           href="https://fonts.googleapis.com/css?family=Abel">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="dom.js"></script>
+    <script src="functions.js"></script>
+    <script src="loadDOM.js"></script>
+    <script src='test.js'></script>
 </head>
 <body>
-<script src="functions.js"></script>
-<script src="dom.js"></script>
-<script src='test.js'></script>
 <header>
     <nav id="left-header">
         <a href="">Photo Portal</a>
@@ -24,30 +25,7 @@
     <nav id="right-header"></nav>
 </header>
 <main>
-    <div id="filter">
-        <div class="filter-header">
-            Filter
-        </div>
-        <div class="filter-content">
-            <div class="input-panel">
-                <p>by name:</p>
-                <select id="authors" title="name-input">
-                    <option>---not chosen---</option>
-                </select>
-            </div>
-            <div class="input-panel">
-                <p>by date:</p>
-                <input type="date" title="date-input">
-            </div>
-            <div class="input-panel">
-                <p>by hashtags:</p>
-                <input title="hashtag-input">
-            </div>
-        </div>
-    </div>
-    <article id="photo-posts">
-        <div id="posts-array"></div>
-        <div class="open-more"><a href="">Open more...</a></div>
+    <article>
     </article>
 </main>
 <footer>
@@ -57,6 +35,5 @@
     </address>
     <div class="footer-elements">last changed:<br>hh:mm<br>dd.mm.yyyy</div>
 </footer>
-<script src="loadDOM.js"></script>
 </body>
 </html>
