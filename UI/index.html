@@ -12,6 +12,7 @@
           href="https://fonts.googleapis.com/css?family=Abel">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="dom.js"></script>
     <script src="functions.js"></script>
     <script src="loadDOM.js"></script>
@@ -26,7 +27,18 @@
 </header>
 <main>
     <article>
+
     </article>
+    <div id="add-photo-block">
+        <form id="add-photo">
+            <p>Adding new photo</p>
+            <img src="images/dragzone.png">
+            <input id="choose-file" type="file" title="file" value="Choose file">
+            <textarea title="description">Write something about this photo!</textarea>
+            <textarea title="hashtags">Add hashtags!</textarea>
+            <input id=\'send-button\' title="send" type="button" value="Publish">
+        </form>
+    </div>
 </main>
 <footer>
     <div class="footer-elements">2nd group<br>2nd course</div>
