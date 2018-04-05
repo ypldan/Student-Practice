@@ -13,6 +13,7 @@ const myDOM=(function () {
         let addBlock=document.createElement('div');
         addBlock.className="new-button";
         let add=document.createElement('a');
+        add.href="";
         add.innerHTML="Add new photo";
         addBlock.appendChild(add);
         return addBlock;
@@ -22,6 +23,7 @@ const myDOM=(function () {
         let logOutBlock=document.createElement('div');
         logOutBlock.className="new-button";
         let logOut=document.createElement('a');
+        logOut.href="";
         if (isIn) {
             logOut.innerHTML = "log out";
         } else {
@@ -35,6 +37,7 @@ const myDOM=(function () {
         let userNicknameBlock=document.createElement('div');
         userNicknameBlock.className="new-button";
         let userNickname=document.createElement('a');
+        userNickname.href="";
         userNickname.innerHTML=username;
         userNicknameBlock.appendChild(userNickname);
         return userNicknameBlock;
@@ -352,19 +355,14 @@ const myDOM=(function () {
         },
 
         createAddField: function () {
-            let posts=document.querySelector('article');
-            while (posts.firstChild) {
-                posts.removeChild(posts.firstChild);
-            }
-            posts.innerHTML='<form id="add-photo">\n' +
-                '            <p>Adding new photo</p>\n' +
-                '            <img src="images/dragzone.png">\n' +
-                '            <input id="choose-file" type="file" title="file" value="Choose file">\n' +
-                '            <textarea title="description">Write something about this photo!</textarea>\n' +
-                '            <textarea title="hashtags">Add hashtags!</textarea>\n' +
-                '            <input id=\'send-button\' title="send" type="button" value="Publish">\n' +
-                '        </form>';
-            postsPageLoaded=false;
+            let posts=document.getElementById('add-photo-block');
+            posts.style.display='flex';
+            return true;
+        },
+
+        hideAddField: function () {
+            let posts=document.getElementById('add-photo-block');
+            posts.style.display='none';
             return true;
         },
 
