@@ -26,10 +26,11 @@ header {
     justify-content: center;
 }
 
-#left-header a {
+#left-header h1 {
     background: inherit;
     color: inherit;
     margin: 10px;
+    font-size: 40px;
 }
 
 #right-header {
@@ -117,6 +118,7 @@ main {
     display: flex;
     flex-direction: column;
     align-self: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .filter-header {
@@ -183,6 +185,7 @@ figure {
     margin: 5px 10px;
     border: 2px solid gray;
     border-radius: 7px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 figure img {
@@ -283,17 +286,16 @@ figure img {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .open-more:hover {
     text-shadow: 1px 1px gray;
 }
 
-.open-more a {
-    text-decoration: none;
-    color: black;
-    margin: 5px;
-}
 
 /*add photo*/
 
