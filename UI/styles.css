@@ -4,6 +4,10 @@
     font-family: "Amarante", "Amaranth", "Book Antiqua", Arial;
 }
 
+input {
+    font-family: Verdana;
+}
+
 /*header!!!*/
 
 header {
@@ -298,17 +302,16 @@ figure img {
 /*add photo*/
 
 #add-photo-block {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 2; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    display: none;
+    position: fixed;
+    z-index: 2;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
 #add-photo {
@@ -320,7 +323,9 @@ figure img {
     background: #eee;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    position: relative;
+    border: 5px solid black;
+    border-radius: 15px;
 }
 
 #add-photo img {
@@ -357,6 +362,78 @@ textarea {
 #send-button {
     margin-top: 10px;
     align-self: center;
+}
+
+#close-add {
+    background: #eee;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+/*log in!!!*/
+
+#log-in-block {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+#log-in {
+    width: 300px;
+    z-index: 2;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    margin: auto;
+    padding: 20px;
+    border: 5px solid black;
+    border-radius: 15px;
+    position: relative;
+}
+
+.log-in-input {
+    background: #eee;
+    display: flex;
+    margin: 3px;
+    justify-content: space-between;
+}
+
+.log-in-input p {
+    background: #eee;
+    font-family: Abel, Verdana, Arial;
+    font-style: italic;
+}
+
+#log-in>p {
+    background: #eee;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.log-in-input input {
+    width: 200px;
+}
+
+#log-in-button {
+    align-self: center;
+    margin-top: 8px;
+}
+
+#close-log-in {
+    background: #eee;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 /*for mobile phones!!!*/

@@ -12,8 +12,8 @@
           href="https://fonts.googleapis.com/css?family=Abel">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="dom.js"></script>
+    <script src="listeners.js"></script>
     <script src="functions.js"></script>
     <script src="loadDOM.js"></script>
     <script src='test.js'></script>
@@ -27,7 +27,6 @@
 </header>
 <main>
     <article>
-
     </article>
     <div id="add-photo-block">
         <form id="add-photo">
@@ -36,7 +35,25 @@
             <input id="choose-file" type="file" title="file" value="Choose file">
             <textarea title="description">Write something about this photo!</textarea>
             <textarea title="hashtags">Add hashtags!</textarea>
-            <input id=\'send-button\' title="send" type="button" value="Publish">
+            <input id='send-button' title="send" type="button" value="Publish">
+            <div class="fa fa-close" id="close-add" style="font-size: 30px;"></div>
+        </form>
+    </div>
+    <div id="log-in-block">
+        <form id="log-in">
+            <p>Log in</p>
+            <div class="fa fa-close" id="close-log-in" style="font-size: 30px;"></div>
+            <div class="log-in-input">
+                <p>login:</p>
+                <input type="text" title="login">
+            </div>
+            <div class="log-in-input">
+                <p>password:</p>
+                <input type="password" title="password">
+            </div>
+            <div id="log-in-button">
+                <input type="button" title="confirm" value="log in">
+            </div>
         </form>
     </div>
 </main>
