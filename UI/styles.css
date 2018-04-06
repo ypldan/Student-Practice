@@ -46,16 +46,12 @@ header {
     margin: 5px;
     display: flex;
     justify-content: center;
-}
-
-.new-button a {
-    background: inherit;
     color: inherit;
     font-size: 30px;
     font-family: Abel, Verdana;
     text-decoration: none;
     font-style: italic;
-    margin: 7px;
+    padding: 7px;
 }
 
 /*footer!!!*/

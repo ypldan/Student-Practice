@@ -13,36 +13,27 @@ const myDOM=(function () {
         let addBlock=document.createElement('div');
         addBlock.className="new-button";
         addBlock.id="menu-add-photo";
-        let add=document.createElement('a');
-        add.href="";
-        add.innerHTML="Add new photo";
-        addBlock.appendChild(add);
+        addBlock.innerHTML="Add new photo";
         return addBlock;
     }
 
     function createLogInOrOut(isIn) {
         let logOutBlock=document.createElement('div');
         logOutBlock.className="new-button";
-        let logOut=document.createElement('a');
-        logOut.href="";
         if (isIn) {
-            logOut.innerHTML = "log out";
+            logOutBlock.innerHTML = "log out";
             logOutBlock.id='menu-log-out';
         } else {
-            logOut.innerHTML = "log in";
+            logOutBlock.innerHTML = "log in";
             logOutBlock.id='menu-log-in';
         }
-        logOutBlock.appendChild(logOut);
         return logOutBlock;
     }
 
     function createUserNickName(username) {
         let userNicknameBlock=document.createElement('div');
         userNicknameBlock.className="new-button";
-        let userNickname=document.createElement('a');
-        userNickname.href="";
-        userNickname.innerHTML=username;
-        userNicknameBlock.appendChild(userNickname);
+        userNicknameBlock.innerHTML=username;
         return userNicknameBlock;
     }
 
@@ -364,29 +355,21 @@ const myDOM=(function () {
         createAddField: function () {
             let posts=document.getElementById('add-photo-block');
             posts.style.display='flex';
-            return true;
         },
 
         hideAddField: function () {
             let add=document.getElementById('add-photo-block');
-            let main=document.querySelector('main');
-            main.removeChild(add);
             add.style.display='none';
-            return true;
         },
 
         createLogInField: function () {
             let login=document.querySelector("#log-in-block");
             login.style.display='flex';
-            return true;
         },
 
         hideLogInField: function () {
-            let add=document.getElementById('log-in-block');
-            let main=document.querySelector('main');
-            main.removeChild(add);
-            add.style.display='none';
-            return true;
+            let login=document.getElementById('log-in-block');
+            login.style.display='none';
         },
 
         firstPostsLoad: function () {
