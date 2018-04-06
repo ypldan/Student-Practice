@@ -13,6 +13,13 @@ const listeners=(function () {
         }
     }
 
+    function clickOnLogOut() {
+        myDOM.setUser();
+        myDOM.setUserConfiguration();
+        myDOM.clearPosts();
+        myDOM.firstPostsLoad();
+    }
+
     return {
 
         addOpenAdd: function () {
@@ -37,6 +44,11 @@ const listeners=(function () {
             close.addEventListener('click', myDOM.hideLogInField);
             let area=document.querySelector("#log-in-block");
             area.addEventListener('click', clickOnAreaLogIn);
+        },
+
+        addLogOut: function () {
+            let logout=document.querySelector("#menu-log-out");
+            logout.addEventListener('click', clickOnLogOut);
         }
     }
 })();

@@ -242,21 +242,30 @@ const myDOM=(function () {
             posts.removeChild(posts.firstChild);
         }
         posts.innerHTML='<div id="posts-array"></div>\n' +
-            '        <div class="open-more"><a href="">Open more...</a></div>';
+            '        <div class="open-more">Open more...</div>';
         return true;
+    }
+
+    function clearHeader() {
+        let header=document.getElementById("right-header");
+        while (header.firstChild) {
+            header.removeChild(header.firstChild);
+        }
     }
 
     return {
         setUserConfiguration: function () {
+            clearHeader();
             if (isUserIn()) {
                 createUserHeader();
                 listeners.addOpenAdd();
                 listeners.addCloseAdd();
+                listeners.addLogOut();
                 return true;
             } else {
                 createNonUserHeader();
                 listeners.addOpenLogIn();
-                /*listeners.addCloseLogIn();*/
+                listeners.addCloseLogIn();
                 return false;
             }
         },
