@@ -12,6 +12,7 @@ const myDOM=(function () {
     function createAdd() {
         let addBlock=document.createElement('div');
         addBlock.className="new-button";
+        addBlock.id="menu-add-photo";
         let add=document.createElement('a');
         add.href="";
         add.innerHTML="Add new photo";
@@ -26,8 +27,10 @@ const myDOM=(function () {
         logOut.href="";
         if (isIn) {
             logOut.innerHTML = "log out";
+            logOutBlock.id='menu-log-out';
         } else {
             logOut.innerHTML = "log in";
+            logOutBlock.id='menu-log-in';
         }
         logOutBlock.appendChild(logOut);
         return logOutBlock;
@@ -256,9 +259,13 @@ const myDOM=(function () {
         setUserConfiguration: function () {
             if (isUserIn()) {
                 createUserHeader();
+                listeners.addOpenAdd();
+                listeners.addCloseAdd();
                 return true;
             } else {
                 createNonUserHeader();
+                listeners.addOpenLogIn();
+                /*listeners.addCloseLogIn();*/
                 return false;
             }
         },
@@ -361,8 +368,24 @@ const myDOM=(function () {
         },
 
         hideAddField: function () {
-            let posts=document.getElementById('add-photo-block');
-            posts.style.display='none';
+            let add=document.getElementById('add-photo-block');
+            let main=document.querySelector('main');
+            main.removeChild(add);
+            add.style.display='none';
+            return true;
+        },
+
+        createLogInField: function () {
+            let login=document.querySelector("#log-in-block");
+            login.style.display='flex';
+            return true;
+        },
+
+        hideLogInField: function () {
+            let add=document.getElementById('log-in-block');
+            let main=document.querySelector('main');
+            main.removeChild(add);
+            add.style.display='none';
             return true;
         },
 
@@ -370,6 +393,18 @@ const myDOM=(function () {
             this.loadPosts('0', '10');
             postsPageLoaded=true;
             return true;
+        },
+
+        isUserIn: isUserIn(),
+
+        setUser: function (username) {
+            if (!username || typeof username !== 'string') {
+                user=null;
+                return false;
+            } else {
+                user=username;
+                return true;
+            }
         }
     }
 })();
