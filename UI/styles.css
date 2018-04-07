@@ -42,6 +42,7 @@ header {
 
 .new-button {
     background: inherit;
+    cursor: pointer;
     border: 2px solid white;
     border-radius: 10px;
     margin: 5px;
@@ -276,7 +277,7 @@ figure img {
     border-radius: 5px;
 }
 
-.open-more {
+#open-more {
     margin: 5px auto;
     text-align: center;
     width: 120px;
@@ -292,10 +293,21 @@ figure img {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.open-more:hover {
+#open-more:hover {
     text-shadow: 1px 1px gray;
 }
 
+.fa-heart-o, .fa-heart {
+    color: red;
+}
+
+.fa-close {
+    color: gray;
+}
+
+.fa-close:hover {
+    color: black;
+}
 
 /*add photo*/
 
