@@ -301,17 +301,21 @@ figure img {
     color: red;
 }
 
-.fa-close {
+.fa-heart-o:hover, .fa-heart:hover {
+    text-shadow: 2px 1px 2px orangered;
+}
+
+.fa-close, .fa-edit, .fa-trash {
     color: gray;
 }
 
-.fa-close:hover {
+.fa-close:hover, .fa-trash:hover, .fa-edit:hover {
     color: black;
 }
 
 /*add photo*/
 
-#add-photo-block {
+.dialog {
     display: none;
     position: fixed;
     z-index: 2;
@@ -383,19 +387,6 @@ textarea {
 
 /*log in!!!*/
 
-#log-in-block {
-    display: none;
-    position: fixed;
-    z-index: 2;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-
 #log-in {
     width: 300px;
     z-index: 2;
@@ -444,6 +435,46 @@ textarea {
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+/*edit!!!*/
+
+#edit {
+    width: 300px;
+    z-index: 2;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    margin: auto;
+    padding: 20px;
+    position: relative;
+    border: 5px solid black;
+    border-radius: 15px;
+}
+
+#edit>p {
+    font-size: 30px;
+    text-align: center;
+    background: #eee;
+    margin-bottom: 15px;
+}
+
+#close-edit {
+    background: #eee;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#edit img {
+    width: 300px;
+    height: 300px;
+}
+
+#send-button-edit {
+    margin-top: 10px;
+    align-self: center;
 }
 
 /*for mobile phones!!!*/

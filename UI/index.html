@@ -28,7 +28,7 @@
 <main>
     <article>
     </article>
-    <div id="add-photo-block">
+    <div class="dialog" id="add-photo-block">
         <form id="add-photo">
             <p>Adding new photo</p>
             <img src="images/dragzone.png" draggable="false">
@@ -39,7 +39,7 @@
             <div class="fa fa-close" id="close-add" style="font-size: 30px;"></div>
         </form>
     </div>
-    <div id="log-in-block">
+    <div class="dialog" id="log-in-block">
         <form id="log-in">
             <p>Log in</p>
             <div class="fa fa-close" id="close-log-in" style="font-size: 30px;"></div>
@@ -54,6 +54,16 @@
             <div id="log-in-button">
                 <input type="button" title="confirm" value="log in">
             </div>
+        </form>
+    </div>
+    <div class="dialog" id="edit-block">
+        <form id="edit">
+            <p>Edit photo-post</p>
+            <div class="fa fa-close" id="close-edit" style="font-size: 30px;"></div>
+            <img src="images/sample.jpg" draggable="false">
+            <textarea title="description-edit">Write something about this photo!</textarea>
+            <textarea title="hashtags-edit">Add hashtags!</textarea>
+            <input id='send-button-edit' title="send" type="button" value="Publish">
         </form>
     </div>
 </main>
