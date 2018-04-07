@@ -184,7 +184,6 @@ const myDOM=(function () {
     function createPhotoPost(post, isIn) {
         let result=document.createElement('figure');
         result.id='post'+post.id;
-        //result.className='post';
         result.appendChild(createImage(post));
         result.appendChild(createUserHashtags(post));
         result.appendChild(createUserPanel(post, isIn));
@@ -261,16 +260,27 @@ const myDOM=(function () {
         }
     }
 
+    function addHeaderListeners() {
+        if (isUserIn()) {
+            listeners.addOpenAdd();
+            listeners.addCloseAdd();
+            listeners.addLogOut();
+        } else {
+            listeners.addOpenLogIn();
+            listeners.addCloseLogIn();
+        }
+    }
+
     return {
+
         setUserConfiguration: function () {
             clearHeader();
             if (isUserIn()) {
                 createUserHeader();
-                return true;
             } else {
                 createNonUserHeader();
-                return false;
             }
+            addHeaderListeners();
         },
 
         loadPosts: function (skip, top, filter) {
@@ -432,19 +442,9 @@ const myDOM=(function () {
             return parsePostId(string);
         },
 
-        addHeaderListeners: function () {
-            if (isUserIn()) {
-                listeners.addOpenAdd();
-                listeners.addCloseAdd();
-                listeners.addLogOut();
-            } else {
-                listeners.addOpenLogIn();
-                listeners.addCloseLogIn();
-            }
-        },
-
         addFormsListeners: function () {
             listeners.addCloseEdit();
+            listeners.addTextAreasListeners();
         }
     }
 })();
