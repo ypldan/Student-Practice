@@ -1,7 +1,7 @@
 "use strict";
 const myDOM=(function () {
     let user='Albert Einstein';
-    let currentPosts=null;
+    let currentPosts=[];
     let currentFilter;
     let postsPageLoaded=false;
 
@@ -93,10 +93,15 @@ const myDOM=(function () {
         return userHashtags;
     }
 
-    function createLike() {
+    function createLike(post) {
         let like=document.createElement('div');
-        like.className='fa fa-heart-o';
+        if (post.likes.has(user)) {
+            like.className = 'fa fa-heart';
+        } else {
+            like.className = 'fa fa-heart-o';
+        }
         like.style='font-size:32px;';
+        listeners.addLikeClick(like);
         return like;
     }
 
@@ -118,8 +123,9 @@ const myDOM=(function () {
         edit.style="font-size:32px;";
         userInstruments.appendChild(edit);
         let close=document.createElement('div');
-        close.className="fa fa-close";
+        close.className="fa fa-close delete-post";
         close.style="font-size:32px;";
+        listeners.addDeletePost(close);
         userInstruments.appendChild(close);
         return userInstruments;
     }
@@ -128,7 +134,7 @@ const myDOM=(function () {
         let userPanel=document.createElement('div');
         userPanel.className='user-panel post-element';
         if (isIn) {
-            userPanel.appendChild(createLike());
+            userPanel.appendChild(createLike(post));
         }
         userPanel.appendChild(createDescriptionArea(post));
         if (isIn && user===post.author) {
@@ -242,7 +248,8 @@ const myDOM=(function () {
             posts.removeChild(posts.firstChild);
         }
         posts.innerHTML='<div id="posts-array"></div>\n' +
-            '        <div class="open-more">Open more...</div>';
+            '        <div id="open-more">Open more...</div>';
+        listeners.addOpenMore();
         return true;
     }
 
@@ -276,9 +283,10 @@ const myDOM=(function () {
             }
             let postsArray=document.getElementById('posts-array');
             let isIn=isUserIn();
-            currentPosts=MyPortal.getPhotoPosts(skip, top, filter);
-            currentPosts.forEach(function (post) {
+            let processingPosts=MyPortal.getPhotoPosts(skip, top, filter);
+            processingPosts.forEach(function (post) {
                 postsArray.appendChild(createPhotoPost(post, isIn));
+                currentPosts.push(post);
             });
             postsPageLoaded=true;
             return true;
@@ -289,7 +297,7 @@ const myDOM=(function () {
                 post.id=MyPortal.incrementLastID();
                 post.createdAt=new Date();
                 post.author=user;
-                post.likes=[];
+                post.likes=new Set();
                 MyPortal.addPhotoPost(post);
                 this.clearPosts();
                 this.loadPosts(0,10);
@@ -308,10 +316,13 @@ const myDOM=(function () {
             return true;
         },
 
-        removePost: function (id) {
-            MyPortal.removePhotoPost(id);
-            this.clearPosts();
-            this.loadPosts(0,10,currentFilter);
+        removePost: function (string) {
+            MyPortal.removePhotoPost(parsePostId(string));
+            let figure=document.getElementById(string);
+            let parent=document.getElementById("posts-array");
+            parent.removeChild(figure);
+            //this.clearPosts();
+            //this.loadPosts(0,10,currentFilter);
             return true;
         },
 
@@ -389,6 +400,10 @@ const myDOM=(function () {
 
         isUserIn: isUserIn(),
 
+        getUser: function() {
+            return user;
+        },
+
         setUser: function (username) {
             if (!username || typeof username !== 'string') {
                 user=null;
@@ -397,6 +412,18 @@ const myDOM=(function () {
                 user=username;
                 return true;
             }
+        },
+
+        getFilter: function () {
+            return currentFilter;
+        },
+
+        getNumberPostsLoaded: function () {
+            return currentPosts.length;
+        },
+
+        parsePostId: function (string) {
+            return parsePostId(string);
         }
     }
 })();

@@ -20,6 +20,29 @@ const listeners=(function () {
         myDOM.firstPostsLoad();
     }
 
+    function clickOnOpenMore() {
+        myDOM.loadPosts(myDOM.getNumberPostsLoaded(),10,myDOM.getFilter());
+    }
+
+    function clickOnDeletePost(event) {
+        let target=event.srcElement;
+        let parent=target.parentElement.parentElement.parentElement;
+        myDOM.removePost(parent.id);
+    }
+
+    function clickOnLike(event) {
+        let target=event.srcElement;
+        let parent=target.parentElement.parentElement;
+        let post=MyPortal.getPhotoPost(myDOM.parsePostId(parent.id));
+        if (post.likes.has(myDOM.getUser())) {
+            post.likes.delete(myDOM.getUser());
+            target.className="fa fa-heart-o";
+        } else {
+            post.likes.add(myDOM.getUser());
+            target.className="fa fa-heart";
+        }
+    }
+
     return {
 
         addOpenAdd: function () {
@@ -48,7 +71,20 @@ const listeners=(function () {
 
         addLogOut: function () {
             let logout=document.querySelector("#menu-log-out");
-            logout.addEventListener('click', clickOnLogOut);
+            logout.addEventListener("click", clickOnLogOut);
+        },
+
+        addOpenMore: function () {
+            let open=document.querySelector("#open-more");
+            open.addEventListener("click", clickOnOpenMore);
+        },
+
+        addDeletePost: function (node) {
+            node.addEventListener("click", clickOnDeletePost);
+        },
+
+        addLikeClick: function (node) {
+            node.addEventListener("click", clickOnLike);
         }
     }
 })();
