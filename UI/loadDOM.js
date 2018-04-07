@@ -7,6 +7,6 @@ loadDOM = function () {
         hashtags: ['#hey', '#physics-cool'],
         photoLink: 'https://static.appvn.com/a/uploads/thumbnails/112015/mr-square_icon.png'
     });
-    myDOM.editPhotoPost('19', {description: 'It has been edited!!!'});
+    myDOM.editPhotoPost(19, {description: 'It has been edited!!!'});
 };
 document.addEventListener("DOMContentLoaded", loadDOM);
