@@ -2,7 +2,7 @@
 const MyPortal = (function () {
     let photoPosts = [
         {
-            id: '0',
+            id: 0,
             description: 'PhotoPost0',
             createdAt: new Date('2018-03-17T14:37:57'),
             author: 'unknown author',
@@ -11,7 +11,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'unknown author'])
         },
         {
-            id: '1',
+            id: 1,
             description: 'PhotoPost1',
             createdAt: new Date('2018-03-28T02:18:41'),
             author: 'unknown author',
@@ -20,7 +20,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
-            id: '2',
+            id: 2,
             description: 'PhotoPost2',
             createdAt: new Date('2018-01-19T05:48:02'),
             author: 'Alexey Navalny',
@@ -29,7 +29,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '3',
+            id: 3,
             description: 'PhotoPost3',
             createdAt: new Date('2018-01-02T02:02:28'),
             author: 'Alexey Navalny',
@@ -38,7 +38,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
-            id: '4',
+            id: 4,
             description: 'PhotoPost4',
             createdAt: new Date('2018-01-27T12:57:52'),
             author: 'Albert Einstein',
@@ -47,7 +47,7 @@ const MyPortal = (function () {
             likes: new Set(['Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
-            id: '5',
+            id: 5,
             description: 'PhotoPost5',
             createdAt: new Date('2018-01-11T10:39:24'),
             author: 'Mickie Mouse',
@@ -56,7 +56,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '6',
+            id: 6,
             description: 'PhotoPost6',
             createdAt: new Date('2018-03-19T09:35:38'),
             author: 'Hleb Salaujou',
@@ -65,7 +65,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'unknown author'])
         },
         {
-            id: '7',
+            id: 7,
             description: 'PhotoPost7',
             createdAt: new Date('2018-02-23T17:20:25'),
             author: 'Alexey Navalny',
@@ -74,7 +74,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '8',
+            id: 8,
             description: 'PhotoPost8',
             createdAt: new Date('2018-02-15T01:52:12'),
             author: 'Alexey Navalny',
@@ -83,7 +83,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Mickie Mouse'])
         },
         {
-            id: '9',
+            id: 9,
             description: 'PhotoPost9',
             createdAt: new Date('2018-02-19T00:14:34'),
             author: 'Mickie Mouse',
@@ -92,7 +92,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '10',
+            id: 10,
             description: 'PhotoPost10',
             createdAt: new Date('2018-03-20T22:23:21'),
             author: 'Alexey Navalny',
@@ -101,7 +101,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Donald Trump', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '11',
+            id: 11,
             description: 'PhotoPost11',
             createdAt: new Date('2018-03-12T14:30:29'),
             author: 'Alexey Navalny',
@@ -110,7 +110,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
-            id: '12',
+            id: 12,
             description: 'PhotoPost12',
             createdAt: new Date('2018-01-03T07:08:55'),
             author: 'Mickie Mouse',
@@ -119,7 +119,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
-            id: '13',
+            id: 13,
             description: 'PhotoPost13',
             createdAt: new Date('2018-02-27T08:45:18'),
             author: 'Alexey Navalny',
@@ -128,7 +128,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
-            id: '14',
+            id: 14,
             description: 'PhotoPost14',
             createdAt: new Date('2018-03-05T18:15:52'),
             author: 'Donald Trump',
@@ -137,7 +137,7 @@ const MyPortal = (function () {
             likes: new Set(['Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '15',
+            id: 15,
             description: 'PhotoPost15',
             createdAt: new Date('2018-01-27T21:17:28'),
             author: 'unknown author',
@@ -146,7 +146,7 @@ const MyPortal = (function () {
             likes: new Set(['Alexey Navalny', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '16',
+            id: 16,
             description: 'PhotoPost16',
             createdAt: new Date('2018-02-15T06:14:22'),
             author: 'Mickie Mouse',
@@ -155,7 +155,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '17',
+            id: 17,
             description: 'PhotoPost17',
             createdAt: new Date('2018-02-08T03:29:44'),
             author: 'Albert Einstein',
@@ -164,7 +164,7 @@ const MyPortal = (function () {
             likes: new Set(['Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '18',
+            id: 18,
             description: 'PhotoPost18',
             createdAt: new Date('2018-02-14T10:07:44'),
             author: 'unknown author',
@@ -173,7 +173,7 @@ const MyPortal = (function () {
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Mickie Mouse', 'unknown author'])
         },
         {
-            id: '19',
+            id: 19,
             description: 'PhotoPost19',
             createdAt: new Date('2018-02-05T15:08:45'),
             author: 'unknown author',
@@ -278,7 +278,7 @@ const MyPortal = (function () {
         },
 
         getPhotoPost: function (id) {
-            if (isString(id)) {
+            if (isNumber(id)) {
                 let photoPost = null;
                 for (let i = 0; i < photoPosts.length; i++) {
                     if (photoPosts[i].id === id) {
@@ -332,7 +332,7 @@ const MyPortal = (function () {
             if (array===undefined) {
                 array=photoPosts;
             }
-            if (isString(id)) {
+            if (isNumber(id)) {
                 let index = null;
                 for (let i = 0; i < array.length; i++) {
                     if (array[i].id === id) {
@@ -347,7 +347,7 @@ const MyPortal = (function () {
         },
 
         editPhotoPost: function (id, photoPost) {
-            if (isString(id) && this.isPartiallyValid(photoPost)) {
+            if (isNumber(id) && this.isPartiallyValid(photoPost)) {
                 let toEdit = this.getPhotoPost(id);
                 if (photoPost.description !== undefined) {
                     toEdit.description = photoPost.description;
