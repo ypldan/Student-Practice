@@ -328,6 +328,15 @@ figure img {
     background-color: rgba(0,0,0,0.4);
 }
 
+.wrong-input {
+    color: red;
+    font-size: 20px;
+    text-align: center;
+    background: #eee;
+    border: 2px solid red;
+    display: none;
+}
+
 #add-photo {
     width: 300px;
     z-index: 2;
@@ -347,7 +356,7 @@ figure img {
     height: 300px;
 }
 
-#add-photo p {
+#add-photo p:first-of-type {
     font-size: 30px;
     text-align: center;
     background: #eee;
