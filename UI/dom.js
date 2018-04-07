@@ -121,9 +121,10 @@ const myDOM=(function () {
         let edit=document.createElement('div');
         edit.className="fa fa-edit";
         edit.style="font-size:32px;";
+        listeners.addOpenEdit(edit);
         userInstruments.appendChild(edit);
         let close=document.createElement('div');
-        close.className="fa fa-close delete-post";
+        close.className="fa fa-trash delete-post";
         close.style="font-size:32px;";
         listeners.addDeletePost(close);
         userInstruments.appendChild(close);
@@ -265,14 +266,9 @@ const myDOM=(function () {
             clearHeader();
             if (isUserIn()) {
                 createUserHeader();
-                listeners.addOpenAdd();
-                listeners.addCloseAdd();
-                listeners.addLogOut();
                 return true;
             } else {
                 createNonUserHeader();
-                listeners.addOpenLogIn();
-                listeners.addCloseLogIn();
                 return false;
             }
         },
@@ -392,6 +388,16 @@ const myDOM=(function () {
             login.style.display='none';
         },
 
+        createEditField: function () {
+            let edit=document.querySelector("#edit-block");
+            edit.style.display='flex';
+        },
+
+        hideEditField: function () {
+            let edit=document.querySelector('#edit-block');
+            edit.style.display='none';
+        },
+
         firstPostsLoad: function () {
             this.loadPosts('0', '10');
             postsPageLoaded=true;
@@ -424,6 +430,21 @@ const myDOM=(function () {
 
         parsePostId: function (string) {
             return parsePostId(string);
+        },
+
+        addHeaderListeners: function () {
+            if (isUserIn()) {
+                listeners.addOpenAdd();
+                listeners.addCloseAdd();
+                listeners.addLogOut();
+            } else {
+                listeners.addOpenLogIn();
+                listeners.addCloseLogIn();
+            }
+        },
+
+        addFormsListeners: function () {
+            listeners.addCloseEdit();
         }
     }
 })();

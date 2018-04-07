@@ -1,4 +1,5 @@
 loadDOM = function () {
+    myDOM.addFormsListeners();
     myDOM.setUserConfiguration();
     myDOM.createFilter();
     myDOM.firstPostsLoad();

@@ -43,6 +43,12 @@ const listeners=(function () {
         }
     }
 
+    function clickOnAreaEdit(event) {
+        if (event.srcElement.id==='edit-block') {
+            myDOM.hideEditField();
+        }
+    }
+
     return {
 
         addOpenAdd: function () {
@@ -67,6 +73,17 @@ const listeners=(function () {
             close.addEventListener('click', myDOM.hideLogInField);
             let area=document.querySelector("#log-in-block");
             area.addEventListener('click', clickOnAreaLogIn);
+        },
+
+        addOpenEdit: function (node) {
+            node.addEventListener('click', myDOM.createEditField);
+        },
+
+        addCloseEdit: function() {
+            let close=document.querySelector('#close-edit');
+            close.addEventListener('click', myDOM.hideEditField);
+            let area=document.querySelector("#edit-block");
+            area.addEventListener('click', clickOnAreaEdit);
         },
 
         addLogOut: function () {
