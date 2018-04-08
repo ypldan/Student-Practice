@@ -144,7 +144,7 @@ const myDOM=(function () {
         let userPanel=document.createElement('div');
         userPanel.className='user-panel post-element';
         let like=createLike(post);
-        let instruments=createUserInstruments(post)
+        let instruments=createUserInstruments(post);
         if (!isIn) {
             like.style.display='none';
         }
@@ -287,10 +287,20 @@ const myDOM=(function () {
     function showLikes() {
         let likes=document.querySelectorAll(".fa-heart-o");
         likes.forEach(function (like) {
+            let parentID=like.parentElement.parentElement.id;
+            let post=MyPortal.getPhotoPost(myDOM.parsePostId(parentID));
+            if (post.likes.has(user)) {
+                like.className="fa fa-heart";
+            }
             like.style.display='block';
         });
         likes=document.querySelectorAll(".fa-heart");
         likes.forEach(function (like) {
+            let parentID=like.parentElement.parentElement.id;
+            let post=MyPortal.getPhotoPost(myDOM.parsePostId(parentID));
+            if (!post.likes.has(user)) {
+                like.className="fa fa-heart-o";
+            }
             like.style.display='block';
         });
     }
@@ -330,8 +340,12 @@ const myDOM=(function () {
             clearHeader();
             if (isUserIn()) {
                 createUserHeader();
+                showLikes();
+                showInstruments();
             } else {
                 createNonUserHeader();
+                hideLikes();
+                hideInstruments();
             }
             addHeaderListeners();
         },
@@ -503,6 +517,10 @@ const myDOM=(function () {
         getUsers: function () {
             return users;
         },
+
+        hideLikes: hideLikes,
+
+        showLikes: showLikes,
 
         hideInstruments: hideInstruments,
 
