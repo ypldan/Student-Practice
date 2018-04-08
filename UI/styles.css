@@ -462,7 +462,7 @@ textarea {
     border-radius: 15px;
 }
 
-#edit>p {
+#edit p:first-of-type {
     font-size: 30px;
     text-align: center;
     background: #eee;
