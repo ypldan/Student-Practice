@@ -22,6 +22,10 @@ const listeners=(function () {
             && description!=="";
     }
 
+    function validateLogInInput(username) {
+        return myDOM.getUsers().has(username);
+    }
+
     function clickOnAreaAdd(event) {
         if (event.srcElement.id==='add-photo-block') {
             let img=document.getElementById("drag-image");
@@ -39,14 +43,14 @@ const listeners=(function () {
     function clickOnAreaLogIn(event) {
         if (event.srcElement.id==='log-in-block') {
             myDOM.hideLogInField();
+            let wrong=document.getElementById("log-in-wrong");
+            wrong.style.display='none';
         }
     }
 
     function clickOnLogOut() {
         myDOM.setUser();
         myDOM.setUserConfiguration();
-        myDOM.clearPosts();
-        myDOM.firstPostsLoad();
     }
 
     function clickOnOpenMore() {
@@ -153,7 +157,7 @@ const listeners=(function () {
         let img=document.getElementById("drag-image");
         if (img.src!==defaultAddImage) {
             img.src=defaultAddImage;
-            let input=document.getElementById('drag-image');
+            let input=document.getElementById('choose-file');
             input.value="";
         }
         let wrong=document.getElementById("add-wrong");
@@ -168,11 +172,17 @@ const listeners=(function () {
         currentID=null;
     }
 
+    function clickOnCloseLogIn() {
+        myDOM.hideLogInField();
+        let wrong=document.getElementById("log-in-wrong");
+        wrong.style.display='none';
+    }
+
     function clickOnConfirmAdd() {
         let img=document.getElementById("drag-image");
         let description=document.getElementById("add-description").value;
         let hashtags=document.getElementById("add-hashtags").value;
-        if (validateAddInput(img, description, hashtags)&& currentID!==null) {
+        if (validateAddInput(img, description, hashtags)) {
             let hashtagsSet=new Set();
             let pattern=/#\w+/g;
             let temp;
@@ -197,7 +207,7 @@ const listeners=(function () {
     function clickOnConfirmEdit() {
         let description=document.getElementById("description-edit").value;
         let hashtags=document.getElementById("hashtags-edit").value;
-        if (validateEditInput(description, hashtags)) {
+        if (validateEditInput(description, hashtags)&& currentID!==null) {
             let hashtagsSet=new Set();
             let pattern=/#\w+/g;
             let temp;
@@ -232,6 +242,18 @@ const listeners=(function () {
         }
     }
 
+    function clickOnConfirmLogIn() {
+        let username=document.getElementById("log-in-input").value;
+        if (validateLogInInput(username)) {
+            myDOM.setUser(username);
+            myDOM.setUserConfiguration();
+            clickOnCloseLogIn();
+        } else {
+            let wrong=document.getElementById("log-in-wrong");
+            wrong.style.display='block';
+        }
+    }
+
     return {
 
         addOpenAdd: function () {
@@ -253,7 +275,7 @@ const listeners=(function () {
 
         addCloseLogIn: function () {
             let close=document.querySelector('#close-log-in');
-            close.addEventListener('click', myDOM.hideLogInField);
+            close.addEventListener('click', clickOnCloseEdit);
             let area=document.querySelector("#log-in-block");
             area.addEventListener('click', clickOnAreaLogIn);
         },
@@ -300,10 +322,8 @@ const listeners=(function () {
             confirmAdd.addEventListener('click', clickOnConfirmAdd);
             let confirmEdit=document.getElementById("send-button-edit");
             confirmEdit.addEventListener('click', clickOnConfirmEdit);
-        },
-
-        validateString: function (string) {
-            return validateHashtagsString(string);
+            let confirm=document.getElementById("log-in-button");
+            confirm.addEventListener('click', clickOnConfirmLogIn);
         }
     }
 })();
