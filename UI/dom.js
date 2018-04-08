@@ -4,6 +4,13 @@ const myDOM=(function () {
     let currentPosts=[];
     let currentFilter;
     let postsPageLoaded=false;
+    let users=new Set(['Albert Einstein',
+        'Alexey Navalny',
+        'Mickie Mouse',
+        'ypldan',
+        'Hleb Salaujou',
+        'Donald Trump',
+        'unknown author']);
 
     function isUserIn() {
         return user!==null;
@@ -136,13 +143,17 @@ const myDOM=(function () {
     function createUserPanel(post, isIn) {
         let userPanel=document.createElement('div');
         userPanel.className='user-panel post-element';
-        if (isIn) {
-            userPanel.appendChild(createLike(post));
+        let like=createLike(post);
+        let instruments=createUserInstruments(post)
+        if (!isIn) {
+            like.style.display='none';
         }
+        if (user!==post.author || !isIn) {
+            instruments.style.display='none';
+        }
+        userPanel.appendChild(like);
         userPanel.appendChild(createDescriptionArea(post));
-        if (isIn && user===post.author) {
-            userPanel.appendChild(createUserInstruments(post));
-        }
+        userPanel.appendChild(instruments);
         return userPanel;
     }
 
@@ -271,6 +282,46 @@ const myDOM=(function () {
             listeners.addOpenLogIn();
             listeners.addCloseLogIn();
         }
+    }
+
+    function showLikes() {
+        let likes=document.querySelectorAll(".fa-heart-o");
+        likes.forEach(function (like) {
+            like.style.display='block';
+        });
+        likes=document.querySelectorAll(".fa-heart");
+        likes.forEach(function (like) {
+            like.style.display='block';
+        });
+    }
+
+    function hideLikes() {
+        let likes=document.querySelectorAll(".fa-heart-o");
+        likes.forEach(function (like) {
+            like.style.display='none';
+        });
+        likes=document.querySelectorAll(".fa-heart");
+        likes.forEach(function (like) {
+            like.style.display='none';
+        });
+    }
+
+    function showInstruments() {
+        let instruments=document.querySelectorAll(".user-instruments");
+        instruments.forEach(function (node) {
+            let parentID=node.parentElement.parentElement.id;
+            let post=MyPortal.getPhotoPost(myDOM.parsePostId(parentID));
+            if (user===post.author) {
+                node.style.display = 'flex';
+            }
+        });
+    }
+
+    function hideInstruments() {
+        let instruments=document.querySelectorAll(".user-instruments");
+        instruments.forEach(function (node) {
+            node.style.display='none';
+        });
     }
 
     return {
@@ -447,6 +498,14 @@ const myDOM=(function () {
         addFormsListeners: function () {
             listeners.addCloseEdit();
             listeners.addFormsListeners();
-        }
+        },
+
+        getUsers: function () {
+            return users;
+        },
+
+        hideInstruments: hideInstruments,
+
+        showInstruments: showInstruments
     }
 })();
