@@ -76,6 +76,7 @@ const myDOM=(function () {
     function createHashtagsArea(post) {
         let hashtagsArea=document.createElement('div');
         hashtagsArea.className='hashtags-area';
+        hashtagsArea.id="post"+post.id+"hashtags";
         post.hashtags.forEach(function(hashtag) {
             let tag=document.createElement('p');
             tag.className='hashtag';
@@ -108,6 +109,7 @@ const myDOM=(function () {
     function createDescriptionArea(post) {
         let descriptionArea=document.createElement('div');
         descriptionArea.className='description-area';
+        descriptionArea.id="post"+post.id+"description";
         let description=document.createElement('p');
         description.className='description';
         description.innerHTML=post.description;
@@ -444,7 +446,7 @@ const myDOM=(function () {
 
         addFormsListeners: function () {
             listeners.addCloseEdit();
-            listeners.addTextAreasListeners();
+            listeners.addFormsListeners();
         }
     }
 })();
