@@ -54,18 +54,26 @@
     <div class="dialog" id="log-in-block">
         <form id="log-in">
             <p>Log in</p>
-            <div class="fa fa-close" id="close-log-in" style="font-size: 30px;"></div>
+            <div class="fa fa-close"
+                 id="close-log-in"
+                 style="font-size: 30px;"></div>
             <div class="log-in-input">
                 <p>login:</p>
-                <input type="text" title="login">
+                <input id="log-in-input"
+                       type="text"
+                       title="login">
             </div>
             <div class="log-in-input">
                 <p>password:</p>
-                <input type="password" title="password">
+                <input id="password-input"
+                       type="password"
+                       title="password">
             </div>
-            <div id="log-in-button">
-                <input type="button" title="confirm" value="log in">
-            </div>
+            <p id="log-in-wrong" class="wrong-input">Wrong input!</p>
+            <input id="log-in-button"
+                   type="button"
+                   title="confirm"
+                   value="log in">
         </form>
     </div>
     <div class="dialog" id="edit-block">

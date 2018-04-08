@@ -417,7 +417,7 @@ textarea {
     justify-content: space-between;
 }
 
-.log-in-input p {
+.log-in-input p:first-of-type {
     background: #eee;
     font-family: Abel, Verdana, Arial;
     font-style: italic;
