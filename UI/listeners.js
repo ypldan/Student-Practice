@@ -4,6 +4,7 @@ const listeners=(function () {
     const defaultDescription='Describe your photo!';
     const defaultHashtags='Add some hashtags!';
     const defaultAddImage="images/dragzone.png";
+    let currentID=null;
 
     function validateHashtagsString(string) {
         let template=/^(#\w+ )*(#\w+)?$/;
@@ -16,6 +17,11 @@ const listeners=(function () {
             && description!=="";
     }
 
+    function validateEditInput(description, hashtags) {
+        return (hashtags==="" || validateHashtagsString(hashtags))
+            && description!=="";
+    }
+
     function clickOnAreaAdd(event) {
         if (event.srcElement.id==='add-photo-block') {
             let img=document.getElementById("drag-image");
@@ -23,8 +29,9 @@ const listeners=(function () {
                 img.src=defaultAddImage;
                 let input=document.getElementById('drag-image');
                 input.value="";
-
             }
+            let wrong=document.getElementById("add-wrong");
+            wrong.style.display="none";
             myDOM.hideAddField();
         }
     }
@@ -68,6 +75,9 @@ const listeners=(function () {
     function clickOnAreaEdit(event) {
         if (event.srcElement.id==='edit-block') {
             myDOM.hideEditField();
+            let wrong=document.getElementById("edit-wrong");
+            wrong.style.display="none";
+            currentID=null;
         }
     }
 
@@ -77,6 +87,24 @@ const listeners=(function () {
         let hashtags=document.querySelector("#add-hashtags");
         hashtags.value=defaultHashtags;
         myDOM.createAddField();
+    }
+
+    function clickOnOpenEdit(event) {
+        let target=event.srcElement;
+        let parentID=target.parentElement.parentElement.parentElement.id;
+        currentID=parentID;
+        let post=MyPortal.getPhotoPost(myDOM.parsePostId(parentID));
+        let description=document.getElementById("description-edit");
+        let hashtags=document.getElementById("hashtags-edit");
+        description.value=post.description;
+        let string="";
+        post.hashtags.forEach(function (hashtag) {
+            string+=hashtag+" ";
+        });
+        hashtags.value=string;
+        let img=document.getElementById("image-edit");
+        img.src=post.photoLink;
+        myDOM.createEditField();
     }
 
     function focusOnAddDescription(event) {
@@ -128,14 +156,23 @@ const listeners=(function () {
             let input=document.getElementById('drag-image');
             input.value="";
         }
+        let wrong=document.getElementById("add-wrong");
+        wrong.style.display="none";
         myDOM.hideAddField();
+    }
+
+    function clickOnCloseEdit() {
+        myDOM.hideEditField();
+        let wrong=document.getElementById("edit-wrong");
+        wrong.style.display="none";
+        currentID=null;
     }
 
     function clickOnConfirmAdd() {
         let img=document.getElementById("drag-image");
         let description=document.getElementById("add-description").value;
         let hashtags=document.getElementById("add-hashtags").value;
-        if (validateAddInput(img, description, hashtags)) {
+        if (validateAddInput(img, description, hashtags)&& currentID!==null) {
             let hashtagsSet=new Set();
             let pattern=/#\w+/g;
             let temp;
@@ -156,7 +193,45 @@ const listeners=(function () {
             wrong.style.display='block';
         }
     }
-    
+
+    function clickOnConfirmEdit() {
+        let description=document.getElementById("description-edit").value;
+        let hashtags=document.getElementById("hashtags-edit").value;
+        if (validateEditInput(description, hashtags)) {
+            let hashtagsSet=new Set();
+            let pattern=/#\w+/g;
+            let temp;
+            do {
+                temp=pattern.exec(hashtags);
+                if (temp) {
+                    hashtagsSet.add(temp[0]);
+                }
+            } while(temp);
+            let post={};
+            post.hashtags=hashtagsSet;
+            post.description=description;
+            MyPortal.editPhotoPost(myDOM.parsePostId(currentID),post);
+            let tempString="#"+currentID+"hashtags";
+            let element=document.querySelector(tempString);
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            hashtagsSet.forEach(function (hashtag) {
+                let tag=document.createElement('p');
+                tag.className='hashtag';
+                tag.innerHTML=hashtag;
+                element.appendChild(tag);
+            });
+            tempString="#"+currentID+"description";
+            let descriptionArea=document.querySelector(tempString);
+            descriptionArea.firstChild.innerHTML=description;
+            clickOnCloseEdit();
+        } else {
+            let wrong=document.getElementById("edit-wrong");
+            wrong.style.display="block";
+        }
+    }
+
     return {
 
         addOpenAdd: function () {
@@ -184,12 +259,12 @@ const listeners=(function () {
         },
 
         addOpenEdit: function (node) {
-            node.addEventListener('click', myDOM.createEditField);
+            node.addEventListener('click', clickOnOpenEdit);
         },
 
         addCloseEdit: function() {
             let close=document.querySelector('#close-edit');
-            close.addEventListener('click', myDOM.hideEditField);
+            close.addEventListener('click', clickOnCloseEdit);
             let area=document.querySelector("#edit-block");
             area.addEventListener('click', clickOnAreaEdit);
         },
@@ -212,7 +287,7 @@ const listeners=(function () {
             node.addEventListener("click", clickOnLike);
         },
 
-        addTextAreasListeners: function () {
+        addFormsListeners: function () {
             let addDescription=document.querySelector("#add-description");
             addDescription.addEventListener('focus', focusOnAddDescription);
             addDescription.addEventListener('blur', blurOnAddDescription);
@@ -223,6 +298,8 @@ const listeners=(function () {
             imageInput.addEventListener('change', changeOnInputImage);
             let confirmAdd=document.getElementById('send-button');
             confirmAdd.addEventListener('click', clickOnConfirmAdd);
+            let confirmEdit=document.getElementById("send-button-edit");
+            confirmEdit.addEventListener('click', clickOnConfirmEdit);
         },
 
         validateString: function (string) {
