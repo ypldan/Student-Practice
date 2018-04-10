@@ -2,7 +2,7 @@
 const myDOM=(function () {
     let user='Albert Einstein';
     let currentPosts=[];
-    let currentFilter;
+    let currentFilter={};
     let postsPageLoaded=false;
     let users=new Set(['Albert Einstein',
         'Alexey Navalny',
@@ -157,7 +157,7 @@ const myDOM=(function () {
         return userPanel;
     }
 
-    function dateToString(date) {
+    function dateTimeToString(date) {
         let result='';
         let hours=date.getHours();
         if (hours<10) {
@@ -187,10 +187,28 @@ const myDOM=(function () {
         return result;
     }
 
+    function dateToString(date) {
+        let result="";
+        result+=date.getFullYear();
+        result+="-";
+        let month=date.getMonth()+1;
+        if (month<10) {
+            month='0'+month;
+        }
+        result+=month;
+        result+="-";
+        let day=date.getDate();
+        if (day<10) {
+            day='0'+day;
+        }
+        result+=day;
+        return result;
+    }
+
     function createTimeArea(post) {
         let timeArea=document.createElement('div');
         timeArea.className='time-area post-element';
-        timeArea.innerHTML=dateToString(post.createdAt);
+        timeArea.innerHTML=dateTimeToString(post.createdAt);
         return timeArea;
     }
 
@@ -209,50 +227,17 @@ const myDOM=(function () {
         return Number.parseInt(result);
     }
 
-    function createAuthorsPanel() {
-        let result=document.createElement('div');
-        result.className='input-panel';
-        let byName=document.createElement('p');
-        byName.innerHTML='by name:';
-        result.appendChild(byName);
-        let select=document.createElement('select');
-        select.title='name-input';
-        select.id='authors';
-        let defaultOption=document.createElement('option');
-        defaultOption.innerHTML='--- not chosen ---';
-        select.appendChild(defaultOption);
-        MyPortal.getAuthorsSet().forEach(function (author) {
-            let option=document.createElement('option');
-            option.innerHTML=author;
-            select.appendChild(option);
+    function loadAuthorsList() {
+        let authors=document.getElementById("filter-author");
+        while (authors.firstChild) {
+            authors.removeChild(authors.firstChild);
+        }
+        let defaultOption=new Option("---not chosen---", "-1", true, true);
+        authors.appendChild(defaultOption);
+        users.forEach(function (author) {
+            let option=new Option(author, author);
+            authors.appendChild(option);
         });
-        result.appendChild(select);
-        return result;
-    }
-
-    function createDatePanel() {
-        let result=document.createElement('div');
-        result.className='input-panel';
-        let byDate=document.createElement('p');
-        byDate.innerHTML='by date:';
-        result.appendChild(byDate);
-        let date=document.createElement('input');
-        date.type='date';
-        date.title='date-input';
-        result.appendChild(date);
-        return result;
-    }
-
-    function createHashtagsPanel() {
-        let result=document.createElement('div');
-        result.className='input-panel';
-        let byHashtags=document.createElement('p');
-        byHashtags.innerHTML='by hashtags:';
-        result.appendChild(byHashtags);
-        let input=document.createElement('input');
-        input.title='hashtag-input';
-        result.appendChild(input);
-        return result;
     }
 
     function createPostsStructure() {
@@ -399,18 +384,7 @@ const myDOM=(function () {
             return true;
         },
 
-        loadAuthors: function () {
-            let select=document.getElementById('authors');
-            while (select.firstChild) {
-                select.removeChild(select.firstChild);
-            }
-            MyPortal.getAuthorsSet().forEach(function (author) {
-                let option=document.createElement('option');
-                option.innerHTML=author;
-                select.appendChild(option);
-            });
-            return true;
-        },
+        loadAuthors: loadAuthorsList,
 
         editPhotoPost: function (id, post) {
             if (MyPortal.isPartiallyValid(post)) {
@@ -421,28 +395,6 @@ const myDOM=(function () {
             } else {
                 return false;
             }
-        },
-
-        createFilter: function () {
-            let filter=document.createElement('div');
-            filter.id='filter';
-            let filterHeader=document.createElement('div');
-            filterHeader.className='filter-header';
-            filterHeader.innerHTML='Filter';
-            filter.appendChild(filterHeader);
-            let filterContent=document.createElement('div');
-            filterContent.className='filter-content';
-            let first=createAuthorsPanel();
-            let second=createDatePanel();
-            let third=createHashtagsPanel();
-            filterContent.appendChild(first);
-            filterContent.appendChild(second);
-            filterContent.appendChild(third);
-            filter.appendChild(filterContent);
-            let posts=document.querySelector('article');
-            let main=document.querySelector('main');
-            main.insertBefore(filter,posts);
-            return true;
         },
 
         createAddField: function () {
@@ -497,8 +449,26 @@ const myDOM=(function () {
             }
         },
 
-        getFilter: function () {
+        setFilterAuthor: function(author) {
+            currentFilter.author=author;
+        },
+
+        setFilterDate: function(date) {
+            currentFilter.date=date;
+        },
+
+        setFilterHashtags: function(hashtags) {
+            currentFilter.hashtags=hashtags;
+        },
+
+        getFilter: function() {
             return currentFilter;
+        },
+
+        clearFiter: function() {
+            currentFilter.author=null;
+            currentFilter.hashtags=null;
+            currentFilter.date=null;
         },
 
         getNumberPostsLoaded: function () {
@@ -509,21 +479,16 @@ const myDOM=(function () {
             return parsePostId(string);
         },
 
-        addFormsListeners: function () {
+        addFormsAndFilterListeners: function () {
             listeners.addCloseEdit();
             listeners.addFormsListeners();
+            listeners.addFilterListeners();
         },
 
         getUsers: function () {
             return users;
         },
 
-        hideLikes: hideLikes,
-
-        showLikes: showLikes,
-
-        hideInstruments: hideInstruments,
-
-        showInstruments: showInstruments
+        dateToString: dateToString
     }
 })();
