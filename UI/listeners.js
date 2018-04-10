@@ -11,6 +11,19 @@ const listeners=(function () {
         return template.test(string);
     }
 
+    function getHashtagsSet(hashtags) {
+        let hashtagsSet=new Set();
+        let pattern=/#\w+/g;
+        let temp;
+        do {
+            temp=pattern.exec(hashtags);
+            if (temp) {
+                hashtagsSet.add(temp[0]);
+            }
+        } while(temp);
+        return hashtagsSet;
+    }
+
     function validateAddInput(img, description, hashtags) {
         return (hashtags==="" || validateHashtagsString(hashtags))
             && img.src!==defaultAddImage
@@ -49,8 +62,12 @@ const listeners=(function () {
     }
 
     function clickOnLogOut() {
+        setDefaultFilter();
+        myDOM.clearFiter();
         myDOM.setUser();
         myDOM.setUserConfiguration();
+        myDOM.clearPosts();
+        myDOM.loadPosts(0,10);
     }
 
     function clickOnOpenMore() {
@@ -183,20 +200,15 @@ const listeners=(function () {
         let description=document.getElementById("add-description").value;
         let hashtags=document.getElementById("add-hashtags").value;
         if (validateAddInput(img, description, hashtags)) {
-            let hashtagsSet=new Set();
-            let pattern=/#\w+/g;
-            let temp;
-            do {
-                temp=pattern.exec(hashtags);
-                if (temp) {
-                    hashtagsSet.add(temp[0]);
-                }
-            } while(temp);
+            let hashtagsSet=getHashtagsSet(hashtags);
             let post={};
             post.hashtags=hashtagsSet;
             post.description=description;
             post.photoLink=img.src;
             myDOM.createPost(post);
+            let authors=document.getElementById("filter-author");
+            authors.value=null;
+
             clickOnCloseAdd();
         } else {
             let wrong=document.getElementById("add-wrong");
@@ -254,12 +266,75 @@ const listeners=(function () {
         }
     }
 
+    function changedFilterAuthors(event) {
+        let target=event.srcElement;
+        if (target.value!="-1") {
+            myDOM.setFilterAuthor(target.value);
+            myDOM.clearPosts();
+            myDOM.loadPosts(0, 10, myDOM.getFilter());
+        } else {
+            myDOM.setFilterAuthor(null);
+            myDOM.clearPosts();
+            myDOM.loadPosts(0,10,myDOM.getFilter());
+        }
+    }
+
+    function changedFilterDate(event) {
+        let target=event.srcElement;
+        if (target.value!=null&&target.value!=="") {
+            myDOM.setFilterDate(target.value);
+            myDOM.clearPosts();
+            myDOM.loadPosts(0, 10, myDOM.getFilter());
+        } else {
+            myDOM.setFilterDate(null);
+            myDOM.clearPosts();
+            myDOM.loadPosts(0,10, myDOM.getFilter());
+        }
+
+    }
+
+    function changedFilterHashtags(event) {
+        let target=event.srcElement;
+        if (target.value!=null&&target.value!==""&&validateHashtagsString(target.value)) {
+            let hashtagsSet=getHashtagsSet(target.value);
+            myDOM.setFilterHashtags(hashtagsSet);
+            myDOM.clearPosts();
+            myDOM.loadPosts(0, 10, myDOM.getFilter());
+        } else {
+            myDOM.setFilterHashtags(null);
+            myDOM.clearPosts();
+            myDOM.loadPosts(0,10, myDOM.getFilter());
+        }
+    }
+
+    function setDefaultDateFilter() {
+        let target=document.getElementById("filter-date");
+        target.value="";
+    }
+
+    function setDefaultHashtagsFilter() {
+        let target=document.getElementById("filter-hashtags");
+        target.value="";
+    }
+
+    function setDefaultAuthorFilter() {
+        let target=document.getElementById("filter-author");
+        target.value="-1";
+    }
+
+    function setDefaultFilter() {
+        setDefaultAuthorFilter();
+        setDefaultDateFilter();
+        setDefaultHashtagsFilter();
+    }
+
     return {
 
         addOpenAdd: function () {
             let close=document.querySelector('#menu-add-photo');
             close.addEventListener("click", clickOnOpenAdd);
         },
+
 
         addCloseAdd: function () {
             let close=document.querySelector('#close-add');
@@ -324,6 +399,15 @@ const listeners=(function () {
             confirmEdit.addEventListener('click', clickOnConfirmEdit);
             let confirm=document.getElementById("log-in-button");
             confirm.addEventListener('click', clickOnConfirmLogIn);
+        },
+
+        addFilterListeners: function () {
+            let author=document.getElementById("filter-author");
+            author.addEventListener("change", changedFilterAuthors);
+            let date=document.getElementById("filter-date");
+            date.addEventListener("change", changedFilterDate);
+            let hashtags=document.getElementById("filter-hashtags");
+            hashtags.addEventListener("change", changedFilterHashtags);
         }
     }
 })();
