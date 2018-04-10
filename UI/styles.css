@@ -190,8 +190,9 @@ figure {
 }
 
 figure img {
-    height: 250px;
     width: 250px;
+    height: 250px;
+    vertical-align: center;
     border: 1px solid black;
     border-radius: 5px;
     margin: 5px 5px;
