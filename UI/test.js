@@ -41,7 +41,7 @@ test=function() {
     console.log(MyPortal.removePhotoPost('25'));
     console.log("Testing function \'getPhotoPost(skip,top,filter)\'");
     console.log(MyPortal.getPhotoPosts('0', '10', {}));
-    console.log(MyPortal.getPhotoPosts('0', '10', {author: 'Albert Einstein'}));
+    console.log(MyPortal.getPhotoPosts('0', '10', {date: "2018-03-17"}));
     console.log(MyPortal.getPhotoPosts('10', '7'));
     console.log("Testing function \'editPhotoPost(skip,top,filter)\'");
     console.log(MyPortal.getPhotoPost('5'));
