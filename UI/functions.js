@@ -7,7 +7,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-03-17T14:37:57'),
             author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#hello'],
+            hashtags: new Set(['#evening', '#hello']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'unknown author'])
         },
         {
@@ -16,7 +16,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-03-28T02:18:41'),
             author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#goodbye', '#hello', '#morning'],
+            hashtags: new Set(['#afternoon', '#goodbye', '#hello', '#morning']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
@@ -25,7 +25,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-01-19T05:48:02'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#hello', '#morning'],
+            hashtags: new Set(['#evening', '#hello', '#morning']),
             likes: new Set(['Albert Einstein', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -34,7 +34,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-01-02T02:02:28'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
+            hashtags: new Set(['#afternoon', '#evening', '#goodbye', '#hello', '#morning']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
@@ -43,7 +43,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-01-27T12:57:52'),
             author: 'Albert Einstein',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#hello'],
+            hashtags: new Set(['#afternoon', '#evening', '#hello']),
             likes: new Set(['Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
@@ -52,7 +52,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-01-11T10:39:24'),
             author: 'Mickie Mouse',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#hello'],
+            hashtags: new Set(['#afternoon', '#evening', '#hello']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -61,7 +61,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-03-19T09:35:38'),
             author: 'Hleb Salaujou',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#goodbye', '#morning'],
+            hashtags: new Set(['#afternoon', '#goodbye', '#morning']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'unknown author'])
         },
         {
@@ -70,7 +70,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-02-23T17:20:25'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello'],
+            hashtags: new Set(['#afternoon', '#evening', '#goodbye', '#hello']),
             likes: new Set(['Albert Einstein', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -79,7 +79,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-02-15T01:52:12'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#hello', '#morning'],
+            hashtags: new Set(['#evening', '#hello', '#morning']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Mickie Mouse'])
         },
         {
@@ -88,7 +88,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-02-19T00:14:34'),
             author: 'Mickie Mouse',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#goodbye', '#hello', '#morning'],
+            hashtags: new Set(['#afternoon', '#goodbye', '#hello', '#morning']),
             likes: new Set(['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -97,7 +97,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-03-20T22:23:21'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#goodbye', '#hello', '#morning'],
+            hashtags: new Set(['#evening', '#goodbye', '#hello', '#morning']),
             likes: new Set(['Albert Einstein', 'Donald Trump', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -106,7 +106,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-03-12T14:30:29'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
+            hashtags: new Set(['#afternoon', '#evening', '#goodbye', '#hello', '#morning']),
             likes: new Set(['Albert Einstein', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
@@ -115,7 +115,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-01-03T07:08:55'),
             author: 'Mickie Mouse',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#hello'],
+            hashtags: new Set(['#afternoon', '#evening', '#hello']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
@@ -124,7 +124,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-02-27T08:45:18'),
             author: 'Alexey Navalny',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
+            hashtags: new Set(['#afternoon', '#evening', '#goodbye', '#morning']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse'])
         },
         {
@@ -133,7 +133,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-03-05T18:15:52'),
             author: 'Donald Trump',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#evening', '#goodbye', '#hello'],
+            hashtags: new Set(['#evening', '#goodbye', '#hello']),
             likes: new Set(['Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -142,7 +142,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-01-27T21:17:28'),
             author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#hello', '#morning'],
+            hashtags: new Set(['#afternoon', '#evening', '#goodbye', '#hello', '#morning']),
             likes: new Set(['Alexey Navalny', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -151,7 +151,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-02-15T06:14:22'),
             author: 'Mickie Mouse',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
+            hashtags: new Set(['#afternoon', '#evening', '#goodbye', '#morning']),
             likes: new Set(['Albert Einstein', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -160,7 +160,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-02-08T03:29:44'),
             author: 'Albert Einstein',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#goodbye', '#morning'],
+            hashtags: new Set(['#afternoon', '#goodbye', '#morning']),
             likes: new Set(['Alexey Navalny', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -169,7 +169,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-02-14T10:07:44'),
             author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
+            hashtags: new Set(['#afternoon', '#evening', '#goodbye', '#morning']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Mickie Mouse', 'unknown author'])
         },
         {
@@ -178,7 +178,7 @@ const MyPortal = (function () {
             createdAt: new Date('2018-02-05T15:08:45'),
             author: 'unknown author',
             photoLink: 'images/sample.jpg',
-            hashtags: ['#afternoon', '#evening', '#goodbye', '#morning'],
+            hashtags: new Set(['#afternoon', '#evening', '#goodbye', '#morning']),
             likes: new Set(['Albert Einstein', 'Alexey Navalny', 'Donald Trump', 'Hleb Salaujou', 'Mickie Mouse', 'unknown author'])
         }
     ];
@@ -212,7 +212,49 @@ const MyPortal = (function () {
     }
 
     function isFilter(filterConfig) {
-        return filterConfig.author !== undefined || filterConfig.date !== undefined || filterConfig.hashtags !== undefined;
+        return filterConfig.author !== undefined ||
+            filterConfig.date !== undefined ||
+            filterConfig.hashtags !== undefined;
+    }
+
+    function getPosts(pArray, parameter) {
+        if (!isUndefined(pArray)) {
+            let array = [];
+            if (typeof parameter === 'string') {
+                array = [];
+                for (let i = 0; i < pArray.length; i++) {
+                    if (pArray[i].author === parameter) {
+                        array.push(pArray[i]);
+                    }
+                }
+            } else if (parameter instanceof Set) {
+
+                for (let i = 0; i < pArray.length; i++) {
+                    let result = 0;
+                    parameter.forEach(function (x) {
+                        if (!pArray[i].hashtags.has(x)) {
+                            result++;
+                        }
+                    });
+                    if (result==0) {
+                        array.push(pArray[i]);
+                    }
+                }
+            }
+            return array;
+        } else {
+            return [];
+        }
+    }
+
+    function getPostsByDate(pArray, dateString) {
+        let array = [];
+        for (let i = 0; i < pArray.length; i++) {
+            if (dateString === myDOM.dateToString(pArray[i].createdAt)) {
+                array.push(pArray[i]);
+            }
+        }
+        return array;
     }
 
     return {
@@ -229,14 +271,14 @@ const MyPortal = (function () {
             if (isUndefined(filterConfig)) {
                 array = array.slice(skip, skip + top);
             } else {
-                if (!isUndefined(filterConfig.author)) {
-                    array = this.getPosts(array, filterConfig.author);
+                if (!isUndefined(filterConfig.author)&&filterConfig.author!==null) {
+                    array = getPosts(array, filterConfig.author);
                 }
-                if (!isUndefined(filterConfig.date)) {
-                    array = this.getPosts(array, filterConfig.date);
+                if (!isUndefined(filterConfig.date)&&filterConfig.date!==null) {
+                    array = getPostsByDate(array, filterConfig.date);
                 }
-                if (!isUndefined(filterConfig.hashtags)) {
-                    array = this.getPosts(array, filterConfig.hashtags);
+                if (!isUndefined(filterConfig.hashtags)&&filterConfig.hashtags!==null) {
+                    array = getPosts(array, filterConfig.hashtags);
                 }
                 array = array.slice(skip, skip + top);
             }
@@ -289,42 +331,6 @@ const MyPortal = (function () {
                 return photoPost;
             } else {
                 return null;
-            }
-        },
-
-        getPosts: function (pArray, parameter) {
-            if (!isUndefined(pArray)) {
-                let array = [];
-                if (typeof parameter === 'string') {
-                    array = [];
-                    for (let i = 0; i < pArray.length; i++) {
-                        if (pArray[i].author === parameter) {
-                            array.push(pArray[i]);
-                        }
-                    }
-                } else if (parameter instanceof Date) {
-                    for (let i = 0; i < pArray.length; i++) {
-                        if (pArray[i].createdAt.toDateString() === parameter.toDateString()) {
-                            array.push(pArray[i]);
-                        }
-                    }
-                } else if (parameter instanceof Array) {
-                    for (let i = 0; i < pArray.length; i++) {
-                        let result = true;
-                        for (let j = 0; j < parameter.length; j++) {
-                            if (!findString(pArray[i].hashtags, parameter[j])) {
-                                result = false;
-                                break;
-                            }
-                        }
-                        if (result) {
-                            array.push(pArray[i]);
-                        }
-                    }
-                }
-                return array;
-            } else {
-                return [];
             }
         },
 
