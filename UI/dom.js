@@ -3,7 +3,6 @@ const myDOM=(function () {
     let user='Albert Einstein';
     let currentPosts=[];
     let currentFilter={};
-    let postsPageLoaded=false;
     let users=new Set(['Albert Einstein',
         'Alexey Navalny',
         'Mickie Mouse',
@@ -240,17 +239,6 @@ const myDOM=(function () {
         });
     }
 
-    function createPostsStructure() {
-        let posts=document.querySelector('article');
-        while (posts.firstChild) {
-            posts.removeChild(posts.firstChild);
-        }
-        posts.innerHTML='<div id="posts-array"></div>\n' +
-            '        <div id="open-more">Open more...</div>';
-        listeners.addOpenMore();
-        return true;
-    }
-
     function clearHeader() {
         let header=document.getElementById("right-header");
         while (header.firstChild) {
@@ -323,6 +311,7 @@ const myDOM=(function () {
 
         setUserConfiguration: function () {
             clearHeader();
+            myLocalStorage.writeUser();
             if (isUserIn()) {
                 createUserHeader();
                 showLikes();
@@ -336,9 +325,6 @@ const myDOM=(function () {
         },
 
         loadPosts: function (skip, top, filter) {
-            if (!postsPageLoaded) {
-                createPostsStructure();
-            }
             let postsArray=document.getElementById('posts-array');
             let isIn=isUserIn();
             let processingPosts=MyPortal.getPhotoPosts(skip, top, filter);
@@ -346,7 +332,8 @@ const myDOM=(function () {
                 postsArray.appendChild(createPhotoPost(post, isIn));
                 currentPosts.push(post);
             });
-            postsPageLoaded=true;
+            myLocalStorage.writeCurrentPosts();
+
             return true;
         },
 
@@ -359,6 +346,7 @@ const myDOM=(function () {
                 MyPortal.addPhotoPost(post);
                 this.clearPosts();
                 this.loadPosts(0,10);
+                myLocalStorage.writeAllPosts();
                 return true;
             } else {
                 return false;
@@ -379,6 +367,7 @@ const myDOM=(function () {
             let figure=document.getElementById(string);
             let parent=document.getElementById("posts-array");
             parent.removeChild(figure);
+            myLocalStorage.writeAllPosts();
             //this.clearPosts();
             //this.loadPosts(0,10,currentFilter);
             return true;
@@ -391,6 +380,7 @@ const myDOM=(function () {
                 MyPortal.editPhotoPost(id,post);
                 this.clearPosts();
                 this.loadPosts(0,10,currentFilter);
+                myLocalStorage.writeAllPosts();
                 return true;
             } else {
                 return false;
@@ -429,7 +419,6 @@ const myDOM=(function () {
 
         firstPostsLoad: function () {
             this.loadPosts('0', '10');
-            postsPageLoaded=true;
             return true;
         },
 
@@ -451,24 +440,48 @@ const myDOM=(function () {
 
         setFilterAuthor: function(author) {
             currentFilter.author=author;
+            myLocalStorage.writeFilter();
         },
 
         setFilterDate: function(date) {
             currentFilter.date=date;
+            myLocalStorage.writeFilter();
         },
 
         setFilterHashtags: function(hashtags) {
             currentFilter.hashtags=hashtags;
+            myLocalStorage.writeFilter();
+        },
+
+        setFilterFromLocalStorage: function(newFilter) {
+            currentFilter=newFilter;
+            if (currentFilter.author) {
+                let authors=document.getElementById("filter-author");
+                authors.value=currentFilter.author;
+            }
+            if (currentFilter.date) {
+                let date=document.getElementById("filter-date");
+                date.value=currentFilter.date;
+            }
+            if (currentFilter.hashtags) {
+                let hashtags=document.getElementById("filter-hashtags");
+                let string="";
+                currentFilter.hashtags.forEach(function (tag) {
+                    string+=tag+" ";
+                });
+                hashtags.value=string;
+            }
         },
 
         getFilter: function() {
             return currentFilter;
         },
 
-        clearFiter: function() {
+        clearFilter: function() {
             currentFilter.author=null;
             currentFilter.hashtags=null;
             currentFilter.date=null;
+            myLocalStorage.writeFilter();
         },
 
         getNumberPostsLoaded: function () {
@@ -489,6 +502,24 @@ const myDOM=(function () {
             return users;
         },
 
-        dateToString: dateToString
+        dateToString: dateToString,
+
+        getCurrentPosts: function () {
+            return currentPosts;
+        },
+
+        setAndShowCurrentPosts: function (posts) {
+            currentPosts=posts;
+            let postsArray=document.getElementById('posts-array');
+            let isIn=isUserIn();
+            for (let i = 0; i < currentPosts.length; i++) {
+                let post=currentPosts[i];
+                let div=createPhotoPost(post, isIn);
+                postsArray.appendChild(div);
+            }
+            /*currentPosts.forEach(function (post) {
+                postsArray.appendChild(createPhotoPost(post, isIn));
+            });*/
+        }
     }
 })();
