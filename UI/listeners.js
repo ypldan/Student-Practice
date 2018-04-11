@@ -63,7 +63,7 @@ const listeners=(function () {
 
     function clickOnLogOut() {
         setDefaultFilter();
-        myDOM.clearFiter();
+        myDOM.clearFilter();
         myDOM.setUser();
         myDOM.setUserConfiguration();
         myDOM.clearPosts();
@@ -207,8 +207,7 @@ const listeners=(function () {
             post.photoLink=img.src;
             myDOM.createPost(post);
             let authors=document.getElementById("filter-author");
-            authors.value=null;
-
+            authors.value="-1";
             clickOnCloseAdd();
         } else {
             let wrong=document.getElementById("add-wrong");
@@ -334,7 +333,6 @@ const listeners=(function () {
             let close=document.querySelector('#menu-add-photo');
             close.addEventListener("click", clickOnOpenAdd);
         },
-
 
         addCloseAdd: function () {
             let close=document.querySelector('#close-add');
