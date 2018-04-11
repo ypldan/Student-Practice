@@ -396,6 +396,14 @@ const MyPortal = (function () {
                 set.add(post.author);
             });
             return set;
+        },
+
+        getAllPosts: function () {
+            return photoPosts;
+        },
+
+        setAllPosts: function (posts) {
+            photoPosts=posts;
         }
     }
 })();
