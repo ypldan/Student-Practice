@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Portal</title>
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Amaranth">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Amarante">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Abel">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/dom.js"></script>
+    <script src="js/localStorage.js"></script>
+    <script src="js/listeners.js"></script>
+    <script src="js/functions.js"></script>
+    <script id="first-load" src="js/loadDOM.js"></script>
+</head>
+<body>
+<header>
+    <nav id="left-header">
+        <h1>Photo Portal</h1>
+    </nav>
+    <nav id="right-header"></nav>
+</header>
+<main>
+    <div id="filter">
+        <div class="filter-header">
+            Filter
+        </div>
+        <div class="filter-content">
+            <div class="input-panel">
+                <p>by name:</p>
+                <select title="name-input" id="filter-author">
+                </select>
+            </div>
+            <div class="input-panel">
+                <p>by date:</p>
+                <input type="date" title="date-input" id="filter-date">
+            </div>
+            <div class="input-panel">
+                <p>by hashtags:</p>
+                <input title="hashtag-input" type="text" id="filter-hashtags">
+            </div>
+        </div>
+    </div>
+    <article>
+        <div id="posts-array"></div>
+        <div id="open-more">Open more...</div>
+    </article>
+    <div class="dialog" id="add-photo-block">
+        <form id="add-photo">
+            <p>Adding new photo</p>
+            <img id="drag-image"
+                 src="images/dragzone.png"
+                 draggable="false">
+            <input id="choose-file"
+                   type="file"
+                   title="file"
+                   accept=".png, .jpg, .jpeg">
+            <textarea id="add-description"
+                      title="description"
+                      maxlength="200"></textarea>
+            <textarea id="add-hashtags"
+                      title="hashtags"></textarea>
+            <p id="add-wrong" class="wrong-input">Wrong input!</p>
+            <input id='send-button'
+                   title="send"
+                   type="button"
+                   value="Publish">
+            <div class="fa fa-close" id="close-add" style="font-size: 30px;"></div>
+        </form>
+    </div>
+    <div class="dialog" id="log-in-block">
+        <form id="log-in">
+            <p>Log in</p>
+            <div class="fa fa-close"
+                 id="close-log-in"
+                 style="font-size: 30px;"></div>
+            <div class="log-in-input">
+                <p>login:</p>
+                <input id="log-in-input"
+                       type="text"
+                       title="login">
+            </div>
+            <div class="log-in-input">
+                <p>password:</p>
+                <input id="password-input"
+                       type="password"
+                       title="password">
+            </div>
+            <p id="log-in-wrong" class="wrong-input">Wrong input!</p>
+            <input id="log-in-button"
+                   type="button"
+                   title="confirm"
+                   value="log in">
+        </form>
+    </div>
+    <div class="dialog" id="edit-block">
+        <form id="edit">
+            <p>Edit photo-post</p>
+            <div class="fa fa-close"
+                 id="close-edit"
+                 style="font-size: 30px;"></div>
+            <img id="image-edit"
+                 src="images/sample.jpg"
+                 draggable="false">
+            <textarea id="description-edit"
+                      title="description-edit"
+                      maxlength="200"></textarea>
+            <textarea id="hashtags-edit"
+                      title="hashtags-edit">Add hashtags!</textarea>
+            <p id="edit-wrong" class="wrong-input">Wrong input!</p>
+            <input id='send-button-edit'
+                   title="send"
+                   type="button"
+                   value="Publish">
+        </form>
+    </div>
+</main>
+<footer>
+    <div class="footer-elements">2nd group<br>2nd course</div>
+    <address class="footer-elements"><h1>Photo Portal</h1>author: Daniil Yarmalkevich<br>contact e-mail:
+        ydpl@outlook.com
+    </address>
+    <div class="footer-elements">last changed:<br>hh:mm<br>dd.mm.yyyy</div>
+</footer>
+</body>
+</html>
