@@ -397,6 +397,10 @@ const listeners=(function () {
             confirmEdit.addEventListener('click', clickOnConfirmEdit);
             let confirm=document.getElementById("log-in-button");
             confirm.addEventListener('click', clickOnConfirmLogIn);
+            let addMore=document.getElementById("open-more");
+            addMore.addEventListener("click",clickOnOpenMore);
+            let closeLogIn=document.getElementById("close-log-in");
+            closeLogIn.addEventListener('click', clickOnCloseLogIn);
         },
 
         addFilterListeners: function () {

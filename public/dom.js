@@ -12,7 +12,7 @@ const myDOM=(function () {
         'unknown author']);
 
     function isUserIn() {
-        return user!==null;
+        return user!==null && user!=="" && user;
     }
 
     function createAdd() {
