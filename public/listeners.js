@@ -91,6 +91,8 @@ const listeners=(function () {
             post.likes.add(myDOM.getUser());
             target.className="fa fa-heart";
         }
+        myLocalStorage.writeAllPosts();
+        myLocalStorage.writeCurrentPosts();
     }
 
     function clickOnAreaEdit(event) {
@@ -267,7 +269,7 @@ const listeners=(function () {
 
     function changedFilterAuthors(event) {
         let target=event.srcElement;
-        if (target.value!="-1") {
+        if (target.value!=="-1") {
             myDOM.setFilterAuthor(target.value);
             myDOM.clearPosts();
             myDOM.loadPosts(0, 10, myDOM.getFilter());
