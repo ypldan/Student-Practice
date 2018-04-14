@@ -4,7 +4,7 @@
     "author": "Albert Einstein",
     "description": "PhotoPost0",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-05T06:06:16.000Z\"",
+    "createdAt": "2018-03-05T09:06:16",
     "likes": [
       "Albert Einstein",
       "Alexey Navalny",
@@ -24,7 +24,7 @@
     "author": "Donald Trump",
     "description": "PhotoPost1",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-10T07:51:41.000Z\"",
+    "createdAt": "2018-03-10T10:51:41",
     "likes": [
       "Albert Einstein",
       "Alexey Navalny",
@@ -44,7 +44,7 @@
     "author": "Albert Einstein",
     "description": "PhotoPost2",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-01-23T01:34:23.000Z\"",
+    "createdAt": "2018-01-23T04:34:23",
     "likes": [
       "Albert Einstein",
       "Alexey Navalny",
@@ -63,7 +63,7 @@
     "author": "Alexey Navalny",
     "description": "PhotoPost3",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-02-13T14:40:06.000Z\"",
+    "createdAt": "2018-02-13T17:40:06",
     "likes": [
       "Hleb Salaujou",
       "Mickie Mouse",
@@ -82,7 +82,7 @@
     "author": "unknown author",
     "description": "PhotoPost4",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-01-27T00:21:18.000Z\"",
+    "createdAt": "2018-01-27T03:21:18",
     "likes": [
       "Albert Einstein",
       "Alexey Navalny",
@@ -102,7 +102,7 @@
     "author": "Albert Einstein",
     "description": "PhotoPost5",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-02-21T04:37:36.000Z\"",
+    "createdAt": "2018-02-21T07:37:36",
     "likes": [
       "Albert Einstein",
       "Alexey Navalny",
@@ -121,7 +121,7 @@
     "author": "Hleb Salaujou",
     "description": "PhotoPost6",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-02-14T13:10:48.000Z\"",
+    "createdAt": "2018-02-14T16:10:48",
     "likes": [
       "Donald Trump",
       "Mickie Mouse",
@@ -139,7 +139,7 @@
     "author": "Donald Trump",
     "description": "PhotoPost7",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-09T13:53:57.000Z\"",
+    "createdAt": "2018-03-09T16:53:57",
     "likes": [
       "Alexey Navalny",
       "Donald Trump",
@@ -157,7 +157,7 @@
     "author": "unknown author",
     "description": "PhotoPost8",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-02-09T02:05:14.000Z\"",
+    "createdAt": "2018-02-09T05:05:14",
     "likes": [
       "Albert Einstein",
       "Alexey Navalny",
@@ -175,7 +175,7 @@
     "author": "Donald Trump",
     "description": "PhotoPost9",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-02-21T19:25:51.000Z\"",
+    "createdAt": "2018-02-21T22:25:51",
     "likes": [
       "Albert Einstein",
       "Alexey Navalny",
@@ -197,7 +197,7 @@
     "author": "Mickie Mouse",
     "description": "PhotoPost10",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-02-08T21:35:18.000Z\"",
+    "createdAt": "2018-02-09T00:35:18",
     "likes": [
       "Albert Einstein",
       "Donald Trump",
@@ -216,7 +216,7 @@
     "author": "unknown author",
     "description": "PhotoPost11",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-01-19T03:31:22.000Z\"",
+    "createdAt": "2018-01-19T06:31:22",
     "likes": [
       "Alexey Navalny",
       "Hleb Salaujou",
@@ -235,7 +235,7 @@
     "author": "Mickie Mouse",
     "description": "PhotoPost12",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-13T10:43:27.000Z\"",
+    "createdAt": "2018-03-13T13:43:27",
     "likes": [
       "Albert Einstein",
       "Donald Trump",
@@ -254,7 +254,7 @@
     "author": "Alexey Navalny",
     "description": "PhotoPost13",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-12T04:41:13.000Z\"",
+    "createdAt": "2018-03-12T07:41:13",
     "likes": [
       "Alexey Navalny",
       "Donald Trump",
@@ -274,7 +274,7 @@
     "author": "Albert Einstein",
     "description": "PhotoPost14",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-28T11:57:41.000Z\"",
+    "createdAt": "2018-03-28T14:57:41",
     "likes": [
       "Donald Trump",
       "Hleb Salaujou",
@@ -293,7 +293,7 @@
     "author": "Donald Trump",
     "description": "PhotoPost15",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-02-16T23:20:17.000Z\"",
+    "createdAt": "2018-02-17T02:20:17",
     "likes": [
       "Albert Einstein",
       "Alexey Navalny",
@@ -314,7 +314,7 @@
     "author": "Albert Einstein",
     "description": "PhotoPost16",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-17T01:19:48.000Z\"",
+    "createdAt": "2018-03-17T04:19:48",
     "likes": [
       "Albert Einstein",
       "Donald Trump",
@@ -335,7 +335,7 @@
     "author": "unknown author",
     "description": "PhotoPost17",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-24T12:45:03.000Z\"",
+    "createdAt": "2018-03-24T15:45:03",
     "likes": [
       "Alexey Navalny",
       "Donald Trump",
@@ -354,7 +354,7 @@
     "author": "unknown author",
     "description": "PhotoPost18",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-03-11T05:13:20.000Z\"",
+    "createdAt": "2018-03-11T08:13:20",
     "likes": [
       "Albert Einstein",
       "Donald Trump",
@@ -372,7 +372,7 @@
     "author": "Donald Trump",
     "description": "PhotoPost19",
     "photoLink": "images/sample.jpg",
-    "createdAt": "\"2018-01-11T04:34:10.000Z\"",
+    "createdAt": "2018-01-11T07:34:10",
     "likes": [
       "Alexey Navalny",
       "Donald Trump",
