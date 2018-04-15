@@ -1,14 +1,14 @@
 "use strict";
-const fs = require('fs');
-const posts = JSON.parse(fs.readFileSync('data/data.json'));
-posts.forEach(function (post) {
-    post.createdAt = new Date(post.createdAt);
-    post.hashtags = new Set(post.hashtags);
-    post.likes = new Set(post.likes);
-});
 
 const onRequest = (function () {
 
+    const fs = require('fs');
+    const data = JSON.parse(fs.readFileSync('server/data/data.json'));
+    data.posts.forEach(function (post) {
+        post.createdAt = new Date(post.createdAt);
+        post.hashtags = new Set(post.hashtags);
+        post.likes = new Set(post.likes);
+    });
     const numberAddingPostFields = 5;
 
     function dateToString(date) {
@@ -54,25 +54,33 @@ const onRequest = (function () {
         return result;
     }
 
-    function addingPostFromJSON(stringPost) {
-        let post = JSON.parse(stringPost);
+    function addingPostFromJSON(post) {
+        //let post = JSON.parse(stringPost);
         post.createdAt = new Date(post.createdAt);
         post.hashtags = new Set(post.hashtags);
         return post;
     }
 
     function postsToJSON() {
-        let array = [];
-        posts.forEach(function (post) {
-            array.push(postToJSON(post));
+        let object = {};
+        object.posts = [];
+        data.posts.forEach(function (post) {
+            object.posts.push(postToJSON(post));
         });
-        return array;
+        object.lastID = data.lastID;
+        return object;
     }
 
     function writeData() {
-        fs.writeFile('data/data.json', JSON.stringify(postsToJSON()), (err) => {
+        /*fs.truncate('server/data/data.json', 0, (err) => {
+            if (err) throw err;
+        });*/
+        fs.writeFile('server/data/data.json', JSON.stringify(postsToJSON()), (err) => {
             if (err) throw err;
         });
+        /*fs.close(0, (err) => {
+            if (err) throw err;
+        });*/
     }
 
     function validateAuthor(post) {
@@ -111,14 +119,25 @@ const onRequest = (function () {
 
     function getPost(stringID) {
         let id = parseInt(stringID);
-        return getPostByID(id);
+        return getJSONPostByID(id);
+    }
+
+    function getJSONPostByID(id) {
+        let result = null;
+        for (let i = 0; i < data.posts.length; i++) {
+            if (data.posts[i].id === id) {
+                result = postToJSON(data.posts[i]);
+                break;
+            }
+        }
+        return result;
     }
 
     function getPostByID(id) {
         let result = null;
-        for (let i = 0; i < posts.length; i++) {
-            if (posts[i].id === id) {
-                result = posts[i];
+        for (let i = 0; i < data.posts.length; i++) {
+            if (data.posts[i].id === id) {
+                result = data.posts[i];
                 break;
             }
         }
@@ -128,16 +147,18 @@ const onRequest = (function () {
     function addPost(stringPost) {
         let post = addingPostFromJSON(stringPost);
         if (validateAddingPost(post)) {
-            post.id = posts.length;
+            post.id = data.lastID;
+            data.lastID++;
             post.likes = new Set();
-            posts.push(post);
+            data.posts.push(post);
             writeData();
+            return postToJSON(post);
         } else {
-            return false;
+            return null;
         }
     }
 
-    function validateLikeMessage(object) {
+    function validateLike(object) {
         let counter = 0;
         for (let key in object) {
             counter++;
@@ -147,22 +168,17 @@ const onRequest = (function () {
             && typeof object.author === "string";
     }
 
-    function addLike(stringIDAndAuthor) {
-        let object = JSON.parse(stringIDAndAuthor);
-        if (validateLikeMessage(object)) {
-            let post = getPostByID(object.id);
-            if (post !== null) {
-                if (post.likes.has(object.author)) {
-                    post.likes.delete(object.author);
-                    writeData();
-                    return false;
-                } else {
-                    post.likes.add(object.author);
-                    writeData();
-                    return true;
-                }
+    function addLike(id, author) {
+        let post = getPostByID(parseInt(id));
+        if (post !== null) {
+            if (post.likes.has(author.author)) {
+                post.likes.delete(author.author);
+                writeData();
+                return false;
             } else {
-                return null;
+                post.likes.add(author.author);
+                writeData();
+                return true;
             }
         } else {
             return null;
@@ -170,15 +186,15 @@ const onRequest = (function () {
     }
 
     function removePostByID(id) {
-        let toDelete=null;
-        for (let i = 0; i < posts.length; i++) {
-            if (posts[i].id===id) {
-                toDelete=i;
+        let toDelete = null;
+        for (let i = 0; i < data.posts.length; i++) {
+            if (data.posts[i].id === id) {
+                toDelete = i;
                 break;
             }
         }
-        if (toDelete!==null) {
-            posts.splice(toDelete,1);
+        if (toDelete !== null) {
+            data.posts.splice(toDelete, 1);
             writeData();
             return true;
         } else {
@@ -187,17 +203,71 @@ const onRequest = (function () {
     }
 
     function removePost(stringID) {
-        let id=parseInt(stringID);
+        let id = parseInt(stringID);
         return removePostByID(id);
     }
 
+    function validateEditPost(post) {
+        let counter = 0;
+        for (let key in post) {
+            counter++;
+        }
+        return counter <= 3; /*&& (typeof post.description === "string"
+            || post.hashtags instanceof Set
+            || typeof post.photoLink === 'string');*/
+    }
+
+    function editPost(id, toEdit) {
+        if (toEdit.hashtags instanceof Array) {
+            toEdit.hashtags = new Set(toEdit.hashtags);
+        }
+        if (validateEditPost(toEdit)) {
+            let post = getPostByID(parseInt(id));
+            if (post!=null) {
+                if (toEdit.description != null) {
+                    post.description = toEdit.description;
+                }
+                if (toEdit.hashtags != null) {
+                    post.hashtags = toEdit.hashtags;
+                }
+                if (toEdit.photoLink != null) {
+                    post.photoLink = toEdit.photoLink;
+                }
+                writeData();
+                return post;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     return {
-        writeData: writeData,
         getPost: getPost,
         addLike: addLike,
         addPost: addPost,
-        removePost: removePost
+        removePost: removePost,
+        editPost: editPost
     }
 })();
 
-onRequest.writeData();
+module.exports = onRequest;
+
+/*console.log("getPost, valid input: "+onRequest.getPost(JSON.stringify(5)));
+console.log("getPost, invalid input: "+onRequest.getPost(JSON.stringify(50)));
+console.log("addLike, valid input: "+onRequest.addLike(JSON.stringify({id: 6, author: "ypldan"})));
+console.log("addLike, valid input: "+onRequest.addLike(JSON.stringify({})));
+console.log("addPost, valid input: "+onRequest.addPost(JSON.stringify({
+    author: "ypldan",
+    description: "it's added in conole post",
+    photoLink: "https://is2-ssl.mzstatic.com/image/thumb/Purple71/v4/6c/31/82/6c3182cd-f718-d550-181f-051f4148a2e4/mzl.qmwzcqcf.png/1200x630bb.jpg",
+    hashtags: ["hey", "new_image"],
+    createdAt: "2018-04-15T10:05:02"
+})));
+console.log("addPost, invalid input: "+onRequest.addPost(JSON.stringify({
+    author: "ypldan",
+    description: "it's added in conole post",
+})));
+console.log("removePost, valid input: "+onRequest.removePost(JSON.stringify(20)));
+console.log("removePost, invalid input: "+onRequest.removePost(JSON.stringify(50)));*/
