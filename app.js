@@ -15,6 +15,15 @@ app.get('/getPost', (req, res) => {
     }
 });
 
+app.post("/getPosts", (req, res) => {
+    let posts=processor.getPosts(req.query.skip, req.query.top, req.body);
+    if (posts!==[]) {
+        res.end(JSON.stringify(posts));
+    } else {
+        res.status(404).end("No posts found.");
+    }
+});
+
 app.post("/addPost", (req, res) => {
     let post = processor.addPost(req.body);
     if (post!=null) {
