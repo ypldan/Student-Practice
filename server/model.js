@@ -4,14 +4,14 @@ const onRequest = (function () {
 
     const fs = require('fs');
     const data = JSON.parse(fs.readFileSync('server/data/data.json'));
-    data.posts.forEach(function (post) {
+    data.posts.forEach((post) => {
         post.createdAt = new Date(post.createdAt);
         post.hashtags = new Set(post.hashtags);
         post.likes = new Set(post.likes);
     });
     const numberAddingPostFields = 5;
 
-    function dateToString(date) {
+    function dateTimeToString(date) {
         let result = '';
         result += date.getFullYear() + "-";
         let month = date.getMonth() + 1;
@@ -48,7 +48,7 @@ const onRequest = (function () {
         result.author = post.author;
         result.description = post.description;
         result.photoLink = post.photoLink;
-        result.createdAt = dateToString(post.createdAt);
+        result.createdAt = dateTimeToString(post.createdAt);
         result.likes = Array.from(post.likes);
         result.hashtags = Array.from(post.hashtags);
         return result;
@@ -61,21 +61,26 @@ const onRequest = (function () {
         return post;
     }
 
-    function postsToJSON() {
+    function dataToJSON() {
         let object = {};
-        object.posts = [];
-        data.posts.forEach(function (post) {
-            object.posts.push(postToJSON(post));
-        });
+        object.posts = postToJSON(data.posts);
         object.lastID = data.lastID;
         return object;
+    }
+
+    function postsToJSON(posts) {
+        let result=[];
+        posts.forEach(post => {
+            result.push(postToJSON(post));
+        });
+        return result;
     }
 
     function writeData() {
         /*fs.truncate('server/data/data.json', 0, (err) => {
             if (err) throw err;
         });*/
-        fs.writeFile('server/data/data.json', JSON.stringify(postsToJSON()), (err) => {
+        fs.writeFile('server/data/data.json', JSON.stringify(dataToJSON()), (err) => {
             if (err) throw err;
         });
         /*fs.close(0, (err) => {
@@ -163,22 +168,25 @@ const onRequest = (function () {
         for (let key in object) {
             counter++;
         }
-        return counter === 2
-            && typeof object.id === "number"
+        return counter === 1
             && typeof object.author === "string";
     }
 
     function addLike(id, author) {
-        let post = getPostByID(parseInt(id));
-        if (post !== null) {
-            if (post.likes.has(author.author)) {
-                post.likes.delete(author.author);
-                writeData();
-                return false;
+        if (validateLike(author)) {
+            let post = getPostByID(parseInt(id));
+            if (post !== null) {
+                if (post.likes.has(author.author)) {
+                    post.likes.delete(author.author);
+                    writeData();
+                    return false;
+                } else {
+                    post.likes.add(author.author);
+                    writeData();
+                    return true;
+                }
             } else {
-                post.likes.add(author.author);
-                writeData();
-                return true;
+                return null;
             }
         } else {
             return null;
@@ -243,31 +251,86 @@ const onRequest = (function () {
         }
     }
 
+    function dateToString(date) {
+        let result="";
+        result+=date.getFullYear();
+        result+="-";
+        let month=date.getMonth()+1;
+        if (month<10) {
+            month='0'+month;
+        }
+        result+=month;
+        result+="-";
+        let day=date.getDate();
+        if (day<10) {
+            day='0'+day;
+        }
+        result+=day;
+        return result;
+    }
+
+    function getPosts(skip, top, filter) {
+        if (skip) {
+            skip=parseInt(skip);
+        } else {
+            skip=0;
+        }
+        if (top) {
+            top=parseInt(top);
+        } else {
+            top=10;
+        }
+        let resultArray=[];
+        data.posts.forEach(x => resultArray.push(x));
+        resultArray.sort((x,y) => {
+            return y.createdAt.getTime() - x.createdAt.getTime();
+        });
+        if (filter) {
+            if (filter.date) {
+                let newArray=[];
+                for (let i = 0; i < resultArray.length; i++) {
+                    if (filter.date===dateToString(resultArray[i].createdAt)) {
+                        newArray.push(resultArray[i]);
+                    }
+                }
+                resultArray=newArray;
+            }
+            if (filter.author) {
+                let newArray=[];
+                for (let i = 0; i < resultArray.length; i++) {
+                    if (filter.author===resultArray[i].author) {
+                        newArray.push(resultArray[i]);
+                    }
+                }
+                resultArray=newArray;
+            }
+            if (filter.hashtags) {
+                let newArray=[];
+                for (let i = 0; i < resultArray.length; i++) {
+                    let hasAll=true;
+                    filter.hashtags.forEach(x => {
+                        if (!resultArray[i].hashtags.has(x)) {
+                            hasAll=false;
+                        }
+                    });
+                    if (hasAll) {
+                        newArray.push(resultArray[i]);
+                    }
+                }
+                resultArray=newArray;
+            }
+        }
+        return postsToJSON(resultArray.slice(skip, skip+top));
+    }
+
     return {
         getPost: getPost,
         addLike: addLike,
         addPost: addPost,
         removePost: removePost,
-        editPost: editPost
+        editPost: editPost,
+        getPosts: getPosts
     }
 })();
 
 module.exports = onRequest;
-
-/*console.log("getPost, valid input: "+onRequest.getPost(JSON.stringify(5)));
-console.log("getPost, invalid input: "+onRequest.getPost(JSON.stringify(50)));
-console.log("addLike, valid input: "+onRequest.addLike(JSON.stringify({id: 6, author: "ypldan"})));
-console.log("addLike, valid input: "+onRequest.addLike(JSON.stringify({})));
-console.log("addPost, valid input: "+onRequest.addPost(JSON.stringify({
-    author: "ypldan",
-    description: "it's added in conole post",
-    photoLink: "https://is2-ssl.mzstatic.com/image/thumb/Purple71/v4/6c/31/82/6c3182cd-f718-d550-181f-051f4148a2e4/mzl.qmwzcqcf.png/1200x630bb.jpg",
-    hashtags: ["hey", "new_image"],
-    createdAt: "2018-04-15T10:05:02"
-})));
-console.log("addPost, invalid input: "+onRequest.addPost(JSON.stringify({
-    author: "ypldan",
-    description: "it's added in conole post",
-})));
-console.log("removePost, valid input: "+onRequest.removePost(JSON.stringify(20)));
-console.log("removePost, invalid input: "+onRequest.removePost(JSON.stringify(50)));*/
