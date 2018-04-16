@@ -63,7 +63,7 @@ const onRequest = (function () {
 
     function dataToJSON() {
         let object = {};
-        object.posts = postToJSON(data.posts);
+        object.posts = postsToJSON(data.posts);
         object.lastID = data.lastID;
         return object;
     }
@@ -242,7 +242,7 @@ const onRequest = (function () {
                     post.photoLink = toEdit.photoLink;
                 }
                 writeData();
-                return post;
+                return postToJSON(post);
             } else {
                 return null;
             }

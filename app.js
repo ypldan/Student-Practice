@@ -17,7 +17,7 @@ app.get('/getPost', (req, res) => {
 
 app.post("/getPosts", (req, res) => {
     let posts=processor.getPosts(req.query.skip, req.query.top, req.body);
-    if (posts!==[]) {
+    if (posts.length!==0) {
         res.end(JSON.stringify(posts));
     } else {
         res.status(404).end("No posts found.");
