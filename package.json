@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/ypldan/Student-Practice#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "server": "^1.0.18",
+    "body-parser": "latest"
   }
 }
