@@ -324,7 +324,17 @@ const myDOM=(function () {
             addHeaderListeners();
         },
 
-        loadPosts: function (skip, top, filter) {
+        loadPosts: function (processingPosts) {
+            let postsArray=document.getElementById('posts-array');
+            let isIn=isUserIn();
+            processingPosts.forEach(function (post) {
+                postsArray.appendChild(createPhotoPost(post, isIn));
+                currentPosts.push(post);
+            });
+            return true;
+        },
+
+        /*loadPosts: function (skip, top, filter) {
             let postsArray=document.getElementById('posts-array');
             let isIn=isUserIn();
             let processingPosts=MyPortal.getPhotoPosts(skip, top, filter);
@@ -335,7 +345,7 @@ const myDOM=(function () {
             myLocalStorage.writeCurrentPosts();
 
             return true;
-        },
+        },*/
 
         createPost: function(post) {
             if (isUserIn() && MyPortal.isValidToCreate(post)) {
@@ -415,11 +425,6 @@ const myDOM=(function () {
         hideEditField: function () {
             let edit=document.querySelector('#edit-block');
             edit.style.display='none';
-        },
-
-        firstPostsLoad: function () {
-            this.loadPosts('0', '10');
-            return true;
         },
 
         isUserIn: isUserIn(),

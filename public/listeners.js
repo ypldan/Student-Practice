@@ -4,6 +4,12 @@ const listeners=(function () {
     const defaultDescription='Describe your photo!';
     const defaultHashtags='Add some hashtags!';
     const defaultAddImage="images/dragzone.png";
+
+    const constStrings={
+        likeAdded: "added",
+        likeTaken: "taken"
+    };
+
     let currentID=null;
 
     function validateHashtagsString(string) {
@@ -70,20 +76,118 @@ const listeners=(function () {
         myDOM.loadPosts(0,10);
     }
 
-    function clickOnOpenMore() {
-        myDOM.loadPosts(myDOM.getNumberPostsLoaded(),10,myDOM.getFilter());
+    function filterToJSON(filter) {
+        let result={};
+        if (filter.author!=null) {
+            result.author=filter.author;
+        }
+        if (filter.hashtags!=null) {
+            result.hashtags=Array.from(filter.hashtags);
+        }
+        if (filter.date!=null) {
+            result.date=myDOM.dateToString(filter.date);
+        }
+        return result;
     }
 
+    function postFromJSON(post) {
+        post.createdAt=new Date(post.createdAt);
+        post.likes=new Set(post.likes);
+        post.hashtags=new Set(post.hashtags);
+        return post;
+    }
+
+    function postsArrayFromJSON(posts) {
+        for (let i = 0; i < posts.length; i++) {
+            posts[i]=postFromJSON(posts[i]);
+        }
+        return posts;
+    }
+
+    //refactored
+    function firstLoad() {
+        let openMore=new XMLHttpRequest();
+        openMore.open('POST', '/getPosts?skip=0&top=10', true);
+        openMore.setRequestHeader('Content-type', 'application/json');
+        openMore.addEventListener('readystatechange', () => {
+            if (openMore.readyState!==4) return;
+            if (openMore.status!==200) {
+                alert(openMore.status + ': ' + openMore.statusText);
+            } else {
+                try {
+                    let array=postsArrayFromJSON(JSON.parse(openMore.response));
+                    myDOM.loadPosts(array);
+                } catch (exc) {
+                    alert(exc);
+                }
+            }
+        });
+        openMore.send();
+    }
+
+
+    //refactored
+    function clickOnOpenMore() {
+        let openMore=new XMLHttpRequest();
+        openMore.open('POST', '/getPosts?skip='+myDOM.getNumberPostsLoaded()+'&top=10', true);
+        openMore.setRequestHeader('Content-type', 'application/json');
+        let filter=JSON.stringify(filterToJSON(myDOM.getFilter()));
+        openMore.addEventListener('readystatechange', () => {
+            if (openMore.readyState!==4) return;
+            if (openMore.status!==200) {
+                alert(openMore.status + ': ' + openMore.statusText);
+            } else {
+                try {
+                    let array=postsArrayFromJSON(JSON.parse(openMore.response));
+                    myDOM.loadPosts(array);
+                } catch (exc) {
+                    alert(exc);
+                }
+            }
+        });
+        openMore.send(filter);
+    }
+
+    //refactored
     function clickOnDeletePost(event) {
         let target=event.srcElement;
-        let parent=target.parentElement.parentElement.parentElement;
-        myDOM.removePost(parent.id);
+        let id=target.parentElement.parentElement.parentElement.id;
+        let removePost=new XMLHttpRequest();
+        removePost.open('DELETE', "/removePost?id="+myDOM.parsePostId(id), true);
+        removePost.addEventListener('readystatechange', () => {
+            if (removePost.readyState!==4) return;
+            if (removePost.status!==200) {
+                alert(removePost.status + ': ' + removePost.statusText);
+            } else {
+                myDOM.removePost(id);
+            }
+        });
+        removePost.send();
     }
 
+    //refactored
     function clickOnLike(event) {
         let target=event.srcElement;
         let parent=target.parentElement.parentElement;
-        let post=MyPortal.getPhotoPost(myDOM.parsePostId(parent.id));
+        let addLike=new XMLHttpRequest();
+        addLike.open('PUT', '/addLike?id='+myDOM.parsePostId(parent.id), true);
+        addLike.setRequestHeader('Content-type', 'application/json');
+        let toSend={};
+        toSend.author=myDOM.getUser();
+        addLike.addEventListener('readystatechange', () => {
+            if (addLike.readyState !== 4) return;
+            if (addLike.status!==200) {
+                alert(addLike.status + ': ' + addLike.statusText);
+            } else {
+                if (addLike.response===constStrings.likeAdded) {
+                    target.className="fa fa-heart";
+                } else {
+                    target.className="fa fa-heart-o";
+                }
+            }
+        });
+        addLike.send(JSON.stringify(toSend));
+        /*let post=MyPortal.getPhotoPost(myDOM.parsePostId(parent.id));
         if (post.likes.has(myDOM.getUser())) {
             post.likes.delete(myDOM.getUser());
             target.className="fa fa-heart-o";
@@ -92,7 +196,7 @@ const listeners=(function () {
             target.className="fa fa-heart";
         }
         myLocalStorage.writeAllPosts();
-        myLocalStorage.writeCurrentPosts();
+        myLocalStorage.writeCurrentPosts();*/
     }
 
     function clickOnAreaEdit(event) {
@@ -197,6 +301,7 @@ const listeners=(function () {
         wrong.style.display='none';
     }
 
+    //toDo
     function clickOnConfirmAdd() {
         let img=document.getElementById("drag-image");
         let description=document.getElementById("add-description").value;
@@ -217,6 +322,7 @@ const listeners=(function () {
         }
     }
 
+    //toDo
     function clickOnConfirmEdit() {
         let description=document.getElementById("description-edit").value;
         let hashtags=document.getElementById("hashtags-edit").value;
@@ -267,6 +373,7 @@ const listeners=(function () {
         }
     }
 
+    //toDo
     function changedFilterAuthors(event) {
         let target=event.srcElement;
         if (target.value!=="-1") {
@@ -280,6 +387,7 @@ const listeners=(function () {
         }
     }
 
+    //toDo
     function changedFilterDate(event) {
         let target=event.srcElement;
         if (target.value!=null&&target.value!=="") {
@@ -294,6 +402,7 @@ const listeners=(function () {
 
     }
 
+    //toDo
     function changedFilterHashtags(event) {
         let target=event.srcElement;
         if (target.value!=null&&target.value!==""&&validateHashtagsString(target.value)) {
@@ -412,6 +521,8 @@ const listeners=(function () {
             date.addEventListener("change", changedFilterDate);
             let hashtags=document.getElementById("filter-hashtags");
             hashtags.addEventListener("change", changedFilterHashtags);
-        }
+        },
+
+        firstLoad: firstLoad
     }
 })();

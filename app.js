@@ -37,9 +37,9 @@ app.put("/addLike", (req, res) => {
     let post=processor.addLike(req.query.id, req.body);
     if (post!=null) {
         if (post) {
-            res.end("Like has been added.");
+            res.end("added");
         } else {
-            res.end("Like has been taken.");
+            res.end("taken");
         }
     } else {
         res.status(404).end("Post not found.");
