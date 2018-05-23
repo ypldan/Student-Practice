@@ -1,8 +1,21 @@
 const express = require('express');
 const processor=require('./server/model.js');
 const app = express();
-app.use(express.static('public'));
 const bodyParser = require('body-parser');
+const multer=require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, __dirname+'/public/images/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now()+file.originalname.replace(/ /g,''));
+    }
+});
+
+const upload = multer({ storage: storage });
+const fs=require('fs');
+
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -62,6 +75,13 @@ app.put("/editPost", (req, res) => {
     } else {
         res.status(404).end("Error");
     }
+});
+
+app.post('/uploadImage', upload.single('file'), (req, res) => {
+    let fileName=req.file.filename;
+    //fs.writeFile(fileName, req.file.buffer);
+    console.log(fileName);
+    res.send('images/'+fileName);
 });
 
 app.listen(3000, () => {
