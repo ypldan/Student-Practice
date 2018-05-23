@@ -3,13 +3,14 @@ const myDOM=(function () {
     let user='Albert Einstein';
     let currentPosts=[];
     let currentFilter={};
-    let users=new Set(['Albert Einstein',
+    let users = new Set(['Albert Einstein',
         'Alexey Navalny',
         'Mickie Mouse',
         'ypldan',
         'Hleb Salaujou',
         'Donald Trump',
-        'unknown author']);
+        'unknown author',
+        'ypl']);
 
     function isUserIn() {
         return user!==null && user!=="" && user;
@@ -261,7 +262,7 @@ const myDOM=(function () {
         let likes=document.querySelectorAll(".fa-heart-o");
         likes.forEach(function (like) {
             let parentID=like.parentElement.parentElement.id;
-            let post=MyPortal.getPhotoPost(myDOM.parsePostId(parentID));
+            let post=myDOM.getPost(myDOM.parsePostId(parentID));
             if (post.likes.has(user)) {
                 like.className="fa fa-heart";
             }
@@ -270,7 +271,7 @@ const myDOM=(function () {
         likes=document.querySelectorAll(".fa-heart");
         likes.forEach(function (like) {
             let parentID=like.parentElement.parentElement.id;
-            let post=MyPortal.getPhotoPost(myDOM.parsePostId(parentID));
+            let post=myDOM.getPost(myDOM.parsePostId(parentID));
             if (!post.likes.has(user)) {
                 like.className="fa fa-heart-o";
             }
@@ -293,7 +294,7 @@ const myDOM=(function () {
         let instruments=document.querySelectorAll(".user-instruments");
         instruments.forEach(function (node) {
             let parentID=node.parentElement.parentElement.id;
-            let post=MyPortal.getPhotoPost(myDOM.parsePostId(parentID));
+            let post=myDOM.getPost(myDOM.parsePostId(parentID));
             if (user===post.author) {
                 node.style.display = 'flex';
             }
@@ -334,35 +335,6 @@ const myDOM=(function () {
             return true;
         },
 
-        /*loadPosts: function (skip, top, filter) {
-            let postsArray=document.getElementById('posts-array');
-            let isIn=isUserIn();
-            let processingPosts=MyPortal.getPhotoPosts(skip, top, filter);
-            processingPosts.forEach(function (post) {
-                postsArray.appendChild(createPhotoPost(post, isIn));
-                currentPosts.push(post);
-            });
-            myLocalStorage.writeCurrentPosts();
-
-            return true;
-        },*/
-
-        createPost: function(post) {
-            if (isUserIn() && MyPortal.isValidToCreate(post)) {
-                post.id=MyPortal.incrementLastID();
-                post.createdAt=new Date();
-                post.author=user;
-                post.likes=new Set();
-                MyPortal.addPhotoPost(post);
-                this.clearPosts();
-                this.loadPosts(0,10);
-                myLocalStorage.writeAllPosts();
-                return true;
-            } else {
-                return false;
-            }
-        },
-
         clearPosts: function () {
             let postsArray=document.getElementById("posts-array");
             while (postsArray.firstChild) {
@@ -373,7 +345,6 @@ const myDOM=(function () {
         },
 
         removePost: function (string) {
-            MyPortal.removePhotoPost(parsePostId(string));
             let figure=document.getElementById(string);
             let parent=document.getElementById("posts-array");
             parent.removeChild(figure);
@@ -384,18 +355,6 @@ const myDOM=(function () {
         },
 
         loadAuthors: loadAuthorsList,
-
-        editPhotoPost: function (id, post) {
-            if (MyPortal.isPartiallyValid(post)) {
-                MyPortal.editPhotoPost(id,post);
-                this.clearPosts();
-                this.loadPosts(0,10,currentFilter);
-                myLocalStorage.writeAllPosts();
-                return true;
-            } else {
-                return false;
-            }
-        },
 
         createAddField: function () {
             let posts=document.getElementById('add-photo-block');
@@ -428,6 +387,15 @@ const myDOM=(function () {
         },
 
         isUserIn: isUserIn(),
+
+        getPost: function(id) {
+            for (let i = 0; i < currentPosts.length; i++) {
+                if (currentPosts[i].id===id) {
+                    return currentPosts[i];
+                }
+            }
+            return null;
+        },
 
         getUser: function() {
             return user;
@@ -513,18 +481,28 @@ const myDOM=(function () {
             return currentPosts;
         },
 
-        setAndShowCurrentPosts: function (posts) {
-            currentPosts=posts;
-            let postsArray=document.getElementById('posts-array');
-            let isIn=isUserIn();
-            for (let i = 0; i < currentPosts.length; i++) {
-                let post=currentPosts[i];
-                let div=createPhotoPost(post, isIn);
-                postsArray.appendChild(div);
+        editPost: function (edited) {
+            let currentID='post'+edited.id;
+            let tempString="#"+currentID+"hashtags";
+            let hej=this.getPost(edited.id);
+            hej.description=edited.description;
+            hej.hashtags=edited.hashtags;
+            hej.photoLink=edited.photoLink;
+            let element=document.querySelector(tempString);
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
             }
-            /*currentPosts.forEach(function (post) {
-                postsArray.appendChild(createPhotoPost(post, isIn));
-            });*/
+            edited.hashtags.forEach(function (hashtag) {
+                let tag=document.createElement('p');
+                tag.className='hashtag';
+                tag.innerHTML=hashtag;
+                element.appendChild(tag);
+            });
+            let img=document.querySelector('#post'+edited.id).firstChild;
+            img.src=edited.photoLink;
+            tempString="#"+currentID+"description";
+            let descriptionArea=document.querySelector(tempString);
+            descriptionArea.firstChild.innerHTML=edited.description;
         }
     }
 })();
