@@ -383,6 +383,10 @@ textarea {
     margin-top: 7px;
 }
 
+#choose-file-edit {
+    margin-top: 7px;
+}
+
 #send-button {
     margin-top: 10px;
     align-self: center;
