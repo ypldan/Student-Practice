@@ -12,6 +12,55 @@ const listeners=(function () {
 
     let currentID=null;
 
+    function dateTimeToString(date) {
+        let result = '';
+        result += date.getFullYear() + "-";
+        let month = date.getMonth() + 1;
+        if (month < 10) {
+            month = '0' + month;
+        }
+        result += month + "-";
+        let day = date.getDate();
+        if (day < 10) {
+            day = '0' + day;
+        }
+        result += day + "T";
+        let hours = date.getHours();
+        if (hours < 10) {
+            hours = '0' + hours;
+        }
+        result += hours + ":";
+        let minutes = date.getMinutes();
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        result += minutes + ":";
+        let seconds = date.getSeconds();
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        result += seconds;
+        return result;
+    }
+
+    function postToJSON(post) {
+        let result = {};
+        result.author = post.author;
+        result.description = post.description;
+        result.photoLink = post.photoLink;
+        result.createdAt = dateTimeToString(post.createdAt);
+        result.hashtags = Array.from(post.hashtags);
+        return result;
+    }
+
+    function editPostToJSON(post) {
+        let result = {};
+        result.description = post.description;
+        result.photoLink = post.photoLink;
+        result.hashtags = Array.from(post.hashtags);
+        return result;
+    }
+
     function validateHashtagsString(string) {
         let template=/^(#\w+ )*(#\w+)?$/;
         return template.test(string);
@@ -73,7 +122,7 @@ const listeners=(function () {
         myDOM.setUser();
         myDOM.setUserConfiguration();
         myDOM.clearPosts();
-        myDOM.loadPosts(0,10);
+        clickOnOpenMore();
     }
 
     function filterToJSON(filter) {
@@ -85,7 +134,7 @@ const listeners=(function () {
             result.hashtags=Array.from(filter.hashtags);
         }
         if (filter.date!=null) {
-            result.date=myDOM.dateToString(filter.date);
+            result.date=filter.date;
         }
         return result;
     }
@@ -124,7 +173,6 @@ const listeners=(function () {
         });
         openMore.send();
     }
-
 
     //refactored
     function clickOnOpenMore() {
@@ -187,16 +235,6 @@ const listeners=(function () {
             }
         });
         addLike.send(JSON.stringify(toSend));
-        /*let post=MyPortal.getPhotoPost(myDOM.parsePostId(parent.id));
-        if (post.likes.has(myDOM.getUser())) {
-            post.likes.delete(myDOM.getUser());
-            target.className="fa fa-heart-o";
-        } else {
-            post.likes.add(myDOM.getUser());
-            target.className="fa fa-heart";
-        }
-        myLocalStorage.writeAllPosts();
-        myLocalStorage.writeCurrentPosts();*/
     }
 
     function clickOnAreaEdit(event) {
@@ -220,7 +258,7 @@ const listeners=(function () {
         let target=event.srcElement;
         let parentID=target.parentElement.parentElement.parentElement.id;
         currentID=parentID;
-        let post=MyPortal.getPhotoPost(myDOM.parsePostId(parentID));
+        let post=myDOM.getPost(myDOM.parsePostId(parentID));
         let description=document.getElementById("description-edit");
         let hashtags=document.getElementById("hashtags-edit");
         description.value=post.description;
@@ -271,10 +309,12 @@ const listeners=(function () {
     }
 
     function changeOnInputImage(event) {
-        let target=event.srcElement;
-        let img=document.getElementById("drag-image");
-        img.src=window.URL.createObjectURL(target.files[0]);
-}
+        uploadImage();
+    }
+
+    function changeOnEditImage() {
+        uploadImageEdit();
+    }
 
     function clickOnCloseAdd() {
         let img=document.getElementById("drag-image");
@@ -292,6 +332,8 @@ const listeners=(function () {
         myDOM.hideEditField();
         let wrong=document.getElementById("edit-wrong");
         wrong.style.display="none";
+        let input=document.getElementById('choose-file-edit');
+        input.value="";
         currentID=null;
     }
 
@@ -301,7 +343,7 @@ const listeners=(function () {
         wrong.style.display='none';
     }
 
-    //toDo
+    //refactored
     function clickOnConfirmAdd() {
         let img=document.getElementById("drag-image");
         let description=document.getElementById("add-description").value;
@@ -309,20 +351,71 @@ const listeners=(function () {
         if (validateAddInput(img, description, hashtags)) {
             let hashtagsSet=getHashtagsSet(hashtags);
             let post={};
+            post.author=myDOM.getUser();
             post.hashtags=hashtagsSet;
             post.description=description;
             post.photoLink=img.src;
-            myDOM.createPost(post);
-            let authors=document.getElementById("filter-author");
-            authors.value="-1";
-            clickOnCloseAdd();
+            post.createdAt=new Date(Date.now());
+            let xhr=new XMLHttpRequest();
+            xhr.open('POST', '/addPost');
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.addEventListener('readystatechange', () => {
+                if (xhr.readyState!==4) return;
+                if (xhr.status!==200) {
+                    alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                    let authors=document.getElementById("filter-author");
+                    authors.value="-1";
+                    clickOnCloseAdd();
+                    myDOM.clearPosts();
+                    clickOnOpenMore();
+                }
+            });
+            xhr.send(JSON.stringify(postToJSON(post)));
+            //myDOM.createPost(post);
         } else {
             let wrong=document.getElementById("add-wrong");
             wrong.style.display='block';
         }
     }
 
-    //toDo
+    function uploadImage() {
+        let file=document.getElementById("choose-file").files[0];
+        let formData = new FormData();
+        formData.append('file', file);
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/uploadImage');
+        xhr.addEventListener('readystatechange', () => {
+            if (xhr.readyState!==4) return;
+            if (xhr.status!==200) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            } else {
+                let img=document.getElementById("drag-image");
+                img.src=xhr.responseText;
+            }
+        });
+        xhr.send(formData);
+    }
+
+    function uploadImageEdit() {
+        let file=document.getElementById("choose-file-edit").files[0];
+        let formData = new FormData();
+        formData.append('file', file);
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/uploadImage');
+        xhr.addEventListener('readystatechange', () => {
+            if (xhr.readyState!==4) return;
+            if (xhr.status!==200) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            } else {
+                let img=document.getElementById("image-edit");
+                img.src=xhr.responseText;
+            }
+        });
+        xhr.send(formData);
+    }
+
+    //refactored
     function clickOnConfirmEdit() {
         let description=document.getElementById("description-edit").value;
         let hashtags=document.getElementById("hashtags-edit").value;
@@ -337,24 +430,24 @@ const listeners=(function () {
                 }
             } while(temp);
             let post={};
+            post.photoLink=document.getElementById("image-edit").src;
             post.hashtags=hashtagsSet;
             post.description=description;
-            MyPortal.editPhotoPost(myDOM.parsePostId(currentID),post);
-            let tempString="#"+currentID+"hashtags";
-            let element=document.querySelector(tempString);
-            while (element.firstChild) {
-                element.removeChild(element.firstChild);
-            }
-            hashtagsSet.forEach(function (hashtag) {
-                let tag=document.createElement('p');
-                tag.className='hashtag';
-                tag.innerHTML=hashtag;
-                element.appendChild(tag);
+            let xhr=new XMLHttpRequest();
+            let id=myDOM.parsePostId(currentID);
+            xhr.open('PUT', "/editPost?id="+id);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.addEventListener('readystatechange', () => {
+                if (xhr.readyState!==4) return;
+                if (xhr.status!==200) {
+                    alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                    let post=JSON.parse(xhr.response);
+                    myDOM.editPost(postFromJSON(post));
+                    clickOnCloseEdit();
+                }
             });
-            tempString="#"+currentID+"description";
-            let descriptionArea=document.querySelector(tempString);
-            descriptionArea.firstChild.innerHTML=description;
-            clickOnCloseEdit();
+            xhr.send(JSON.stringify(editPostToJSON(post)));
         } else {
             let wrong=document.getElementById("edit-wrong");
             wrong.style.display="block";
@@ -373,48 +466,44 @@ const listeners=(function () {
         }
     }
 
-    //toDo
+    //refactored
     function changedFilterAuthors(event) {
         let target=event.srcElement;
         if (target.value!=="-1") {
             myDOM.setFilterAuthor(target.value);
             myDOM.clearPosts();
-            myDOM.loadPosts(0, 10, myDOM.getFilter());
         } else {
             myDOM.setFilterAuthor(null);
             myDOM.clearPosts();
-            myDOM.loadPosts(0,10,myDOM.getFilter());
         }
+        clickOnOpenMore();
     }
 
-    //toDo
+    //refactored
     function changedFilterDate(event) {
         let target=event.srcElement;
         if (target.value!=null&&target.value!=="") {
             myDOM.setFilterDate(target.value);
             myDOM.clearPosts();
-            myDOM.loadPosts(0, 10, myDOM.getFilter());
         } else {
             myDOM.setFilterDate(null);
             myDOM.clearPosts();
-            myDOM.loadPosts(0,10, myDOM.getFilter());
         }
-
+        clickOnOpenMore();
     }
 
-    //toDo
+    //refactored
     function changedFilterHashtags(event) {
         let target=event.srcElement;
         if (target.value!=null&&target.value!==""&&validateHashtagsString(target.value)) {
             let hashtagsSet=getHashtagsSet(target.value);
             myDOM.setFilterHashtags(hashtagsSet);
             myDOM.clearPosts();
-            myDOM.loadPosts(0, 10, myDOM.getFilter());
         } else {
             myDOM.setFilterHashtags(null);
             myDOM.clearPosts();
-            myDOM.loadPosts(0,10, myDOM.getFilter());
         }
+        clickOnOpenMore();
     }
 
     function setDefaultDateFilter() {
@@ -502,6 +591,8 @@ const listeners=(function () {
             addHashtags.addEventListener('blur', blurOnAddHashtags);
             let imageInput=document.getElementById("choose-file");
             imageInput.addEventListener('change', changeOnInputImage);
+            let imageEdit=document.getElementById("choose-file-edit");
+            imageEdit.addEventListener('change', changeOnEditImage);
             let confirmAdd=document.getElementById('send-button');
             confirmAdd.addEventListener('click', clickOnConfirmAdd);
             let confirmEdit=document.getElementById("send-button-edit");
@@ -523,6 +614,8 @@ const listeners=(function () {
             hashtags.addEventListener("change", changedFilterHashtags);
         },
 
-        firstLoad: firstLoad
+        firstLoad: firstLoad,
+
+        loadPosts: clickOnOpenMore
     }
 })();
