@@ -348,7 +348,7 @@ const myDOM=(function () {
             let figure=document.getElementById(string);
             let parent=document.getElementById("posts-array");
             parent.removeChild(figure);
-            myLocalStorage.writeAllPosts();
+            //myLocalStorage.writeAllPosts();
             //this.clearPosts();
             //this.loadPosts(0,10,currentFilter);
             return true;
