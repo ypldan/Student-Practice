@@ -4,6 +4,7 @@ const onRequest = (function () {
 
     const fs = require('fs');
     const data = JSON.parse(fs.readFileSync('server/data/data.json'));
+    const removedPosts=JSON.parse(fs.readFileSync('server/data/removed.json'));
     data.posts.forEach((post) => {
         post.createdAt = new Date(post.createdAt);
         post.hashtags = new Set(post.hashtags);
@@ -86,6 +87,12 @@ const onRequest = (function () {
         /*fs.close(0, (err) => {
             if (err) throw err;
         });*/
+    }
+
+    function writeRemoved() {
+        fs.writeFile('server/data/removed.json', JSON.stringify(removedPosts), (err) => {
+            if (err) throw err;
+        });
     }
 
     function validateAuthor(post) {
@@ -198,6 +205,8 @@ const onRequest = (function () {
         for (let i = 0; i < data.posts.length; i++) {
             if (data.posts[i].id === id) {
                 toDelete = i;
+                removedPosts.push(postToJSON(data.posts[i]));
+                writeRemoved();
                 break;
             }
         }
