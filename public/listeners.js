@@ -155,86 +155,100 @@ const listeners=(function () {
 
     //refactored
     function firstLoad() {
-        let openMore=new XMLHttpRequest();
-        openMore.open('POST', '/getPosts?skip=0&top=10', true);
-        openMore.setRequestHeader('Content-type', 'application/json');
-        openMore.addEventListener('readystatechange', () => {
-            if (openMore.readyState!==4) return;
-            if (openMore.status!==200) {
-                alert(openMore.status + ': ' + openMore.statusText);
-            } else {
-                try {
-                    let array=postsArrayFromJSON(JSON.parse(openMore.response));
-                    myDOM.loadPosts(array);
-                } catch (exc) {
-                    alert(exc);
+        return new Promise((resolve, reject) => {
+            let openMore=new XMLHttpRequest();
+            openMore.open('POST', '/getPosts?skip=0&top=10', true);
+            openMore.setRequestHeader('Content-type', 'application/json');
+            openMore.addEventListener('readystatechange', () => {
+                if (openMore.readyState!==4) return;
+                if (openMore.status!==200) {
+                    reject(openMore.status + ': ' + openMore.statusText);
+                } else {
+                    try {
+
+                        let array=postsArrayFromJSON(JSON.parse(openMore.response));
+                        myDOM.loadPosts(array);
+                        resolve(openMore.responseText);
+                    } catch (exc) {
+                        alert(exc);
+                    }
                 }
-            }
+            });
+            openMore.send();
         });
-        openMore.send();
     }
 
     //refactored
     function clickOnOpenMore() {
-        let openMore=new XMLHttpRequest();
-        openMore.open('POST', '/getPosts?skip='+myDOM.getNumberPostsLoaded()+'&top=10', true);
-        openMore.setRequestHeader('Content-type', 'application/json');
-        let filter=JSON.stringify(filterToJSON(myDOM.getFilter()));
-        openMore.addEventListener('readystatechange', () => {
-            if (openMore.readyState!==4) return;
-            if (openMore.status!==200) {
-                alert(openMore.status + ': ' + openMore.statusText);
-            } else {
-                try {
-                    let array=postsArrayFromJSON(JSON.parse(openMore.response));
-                    myDOM.loadPosts(array);
-                } catch (exc) {
-                    alert(exc);
+        return new Promise((resolve, reject) => {
+            let openMore=new XMLHttpRequest();
+            openMore.open('POST', '/getPosts?skip='+myDOM.getNumberPostsLoaded()+'&top=10', true);
+            openMore.setRequestHeader('Content-type', 'application/json');
+            let filter=JSON.stringify(filterToJSON(myDOM.getFilter()));
+            openMore.addEventListener('readystatechange', () => {
+                if (openMore.readyState!==4) return;
+                if (openMore.status!==200) {
+                    reject(openMore.status + ': ' + openMore.statusText);
+                } else {
+                    try {
+                        let array=postsArrayFromJSON(JSON.parse(openMore.response));
+                        myDOM.loadPosts(array);
+                        resolve(openMore.responseText);
+                    } catch (exc) {
+                        alert(exc);
+                    }
                 }
-            }
+            });
+            openMore.send(filter);
         });
-        openMore.send(filter);
     }
 
     //refactored
     function clickOnDeletePost(event) {
-        let target=event.srcElement;
-        let id=target.parentElement.parentElement.parentElement.id;
-        let removePost=new XMLHttpRequest();
-        removePost.open('DELETE', "/removePost?id="+myDOM.parsePostId(id), true);
-        removePost.addEventListener('readystatechange', () => {
-            if (removePost.readyState!==4) return;
-            if (removePost.status!==200) {
-                alert(removePost.status + ': ' + removePost.statusText);
-            } else {
-                myDOM.removePost(id);
-            }
+        return new Promise((resolve, reject) => {
+            let target=event.srcElement;
+            let id=target.parentElement.parentElement.parentElement.id;
+            let removePost=new XMLHttpRequest();
+            removePost.open('DELETE', "/removePost?id="+myDOM.parsePostId(id), true);
+            removePost.addEventListener('readystatechange', () => {
+                if (removePost.readyState!==4) return;
+                if (removePost.status!==200) {
+                    reject(removePost.status + ': ' + removePost.statusText);
+                } else {
+                    myDOM.removePost(id);
+                    resolve(removePost.responseText);
+                }
+            });
+            removePost.send();
         });
-        removePost.send();
+
     }
 
     //refactored
     function clickOnLike(event) {
-        let target=event.srcElement;
-        let parent=target.parentElement.parentElement;
-        let addLike=new XMLHttpRequest();
-        addLike.open('PUT', '/addLike?id='+myDOM.parsePostId(parent.id), true);
-        addLike.setRequestHeader('Content-type', 'application/json');
-        let toSend={};
-        toSend.author=myDOM.getUser();
-        addLike.addEventListener('readystatechange', () => {
-            if (addLike.readyState !== 4) return;
-            if (addLike.status!==200) {
-                alert(addLike.status + ': ' + addLike.statusText);
-            } else {
-                if (addLike.response===constStrings.likeAdded) {
-                    target.className="fa fa-heart";
+        return new Promise((resolve, reject) => {
+            let target=event.srcElement;
+            let parent=target.parentElement.parentElement;
+            let addLike=new XMLHttpRequest();
+            addLike.open('PUT', '/addLike?id='+myDOM.parsePostId(parent.id), true);
+            addLike.setRequestHeader('Content-type', 'application/json');
+            let toSend={};
+            toSend.author=myDOM.getUser();
+            addLike.addEventListener('readystatechange', () => {
+                if (addLike.readyState !== 4) return;
+                if (addLike.status!==200) {
+                    reject(addLike.status + ': ' + addLike.statusText);
                 } else {
-                    target.className="fa fa-heart-o";
+                    if (addLike.response===constStrings.likeAdded) {
+                        target.className="fa fa-heart";
+                    } else {
+                        target.className="fa fa-heart-o";
+                    }
+                    resolve(addLike.responseText);
                 }
-            }
+            });
+            addLike.send(JSON.stringify(toSend));
         });
-        addLike.send(JSON.stringify(toSend));
     }
 
     function clickOnAreaEdit(event) {
@@ -349,30 +363,32 @@ const listeners=(function () {
         let description=document.getElementById("add-description").value;
         let hashtags=document.getElementById("add-hashtags").value;
         if (validateAddInput(img, description, hashtags)) {
-            let hashtagsSet=getHashtagsSet(hashtags);
-            let post={};
-            post.author=myDOM.getUser();
-            post.hashtags=hashtagsSet;
-            post.description=description;
-            post.photoLink=img.src;
-            post.createdAt=new Date(Date.now());
-            let xhr=new XMLHttpRequest();
-            xhr.open('POST', '/addPost');
-            xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.addEventListener('readystatechange', () => {
-                if (xhr.readyState!==4) return;
-                if (xhr.status!==200) {
-                    alert(xhr.status + ': ' + xhr.statusText);
-                } else {
-                    let authors=document.getElementById("filter-author");
-                    authors.value="-1";
-                    clickOnCloseAdd();
-                    myDOM.clearPosts();
-                    clickOnOpenMore();
-                }
+            return new Promise((resolve, reject) => {
+                let hashtagsSet=getHashtagsSet(hashtags);
+                let post={};
+                post.author=myDOM.getUser();
+                post.hashtags=hashtagsSet;
+                post.description=description;
+                post.photoLink=img.src;
+                post.createdAt=new Date(Date.now());
+                let xhr=new XMLHttpRequest();
+                xhr.open('POST', '/addPost');
+                xhr.setRequestHeader('Content-type', 'application/json');
+                xhr.addEventListener('readystatechange', () => {
+                    if (xhr.readyState!==4) return;
+                    if (xhr.status!==200) {
+                        reject(xhr.status + ': ' + xhr.statusText);
+                    } else {
+                        let authors=document.getElementById("filter-author");
+                        authors.value="-1";
+                        clickOnCloseAdd();
+                        myDOM.clearPosts();
+                        clickOnOpenMore();
+                        resolve(xhr.responseText);
+                    }
+                });
+                xhr.send(JSON.stringify(postToJSON(post)));
             });
-            xhr.send(JSON.stringify(postToJSON(post)));
-            //myDOM.createPost(post);
         } else {
             let wrong=document.getElementById("add-wrong");
             wrong.style.display='block';
@@ -420,34 +436,38 @@ const listeners=(function () {
         let description=document.getElementById("description-edit").value;
         let hashtags=document.getElementById("hashtags-edit").value;
         if (validateEditInput(description, hashtags)&& currentID!==null) {
-            let hashtagsSet=new Set();
-            let pattern=/#\w+/g;
-            let temp;
-            do {
-                temp=pattern.exec(hashtags);
-                if (temp) {
-                    hashtagsSet.add(temp[0]);
-                }
-            } while(temp);
-            let post={};
-            post.photoLink=document.getElementById("image-edit").src;
-            post.hashtags=hashtagsSet;
-            post.description=description;
-            let xhr=new XMLHttpRequest();
-            let id=myDOM.parsePostId(currentID);
-            xhr.open('PUT', "/editPost?id="+id);
-            xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.addEventListener('readystatechange', () => {
-                if (xhr.readyState!==4) return;
-                if (xhr.status!==200) {
-                    alert(xhr.status + ': ' + xhr.statusText);
-                } else {
-                    let post=JSON.parse(xhr.response);
-                    myDOM.editPost(postFromJSON(post));
-                    clickOnCloseEdit();
-                }
+            return new Promise((resolve, reject) => {
+                let hashtagsSet=new Set();
+                let pattern=/#\w+/g;
+                let temp;
+                do {
+                    temp=pattern.exec(hashtags);
+                    if (temp) {
+                        hashtagsSet.add(temp[0]);
+                    }
+                } while(temp);
+                let post={};
+                post.photoLink=document.getElementById("image-edit").src;
+                post.hashtags=hashtagsSet;
+                post.description=description;
+                let xhr=new XMLHttpRequest();
+                let id=myDOM.parsePostId(currentID);
+                xhr.open('PUT', "/editPost?id="+id);
+                xhr.setRequestHeader('Content-type', 'application/json');
+                xhr.addEventListener('readystatechange', () => {
+                    if (xhr.readyState!==4) return;
+                    if (xhr.status!==200) {
+                        reject(xhr.status + ': ' + xhr.statusText);
+                    } else {
+                        let post=JSON.parse(xhr.response);
+                        myDOM.editPost(postFromJSON(post));
+                        clickOnCloseEdit();
+                        resolve(xhr.responseText);
+                    }
+                });
+                xhr.send(JSON.stringify(editPostToJSON(post)));
             });
-            xhr.send(JSON.stringify(editPostToJSON(post)));
+
         } else {
             let wrong=document.getElementById("edit-wrong");
             wrong.style.display="block";
@@ -476,7 +496,7 @@ const listeners=(function () {
             myDOM.setFilterAuthor(null);
             myDOM.clearPosts();
         }
-        clickOnOpenMore();
+        return clickOnOpenMore();
     }
 
     //refactored
@@ -489,7 +509,7 @@ const listeners=(function () {
             myDOM.setFilterDate(null);
             myDOM.clearPosts();
         }
-        clickOnOpenMore();
+        return clickOnOpenMore();
     }
 
     //refactored
@@ -503,7 +523,7 @@ const listeners=(function () {
             myDOM.setFilterHashtags(null);
             myDOM.clearPosts();
         }
-        clickOnOpenMore();
+        return clickOnOpenMore();
     }
 
     function setDefaultDateFilter() {
@@ -567,11 +587,6 @@ const listeners=(function () {
         addLogOut: function () {
             let logout=document.querySelector("#menu-log-out");
             logout.addEventListener("click", clickOnLogOut);
-        },
-
-        addOpenMore: function () {
-            let open=document.querySelector("#open-more");
-            open.addEventListener("click", clickOnOpenMore);
         },
 
         addDeletePost: function (node) {
