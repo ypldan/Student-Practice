@@ -110,7 +110,7 @@ const myDOM = (function () {
       like.className = "fa fa-heart-o";
     }
     like.style = "font-size:32px;";
-    this.addLikeClick(like);
+    listeners.addLikeClick(like);
     return like;
   }
 
@@ -131,12 +131,12 @@ const myDOM = (function () {
     const edit = document.createElement("div");
     edit.className = "fa fa-edit";
     edit.style = "font-size:32px;";
-    this.addOpenEdit(edit);
+    listeners.addOpenEdit(edit);
     userInstruments.appendChild(edit);
     const close = document.createElement("div");
     close.className = "fa fa-trash delete-post";
     close.style = "font-size:32px;";
-    this.addDeletePost(close);
+    listeners.addDeletePost(close);
     userInstruments.appendChild(close);
     return userInstruments;
   }
@@ -250,12 +250,12 @@ const myDOM = (function () {
 
   function addHeaderListeners() {
     if (isUserIn()) {
-      this.addOpenAdd();
-      this.addCloseAdd();
-      this.addLogOut();
+      listeners.addOpenAdd();
+      listeners.addCloseAdd();
+      listeners.addLogOut();
     } else {
-      this.addOpenLogIn();
-      this.addCloseLogIn();
+      listeners.addOpenLogIn();
+      listeners.addCloseLogIn();
     }
   }
 
@@ -466,9 +466,9 @@ const myDOM = (function () {
     },
 
     addFormsAndFilterListeners() {
-      this.addCloseEdit();
-      this.addFormsListeners();
-      this.addFilterListeners();
+      listeners.addCloseEdit();
+      listeners.addFormsListeners();
+      listeners.addFilterListeners();
     },
 
     getUsers() {
