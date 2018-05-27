@@ -1,0 +1,11 @@
+[
+{"id":0,"name":"ypl","password":"$2b$10$nJ3SsEzlZRtyOuakymhIDOsIFgz6wYhj/Mc5.IDUxKe/eUbJqlBFi"},
+{"id":1,"name":"ypldan","password":"$2b$10$zblL9BvaOLB2neLKfIgmaOlANoRSdKJQpu6S/9tijaxB7isQ6Ry5K"},
+{"id":2,"name":"Albert Einstein","password":"$2b$10$IApvbJmMJT7Zpbobd8xfIe2ywwzjT.4LlYgA0eoXIYC1nl4i1ZFEq"},
+{"id":3,"name":"Alexey Navalny","password":"$2b$10$SGhu/ZvKOpgqLiQ.Zzmw9u3rpe39VX.nfwDxM0yRbVe4ZWb5I6rvm"},
+{"id":4,"name":"Lavon Volski","password":"$2b$10$cTFU5U26AOMj6UZqlZlQXOfJE1H05VumhWooIgb.h3aAK7Tag68fy"},
+{"id":5,"name":"Hleb Salaujou","password":"$2b$10$/iyIA8SPemwGR1tTih.8IegthS77ytkxvNCO0mjHsm6YujaT.Wvqa"},
+{"id":6,"name":"Mickie Mouse","password":"$2b$10$URdvRXh.w5.vx0t3JrktTuo8ltZqjMXy5MO45lj4wHTLRkt3InoTO"},
+{"id":7,"name":"Donald Trump","password":"$2b$10$2k4T8YhFutg0gqxm1RJOJe6aPRkOk1axWI18dOrQ5e7uWFc8jmCkO"},
+{"id":8,"name":"unknown author","password":"$2b$10$kJQr6.4D9XA0eEcUF74BIOH2/pNb.Hww465klI1fu8iCbcQidWNeq"}
+]
