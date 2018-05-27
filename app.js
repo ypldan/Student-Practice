@@ -9,8 +9,15 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const mongoose = require("mongoose");
+const postSaver = require("./server/PostSaver.js");
+const userSaver = require("./server/UserSaver.js");
 
 const app = express();
+const url = "mongodb://localhost:27017/postsdb";
+
+mongoose.Promise = global.Promise;
+mongoose.connect(url);
 
 passport.use(new LocalStrategy(((username, password, done) => {
   if (!authorizer.containsUser(username)) {
@@ -66,6 +73,13 @@ app.get("/getPost", (req, res) => {
   } else {
     res.status(404).end("Post not found");
   }
+  /* postSaver.findById(req.query.id, (err, doc) => {
+    if (err) {
+      res.status(404).end();
+    } else {
+      res.send(doc);
+    }
+  }); */
 });
 
 app.get("/getAuthors", (req, res) => {
