@@ -1,0 +1,29 @@
+{
+  "extends": "airbnb-base",
+  "globals": {
+    "document": false,
+    "XMLHttpRequest":false,
+    "DOMs":false,
+    "Controller":true,
+    "SecondJS":true
+  },
+  "rules": {
+    "func-names": ["error", "never"],
+    "quotes": ["error", "double"],
+    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
+    "no-param-reassign": 0,
+    "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
+    "no-restricted-globals": ["error", "event"],
+    "prefer-destructuring": ["error", {
+      "array": true,
+      "object": true
+    }],
+    "linebreak-style":0
+
+  },
+  "env": {
+    "browser": true
+  }
+
+
+}
