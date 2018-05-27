@@ -81,17 +81,13 @@ const listeners = (function () {
 
   function validateAddInput(img, description, hashtags) {
     return (hashtags === "" || validateHashtagsString(hashtags))
-            && img.src !== defaultAddImage
-            && description !== "";
+      && img.src !== defaultAddImage
+      && description !== "";
   }
 
   function validateEditInput(description, hashtags) {
     return (hashtags === "" || validateHashtagsString(hashtags))
-            && description !== "";
-  }
-
-  function validateLogInInput(username) {
-    return myDOM.getUsers().has(username);
+      && description !== "";
   }
 
   function clickOnAreaAdd(event) {
@@ -144,7 +140,6 @@ const listeners = (function () {
     return posts;
   }
 
-  // refactored
   function firstLoad() {
     return new Promise((resolve, reject) => {
       const openMore = new XMLHttpRequest();
@@ -168,7 +163,6 @@ const listeners = (function () {
     });
   }
 
-  // refactored
   function clickOnOpenMore() {
     return new Promise((resolve, reject) => {
       const openMore = new XMLHttpRequest();
@@ -193,7 +187,6 @@ const listeners = (function () {
     });
   }
 
-  // refactored
   function clickOnDeletePost(event) {
     return new Promise((resolve, reject) => {
       const target = event.srcElement;
@@ -213,7 +206,6 @@ const listeners = (function () {
     });
   }
 
-  // refactored
   function clickOnLike(event) {
     return new Promise((resolve, reject) => {
       const target = event.srcElement;
@@ -338,7 +330,6 @@ const listeners = (function () {
     wrong.style.display = "none";
   }
 
-  // refactored
   function clickOnConfirmAdd() {
     const img = document.getElementById("drag-image");
     const description = document.getElementById("add-description").value;
@@ -418,7 +409,6 @@ const listeners = (function () {
     });
   }
 
-
   function changeOnInputImage() {
     uploadImage();
   }
@@ -426,7 +416,7 @@ const listeners = (function () {
   function changeOnEditImage() {
     uploadImageEdit();
   }
-  // refactored
+
   function clickOnConfirmEdit() {
     const description = document.getElementById("description-edit").value;
     const hashtags = document.getElementById("hashtags-edit").value;
@@ -470,17 +460,33 @@ const listeners = (function () {
 
   function clickOnConfirmLogIn() {
     const username = document.getElementById("log-in-input").value;
-    if (validateLogInInput(username)) {
-      myDOM.setUser(username);
-      myDOM.setUserConfiguration();
-      clickOnCloseLogIn();
-    } else {
-      const wrong = document.getElementById("log-in-wrong");
-      wrong.style.display = "block";
-    }
+    const password = document.getElementById("password-input").value;
+    const user = {
+      username,
+      password,
+    };
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "/login");
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.addEventListener("readystatechange", () => {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status !== 200) {
+          const wrong = document.getElementById("log-in-wrong");
+          wrong.style.display = "block";
+          reject(`${xhr.status}: ${xhr.statusText}`);
+        } else {
+          myDOM.setUser(xhr.responseText);
+          myDOM.setUserConfiguration();
+          clickOnCloseLogIn();
+          resolve(xhr.responseText);
+        }
+      });
+      xhr.send(JSON.stringify(user));
+    });
+    return null;
   }
 
-  // refactored
   function changedFilterAuthors(event) {
     const target = event.srcElement;
     if (target.value !== "-1") {
@@ -493,7 +499,6 @@ const listeners = (function () {
     return clickOnOpenMore();
   }
 
-  // refactored
   function changedFilterDate(event) {
     const target = event.srcElement;
     if (target.value != null && target.value !== "") {
@@ -506,7 +511,6 @@ const listeners = (function () {
     return clickOnOpenMore();
   }
 
-  // refactored
   function changedFilterHashtags(event) {
     const target = event.srcElement;
     if (target.value != null && target.value !== "" && validateHashtagsString(target.value)) {
@@ -542,12 +546,25 @@ const listeners = (function () {
   }
 
   function clickOnLogOut() {
-    setDefaultFilter();
-    myDOM.clearFilter();
-    myDOM.setUser();
-    myDOM.setUserConfiguration();
-    myDOM.clearPosts();
-    clickOnOpenMore();
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "/logout");
+      xhr.addEventListener("readystatechange", () => {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status !== 200) {
+          reject(`${xhr.status}: ${xhr.statusText}`);
+        } else {
+          setDefaultFilter();
+          myDOM.clearFilter();
+          myDOM.setUser();
+          myDOM.setUserConfiguration();
+          myDOM.clearPosts();
+          clickOnOpenMore();
+          resolve(xhr.responseText);
+        }
+      });
+      xhr.send();
+    });
   }
 
   return {
@@ -635,5 +652,40 @@ const listeners = (function () {
     firstLoad,
 
     loadPosts: clickOnOpenMore,
+
+    getAndSetAuthorsSet() {
+      return new Promise((resolve, reject) => {
+        xhr = new XMLHttpRequest();
+        xhr.open("GET", "/getAuthors");
+        xhr.addEventListener("readystatechange", () => {
+          if (xhr.readyState !== 4) return;
+          if (xhr.status !== 200) {
+            reject(`${xhr.status}: ${xhr.statusText}`);
+          } else {
+            const set = JSON.parse(xhr.response);
+            myDOM.setUsersList(set);
+            resolve(xhr.responseText);
+          }
+        });
+        xhr.send();
+      });
+    },
+
+    getAndSetUser() {
+      return new Promise((resolve, reject) => {
+        xhr = new XMLHttpRequest();
+        xhr.open("GET", "/getUser");
+        xhr.addEventListener("readystatechange", () => {
+          if (xhr.readyState !== 4) return;
+          if (xhr.status !== 200) {
+            reject(`${xhr.status}: ${xhr.statusText}`);
+          } else {
+            myDOM.setUser(xhr.responseText);
+            resolve(xhr.responseText);
+          }
+        });
+        xhr.send();
+      });
+    },
   };
 }());

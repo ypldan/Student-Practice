@@ -1,10 +1,11 @@
 /* eslint-disable no-undef */
+
 loadDOM = function () {
   myDOM.addFormsAndFilterListeners();
-  myDOM.loadAuthors();
+  listeners.getAndSetUser();
+  listeners.getAndSetAuthorsSet();
   if (localStorage.getItem("firstLoad") !== undefined && localStorage.getItem("firstLoad") !== "null") {
     myDOM.setFilterFromLocalStorage(myLocalStorage.getFilter());
-    myDOM.setUser(myLocalStorage.getUser());
     listeners.loadPosts();
     myDOM.setUserConfiguration();
   } else {

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 const myDOM = (function () {
-  let user = "Albert Einstein";
+  let user = null;
   let currentPosts = [];
   let currentFilter = {};
   const users = new Set(["Albert Einstein",
@@ -14,6 +14,7 @@ const myDOM = (function () {
     "ypl"]);
 
   function isUserIn() {
+    // listeners.getAndSetUser();
     return user !== null && user !== "" && user;
   }
 
@@ -228,14 +229,15 @@ const myDOM = (function () {
     return Number.parseInt(result, 10);
   }
 
-  function loadAuthorsList() {
+  function setUsersList(usersSet) {
     const authors = document.getElementById("filter-author");
     while (authors.firstChild) {
       authors.removeChild(authors.firstChild);
     }
     const defaultOption = new Option("---not chosen---", "-1", true, true);
     authors.appendChild(defaultOption);
-    users.forEach((author) => {
+    usersSet.sort();
+    usersSet.forEach((author) => {
       const option = new Option(author, author);
       authors.appendChild(option);
     });
@@ -355,8 +357,6 @@ const myDOM = (function () {
       return true;
     },
 
-    loadAuthors: loadAuthorsList,
-
     createAddField() {
       const posts = document.getElementById("add-photo-block");
       posts.style.display = "flex";
@@ -370,6 +370,10 @@ const myDOM = (function () {
     createLogInField() {
       const login = document.querySelector("#log-in-block");
       login.style.display = "flex";
+      const loginInput = document.querySelector("#log-in-input");
+      loginInput.value = "";
+      const passwordInput = document.querySelector("#password-input");
+      passwordInput.value = "";
     },
 
     hideLogInField() {
@@ -504,5 +508,7 @@ const myDOM = (function () {
       const descriptionArea = document.querySelector(tempString);
       descriptionArea.firstChild.innerHTML = edited.description;
     },
+
+    setUsersList,
   };
 }());
