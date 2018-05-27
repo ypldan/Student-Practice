@@ -321,6 +321,15 @@ const onRequest = (function () {
     return postsToJSON(resultArray.slice(skip, skip + top));
   }
 
+  function getAuthorsSet() {
+    const users = JSON.parse(fs.readFileSync("server/data/users.json"));
+    const result = new Set();
+    users.forEach((x) => {
+      result.add(x.name);
+    });
+    return result;
+  }
+
   return {
     getPost,
     addLike,
@@ -328,6 +337,7 @@ const onRequest = (function () {
     removePost,
     editPost,
     getPosts,
+    getAuthorsSet,
   };
 }());
 
